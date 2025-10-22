@@ -13,6 +13,10 @@ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/and
 <img align="left" alt="Kotlin" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kotlin/kotlin-original.svg" />
 <img align="left" alt="JetpackCompose" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jetpackcompose/jetpackcompose-original.svg" />
 <img align="left" alt="Bash" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" />
+
+
+
+![Graywizard's GitHub stats](https://github-readme-stats.vercel.app/api?username=graywizard888&show_icons=true&theme=tokyonight)
           
           
 
