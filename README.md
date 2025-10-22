@@ -5,7 +5,7 @@
 ![Graywizard's GitHub stats](https://github-readme-stats.vercel.app/api?username=graywizard888&show_icons=true&theme=tokyonight)
 
 
-### Worked on
+<h2 align="center">Worked On</h2>
 
 <img align="left" alt="GitHub" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original-wordmark.svg" />
 <img align="left" alt="Python" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original-wordmark.svg" />
