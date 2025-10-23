@@ -17,6 +17,16 @@ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/and
 <img align="left" alt="JetpackCompose" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jetpackcompose/jetpackcompose-original.svg" />
 <img align="left" alt="Bash" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" /> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
 
+<h2 align="center">My Featured Projects</h2>
+<a href="https://github.com/Graywizard888/Enhancify">
+  <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=Graywizard888&repo=Enhancify&theme=algolia" />
+</a>
+<a href="https://github.com/Graywizard888/Terminal_EX">
+  <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=Graywizard888&repo=Terminal_EX&theme=algolia" />
+</a>
+<a href="https://github.com/Graywizard888/Extension_Fetcher">
+  <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=Graywizard888&repo=Extension_Fetcher&theme=algolia" />
+</a>
 
 <h2 align="center">Support My Work</h2>
 
@@ -24,6 +34,10 @@ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/and
 <a href="https://github.com/sponsors/Graywizard888">
     <img src="https://img.shields.io/badge/Sponsor-GitHub-green?style=for-the-badge&logo=github-sponsors" height="50" />
   </a>
+</p>
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer" />
 </p>
           
           
