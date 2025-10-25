@@ -17,6 +17,8 @@ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/and
 <img align="left" alt="JetpackCompose" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jetpackcompose/jetpackcompose-original.svg" />
 <img align="left" alt="Bash" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" /> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
 
+<img src="https://github-readme-stats.vercel.app/api/top-langs?username=Graywizard888&locale=en&hide_title=false&layout=donut&card_width=320&langs_count=5&theme=dracula&hide_border=false" height="150" alt="languages graph"  />
+
 <h2 align="center">My Featured Projects</h2>
 <a href="https://github.com/Graywizard888/Enhancify">
   <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=Graywizard888&repo=Enhancify&theme=algolia" />
