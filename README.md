@@ -2,7 +2,7 @@
 
 ![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Bitcount+Grid+Single&pause=1000&background=000000&center=true&vCenter=true&width=435&lines=Hii+!+I'm+%5BGraywizard%5D+%F0%9F%99%8B;Indian+Tech+Enthunsiast+%F0%9F%94%A7;Nickname+Unidentified+%E2%9D%8C;Free+Time+Developer+%F0%9F%A7%91%E2%80%8D%F0%9F%92%BB;Loves+To+Experiment+%F0%9F%94%AC)
 
-![Graywizard's GitHub stats](https://github-readme-stats.vercel.app/api?username=graywizard888&show_icons=true&theme=tokyonight)
+![Graywizard's GitHub stats](https://github-readme-stats.vercel.app/api?username=graywizard888&show_icons=true&theme=tokyonight&rank_icon=github)
 
 
 <h2 align="center">Worked On</h2>
