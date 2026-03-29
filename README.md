@@ -30,9 +30,11 @@ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/and
 <a href="https://github.com/Graywizard888/Extension_Fetcher">
   <img align="center" src="https://github-readme-stats-beta-ten-76.vercel.app/api/pin/?username=Graywizard888&repo=Extension_Fetcher&theme=algolia" />
 </a>
-
 <a href="https://github.com/Graywizard888/Custom-Enhancify-aapt2-binary">
   <img align="center" src="https://github-readme-stats-beta-ten-76.vercel.app/api/pin/?username=Graywizard888&repo=Custom-Enhancify-aapt2-binary&theme=algolia" />
+</a>
+<a href="https://github.com/Graywizard888/Gemini-Setup">
+  <img align="center" src="https://github-readme-stats-beta-ten-76.vercel.app/api/pin/?username=Graywizard888&repo=Gemini-Setup&theme=algolia" />
 </a>
 
 <h2 align="center">Support My Work</h2>
