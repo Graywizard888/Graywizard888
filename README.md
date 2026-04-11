@@ -39,6 +39,9 @@ src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/lua/lua-plain.svg
 <a href="https://github.com/Graywizard888/GPlayDL-TUI">
   <img align="center" src="https://github-readme-stats-beta-ten-76.vercel.app/api/pin/?username=Graywizard888&repo=GPlayDL-TUI&theme=algolia" />
 </a>
+<a href="https://github.com/Graywizard888/Gists_Collection">
+  <img align="center" src="https://github-readme-stats-beta-ten-76.vercel.app/api/pin/?username=Graywizard888&repo=Gists_Collection&theme=algolia" />
+</a>
 
 <h2 align="center">Support My Work</h2>
 
