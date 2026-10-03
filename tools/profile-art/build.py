@@ -49,8 +49,8 @@ if __name__ == "__main__":
     }
     # Personal-build cards: one tappable image per repo, desktop + phone variants
     for i, spec in enumerate(BUILDS):
-        mobile[f"builds/p{i+1:02d}-mobile.svg"] = build_card(i, spec, mobile=True)
-        cards[f"builds/p{i+1:02d}.svg"] = build_card(i, spec, mobile=False)
+        mobile[f"builds/p{i+1:02d}-mobile.svg"] = build_card(i, spec, wide=False)
+        cards[f"builds/p{i+1:02d}.svg"] = build_card(i, spec, wide=True)
 
     for name, svg in list(cards.items()) + list(mobile.items()):
         with open(os.path.join(ROOT, name), "w") as fh:

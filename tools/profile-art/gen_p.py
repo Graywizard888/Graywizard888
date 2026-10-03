@@ -1,15 +1,20 @@
 """Cyber repo cards — the github-readme-stats "pin card" information layout
 (repo name, description, language, stars, forks) rendered in the profile's
-terminal/neon style, with license, pull requests and last-push added.
+terminal/neon style, extended with pull requests, licence and last-push age.
 
-Desktop cards carry a slow shimmer, a pulsing index chip and rolling counters.
-Phone cards are condensed and permanently static.
+Two shapes:
+  * wide   — 1012 x 212, laid out for the full content column. Used at
+             width="100%" on desktop, so it renders ~1:1 and the type stays sane.
+  * mobile — 480 x 236, a narrow card with larger relative type, used below
+             820px. On a 360px phone it scales to ~0.75x, which keeps it legible.
+
+The mobile card also drops the shimmer, so phones get zero perpetual animation.
 """
 from gen_common import *
 from gen_anim import style_block
 
-# repo, display name, language, language colour, license, description,
-# stars, forks, pulls, size_kb, updated(label)
+# repo, display name, language, language colour, licence, description,
+# stars, forks, pulls, size_kb, last push
 BUILDS = [
     ("Enhancify", "Enhancify", "Shell", "#89E051", None,
      "The only custom Revancify with extra features and more customizations",
@@ -29,17 +34,15 @@ BUILDS = [
     ("Extension_Fetcher", "Extension_Fetcher", "Python", "#4B8BBE", "Apache-2.0",
      "Tries to download an extension by user specified extension id",
      3, 0, 0, 41, "1y ago"),
-    ("MovieBox-Tui-Mastered", "MovieBox-Tui", "Rust", "#DEA584", "Apache-2.0",
-     "Terminal interface to find, download and stream movies, TV and live TV",
-     1, 0, 1, 33697, "4d ago"),
     ("Claude_code_setup", "Claude_code_setup", "Python", "#4B8BBE", "MIT",
      "Self-contained, one-command setup for Claude Code on Android Termux",
      1, 1, 0, 815, "1mo ago"),
 ]
 
 ACCENTS = [GREEN, CYAN, VIOLET, AMBER, PINK, "#60a5fa", GREEN_D, CYAN]
-CANVAS_W, CANVAS_H = 480, 236    # ~github-readme-stats pin proportions:
-                                 # a 360px phone then renders it at ~0.75x, not 0.3x
+
+WIDE_W, WIDE_H = 1012, 212
+MOB_W, MOB_H = 480, 236
 
 
 def _wrap(text, width):
@@ -52,36 +55,30 @@ def _wrap(text, width):
             cur = w
     if cur:
         lines.append(cur)
-    return lines[:2]
+    return lines
 
 
-def _metrics(x, y, size, accent, stars, forks, prs, uid, mobile=False):
+def _metrics(x, y, size, accent, stars, forks, prs, uid):
     """★ stars · ⑂ forks · ⇄ pull requests — rolling counters."""
     out, defs = [], []
-    gap = size * 3.4 if not mobile else size * 3.5
+    gap = size * 3.4
     for i, (glyph, val, col) in enumerate(((None, stars, accent),
                                            ("⑂", forks, SOFT),
                                            ("⇄", prs, CYAN))):
         bx = x + i * gap
-        if glyph:
-            out.append(T(bx, y, glyph, size * 0.62, col))
-            nx = bx + size * 0.62
-        else:
-            out.append(T(bx, y, "★", size * 0.62, col))
-            nx = bx + size * 0.70
-        num, odef, _ = odometer(nx, y, val, size=size, color=TEXT,
-                                delay=.25 + i * .12, dur=1.6, spins=2,
-                                uid=f"{uid}{i}")
+        out.append(T(bx, y, glyph or "★", size * 0.64, col))
+        num, odef, _ = odometer(bx + size * 0.72, y, val, size=size, color=TEXT,
+                                delay=.25 + i * .12, dur=1.6, spins=2, uid=f"{uid}{i}")
         out.append(num)
         defs.append(odef)
     return "".join(out), "".join(defs)
 
 
-def build_card(i, d, mobile=False):
+def build_card(i, d, wide=True):
     (repo, disp, lang, lang_col, lic, desc, stars, forks, prs, kb, updated) = d
     accent = ACCENTS[i % len(ACCENTS)]
-    W, H = CANVAS_W, CANVAS_H
-    uid = f"{'m' if mobile else 'd'}{i}"
+    W, H = (WIDE_W, WIDE_H) if wide else (MOB_W, MOB_H)
+    uid = f"{'w' if wide else 'm'}{i}"
 
     defs = [
         '<linearGradient id="cBg" x1="0" y1="0" x2=".7" y2="1">'
@@ -100,54 +97,76 @@ def build_card(i, d, mobile=False):
         f'<clipPath id="cClip"><rect width="{W}" height="{H}" rx="14"/></clipPath>',
     ]
     L_ = [R(0, 0, W, H, fill="url(#cBg)", rx=14)]
-    # grid + scanlines + accent rail (the cyber frame)
     for gx in range(40, W, 40):
         L_.append(L(gx, 0, gx, H, stroke="#101d28", sw=1, opacity=.55))
     L_.append(R(0, 0, W, H, fill="url(#cScan)", opacity=.26))
     L_.append(R(0, 0, W, 4.5, fill="url(#cAcc)", rx=2))
     L_.append(hud_corners(8, 8, W - 16, H - 16, accent, 16, 1.6, .38, cls=None))
 
-    # ---- prompt line
-    L_.append(T(22, 36, f"~/repos/{repo[:20].lower()}$", 13.5, DIM))
-    L_.append(T(W - 22, 36, f"pushed {updated}", 13.5, DIM, anchor="end"))
-    # repo name with a soft accent glow behind it
-    nsize = 32 if len(disp) <= 14 else (27 if len(disp) <= 18 else 23)
-    L_.append(f'<ellipse cx="120" cy="76" rx="190" ry="42" fill="url(#cGlow)"/>')
-    L_.append(T(22, 86, disp, nsize, TEXT, weight=700))
-    # index chip + open hint
-    L_.append(R(W - 74, 58, 52, 32, fill=accent, rx=9, opacity=.13))
-    L_.append(R(W - 74, 58, 52, 32, fill="none", rx=9, stroke=accent, sw=1.3, opacity=.7))
-    L_.append(T(W - 48, 82, f"{i+1:02d}", 17, accent, weight=700, anchor="middle"))
-    L_.append(T(W - 92, 82, "↗", 15, MUTED, anchor="end"))
-    # description + last push
-    for k, ln in enumerate(_wrap(desc, 46)):
-        L_.append(T(22, 120 + k * 22, ln, 16.5, SOFT))
-    L_.append(L(22, 166, W - 22, 166, stroke=STROKE, sw=1))
-    # footer: language, counters, licence
-    L_.append(C(28, 200, 6, fill=lang_col))
-    L_.append(T(42, 205, lang, 16, SOFT, weight=500))
-    mb, md = _metrics(120, 205, 22, accent, stars, forks, prs, uid)
-    defs.append(md)
-    L_.append(mb)
     label_lic = lic if lic else "unlicensed"
-    cw = 28 + len(label_lic) * 8.6
-    L_.append(R(W - 22 - cw, 186, cw, 27, fill="#101c26", rx=13.5, stroke=STROKE2, sw=1))
-    L_.append(T(W - 22 - cw / 2, 204, label_lic, 13, MUTED if lic else DIM, anchor="middle"))
-    # shimmer sweep — desktop only (phones stay static)
-    if not mobile:
-        L_.append(G(R(-190, 0, 160, H, fill="url(#cShine)", opacity=.9, cls="shimmer",
-                      style=f"animation-duration:{8.5 + i * .7:.1f}s"),
+
+    if wide:
+        # ---------------------------------------------------------------- wide
+        # row 1 — prompt + last push
+        L_.append(T(26, 36, f"~/repos/{repo.lower()}$", 13.5, DIM))
+        L_.append(T(W - 26, 36, f"pushed {updated}", 13.5, DIM, anchor="end"))
+        # row 2 — name (left) + index chip (right)
+        nsize = 34 if len(disp) <= 14 else (29 if len(disp) <= 18 else 25)
+        L_.append(f'<ellipse cx="180" cy="80" rx="240" ry="46" fill="url(#cGlow)"/>')
+        L_.append(T(26, 92, disp, nsize, TEXT, weight=700))
+        chip_x = W - 26 - 58
+        L_.append(R(chip_x, 60, 58, 36, fill=accent, rx=10, opacity=.13))
+        L_.append(R(chip_x, 60, 58, 36, fill="none", rx=10, stroke=accent, sw=1.3, opacity=.7))
+        L_.append(T(chip_x + 29, 85, f"{i+1:02d}", 17, accent, weight=700, anchor="middle"))
+        # row 3 — description beside the name, never reaching the chip
+        for k, ln in enumerate(_wrap(desc, 48)[:2]):
+            L_.append(T(380, 82 + k * 23, ln, 18, SOFT))
+        # rule + footer
+        L_.append(L(26, 140, W - 26, 140, stroke=STROKE, sw=1))
+        L_.append(C(32, 178, 6, fill=lang_col))
+        L_.append(T(46, 183, lang, 17, SOFT, weight=500))
+        mb, md = _metrics(220, 183, 25, accent, stars, forks, prs, uid)
+        defs.append(md)
+        L_.append(mb)
+        lcw = 30 + len(label_lic) * 9
+        L_.append(R(W - 26 - lcw, 162, lcw, 28, fill="#101c26", rx=14, stroke=STROKE2, sw=1))
+        L_.append(T(W - 26 - lcw / 2, 181, label_lic, 13.5, MUTED if lic else DIM, anchor="middle"))
+        L_.append(T(W - 26 - lcw - 18, 183, "$ open repo ↗", 14, accent, weight=500, anchor="end"))
+        L_.append(G(R(-240, 0, 200, H, fill="url(#cShine)", opacity=.9, cls="shimmer",
+                      style=f"animation-duration:{9 + i * .7:.1f}s"),
                     clip="url(#cClip)"))
+    else:
+        # -------------------------------------------------------------- compact
+        L_.append(T(22, 36, f"~/repos/{repo[:20].lower()}$", 13.5, DIM))
+        L_.append(T(W - 22, 36, f"pushed {updated}", 13.5, DIM, anchor="end"))
+        nsize = 32 if len(disp) <= 14 else (27 if len(disp) <= 18 else 23)
+        L_.append(f'<ellipse cx="120" cy="76" rx="190" ry="42" fill="url(#cGlow)"/>')
+        L_.append(T(22, 86, disp, nsize, TEXT, weight=700))
+        L_.append(R(W - 74, 58, 52, 32, fill=accent, rx=9, opacity=.13))
+        L_.append(R(W - 74, 58, 52, 32, fill="none", rx=9, stroke=accent, sw=1.3, opacity=.7))
+        L_.append(T(W - 48, 82, f"{i+1:02d}", 17, accent, weight=700, anchor="middle"))
+        L_.append(T(W - 92, 82, "↗", 15, MUTED, anchor="end"))
+        for k, ln in enumerate(_wrap(desc, 46)):
+            L_.append(T(22, 120 + k * 22, ln, 16.5, SOFT))
+        L_.append(L(22, 166, W - 22, 166, stroke=STROKE, sw=1))
+        L_.append(C(28, 200, 6, fill=lang_col))
+        L_.append(T(42, 205, lang, 16, SOFT, weight=500))
+        mb, md = _metrics(120, 205, 22, accent, stars, forks, prs, uid)
+        defs.append(md)
+        L_.append(mb)
+        cw = 28 + len(label_lic) * 8.6
+        L_.append(R(W - 22 - cw, 186, cw, 27, fill="#101c26", rx=13.5, stroke=STROKE2, sw=1))
+        L_.append(T(W - 22 - cw / 2, 204, label_lic, 13, MUTED if lic else DIM, anchor="middle"))
 
     D, B = "\n".join(defs), "\n".join(L_)
     label = (f"{disp} — {stars} stars, {forks} forks, {prs} pull requests, "
-         f"{lang}, {lic or 'no licence'}")
+             f"{lang}, {lic or 'no licence'}")
     extra = ""
-    if not mobile:
+    if wide:
         extra = (".shimmer { animation-name: shim; animation-timing-function: ease-in-out;"
                  " animation-iteration-count: infinite; }"
                  " @keyframes shim { from { transform: translateX(0); }"
-                 " to { transform: translateX(760px); } }")
+                 " to { transform: translateX(1300px); } }")
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
             f'role="img" aria-label="{label}">'
             f'<defs>{D}' + style_block(extra) + '</defs>' + G(B, clip="url(#cClip)") +

@@ -89,29 +89,30 @@ the full cards.
 
 ## Personal-build cards
 
-`gen_p.py` renders one tappable card per repository into `builds/`
-(`p01.svg` … `p08.svg`, plus `-mobile` variants). The information layout follows
-the github-readme-stats pin card — repo name, description, language, stars,
-forks — restyled in the profile's terminal/cyber look and extended with the
-**pull-request count, licence and last-push age**.
+`gen_p.py` renders one tappable card per repository into `builds/`. The
+information layout follows the github-readme-stats pin card — repo name,
+description, language, stars, forks — in the profile's terminal style, extended
+with pull requests, licence and last-push age.
 
-* Canvas is **480 x 236**, close to the pin-card proportions, so a 360px phone
-  renders the card at ~0.75x instead of shrinking a 1200px banner to 0.3x.
-* Desktop cards add a slow shimmer sweep and a pulsing index chip.
-* Phone cards are byte-for-byte the same artwork with the shimmer removed —
-  **zero perpetual animation**; only the load-time counter roll plays.
+**Two shapes, one design:**
 
-GitHub strips `<map>`/`usemap` image maps, so per-region taps inside one banner
-are impossible. Each card is linked individually instead, one per row at its
-natural 480px width:
+| Variant | Canvas | Used by | Notes |
+|:---|:---|:---|:---|
+| `p01.svg` … | **1012 x 212** | `<img width="100%">` | Wide card laid out for GitHub's full content column, so it renders ~1:1 and the type stays readable. Carries the shimmer sweep. |
+| `p01-mobile.svg` … | **480 x 236** | `media="(max-width: 820px)"` | Narrow card, larger relative type; a 360px phone renders it at ~0.75x. Shimmer removed, so it has **zero perpetual animation**. |
+
+Cards use `width="100%"`, are stacked one per row, and each is wrapped in its
+own `<a href>` so tapping anywhere on it opens the repository (GitHub strips
+`<map>`/`usemap`, so per-region taps inside a single image are not possible).
 
 ```html
 <a href="https://github.com/Graywizard888/Enhancify"><picture>
   <source media="(max-width: 820px)" srcset="./builds/p01-mobile.svg?v=1">
-  <img src="./builds/p01.svg?v=1" alt="Enhancify — 201 stars, 11 forks, 30 PRs, Shell, unlicensed">
+  <img src="./builds/p01.svg?v=1" alt="Enhancify — 201 stars, 11 forks, 30 PRs, Shell, unlicensed" width="100%"/>
 </picture></a>
 ```
 
-To refresh after a repo gains stars, edit `BUILDS` in `gen_p.py`
+To add or remove a repo, edit `BUILDS` in `gen_p.py`
 `(repo, name, language, language_colour, licence, description, stars, forks, pulls, size_kb, last_push)`,
-re-run `build.py`, and update the `alt` text in the README.
+re-run `build.py`, then add/remove the matching `<a href>` block in the README.
+Delete any orphaned `builds/pNN*.svg` files.
