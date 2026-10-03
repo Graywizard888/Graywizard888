@@ -25,6 +25,18 @@ BUILDS = [(r["repo"], r["name"], r["language"], r["language_color"], r.get("lice
           for r in _DOC["repos"]]
 
 
+def uptime_days():
+    """Days on GitHub since the account was created.
+
+    Computed at build time, so it is only as current as the last build - which is
+    the daily workflow. Like the "pushed N ago" labels this shifts by one every
+    day, so it never adds a commit the workflow was not already making.
+    """
+    from datetime import date
+
+    return (date.today() - date.fromisoformat(PROFILE["created_at"])).days
+
+
 def fmt(n):
     """934 -> '934', 1042 -> '1,042'. odometer() draws str(value) char by char,
     so counts must already carry their comma."""

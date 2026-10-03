@@ -3,7 +3,7 @@ import random
 
 # Live card data (builds.json). Re-exported so every generator that does
 # `from gen_common import *` can use PROFILE / BUILDS / fmt directly.
-from card_data import PROFILE, BUILDS, fmt  # noqa: F401
+from card_data import PROFILE, BUILDS, fmt, uptime_days  # noqa: F401
 
 # ---- palette : "terminal green + cyan on graphite" ----
 BG0      = "#05070b"

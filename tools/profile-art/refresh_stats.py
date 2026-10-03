@@ -210,7 +210,8 @@ def fetch_profile(token):
         "public_repos": user["public_repos"],
         "stars": stars,
         "gists": user["public_gists"],
-        "created": created,
+        "created": created,                      # display form, "Jun 2024"
+        "created_at": user["created_at"][:10],   # machine form, for uptime_days()
     }
     # contributions need GraphQL, which needs a token: without one, keep the
     # number the card already shows rather than reporting zero

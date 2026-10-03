@@ -125,16 +125,15 @@ gets `PROFILE`, `BUILDS` and `fmt()` from its usual `from gen_common import *`.
 
 | Field | Owner |
 |:---|:---|
-| `profile`: `public_repos`, `stars`, `contributions`, `gists`, `created` | **machine** — rewritten by `refresh_stats.py` |
+| `profile`: `public_repos`, `stars`, `contributions`, `gists`, `created`, `created_at` | **machine** — rewritten by `refresh_stats.py` |
 | `repos`: `stars`, `forks`, `pulls`, `language`, `license`, `size_kb`, `pushed` | **machine** — rewritten by `refresh_stats.py` |
 | `profile.login` | derived from the repository owner |
 | `repos`: `repo`, `name`, `description`, `language_color` | **you** — editorial, hand-tuned for the canvas and the neon palette |
 
 ### The account numbers
 
-`PROFILE` feeds the whoami banner (`hero.svg`, `hero-mobile.svg`) and the
-dashboard (`id-dashboard.svg`, `id-dashboard-mobile.svg`). Three things about it
-are deliberate:
+`PROFILE` feeds the whoami banner (`hero.svg`, `hero-mobile.svg`). Three things
+about it are deliberate:
 
 * **`stars` includes forks.** Terminal_EX is a fork with 87 stars on it and is
   presented as one of the build cards, so its stars belong in the headline.
@@ -148,9 +147,15 @@ are deliberate:
 * **The hero's `gh repo list` block is generated from `BUILDS`** (top five by
   stars, ties in file order), so it can never contradict the cards below it.
 
+* **`uptime N days`** is computed by `card_data.uptime_days()` from
+  `profile.created_at`, not stored. It is the one number that changes with the
+  clock rather than with the API, so it shifts by exactly one per day — the same
+  cadence as the `pushed N ago` labels, meaning it never adds a commit the daily
+  workflow was not already making.
+
 Still hand-written, because they are prose or name specific items rather than
-count things: `uptime 840 days`, the gist/script filenames, the commit hash and
-the `last push:` line.
+count things: the gist/script filenames, the commit hash and the `last push:`
+line.
 
 `refresh_stats.py` never touches the editorial fields, and `build.py` is
 deterministic: cards whose facts did not change come out byte-identical, so a

@@ -157,7 +157,7 @@ def hero(H=470):
 
     # boot log — fills whatever vertical room the chosen height leaves
     LOG = [
-        "// 840 days on GitHub — first commit Jun 2024",
+        f"// {uptime_days()} days on GitHub — first commit {PROFILE['created']}",
         "// 4 mpv + lua scripts running in daily use",
         "// last push: Custom-Enhancify-aapt2-binary",
         "// scope: Android tooling · shell automation · TUIs",
@@ -206,7 +206,7 @@ def hero(H=470):
             ("shell     bash · lua · python", "#c3d3e2", ""),
             ("toolkit   Android Studio · Kotlin · Java", "#c3d3e2", ""),
             ("delivers  scripts, TUIs, extensions, forks", "#c3d3e2", ""),
-            ("uptime    840 days (since Jun 2024)", "#c3d3e2", ""),
+            (f"uptime    {uptime_days()} days (since {PROFILE['created']})", "#c3d3e2", ""),
             ("$ gh repo list Graywizard888 --sort stars", GREEN, "type"),
             *repo_rows,
             ("$ gist list --user Graywizard888", GREEN, "type"),
