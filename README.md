@@ -6,7 +6,7 @@
      (a plain image has no click handling, so this is the only way to "play again").
      Both variants really play - phones used to be shown a still poster, which is
      why the clip looked broken there. -->
-<a href="https://github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./intro-mobile.svg?v=1"><img src="./intro.svg?v=1" alt="Ten-second intro clip — plays once, then shows a play button in the middle; tap the card to replay it" width="100%"/></picture></a>
+<a href="https://github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./intro-mobile.svg?v=1"><img src="./intro.svg?v=1" alt="Ten-second intro clip — plays once at its original frame rate, then shows a play button in the middle; tapping the card opens the profile page, where it plays again" width="100%"/></picture></a>
 
 <br/><br/>
 

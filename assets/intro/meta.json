@@ -1,8 +1,8 @@
 {
-  "frames": 80,
-  "fps": 8,
+  "frames": 240,
+  "fps": 24,
   "duration": 10.0,
-  "stored": "400x225",
+  "stored": "480x270",
   "quality": 30,
   "source": "graywizard.mp4",
   "poster": "f001.webp"

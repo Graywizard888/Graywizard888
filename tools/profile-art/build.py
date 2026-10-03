@@ -24,7 +24,7 @@ from gen_p import build_card, BUILDS                    # noqa: E402
 # 1200 x <height>. Hero is the headline; the supporting cards step up in proportion.
 SIZES = {
     "hero": 640,
-    "intro": 480,
+    "intro": 496,
     "about-life": 560,
     "stack": 392,
     "connect": 300,

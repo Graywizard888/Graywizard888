@@ -207,9 +207,15 @@ reloads the README and replays the clip.
 **Both variants really play.** The card used to live inside the hero and phones
 were only ever given `mode="poster"` — a still with a play button on it — so on a
 phone the clip looked broken. The phone card now plays its own lighter cut
-(`variant="mobile"`, `assets/intro/mobile/`: 60 frames, 6 fps, q26, 424 KB)
-inside a panel scaled from 532 to 656 px, drawn at 720 wide, so a 360 px screen
-renders it at ~0.5x and the type still reads.
+(`variant="mobile"`, `assets/intro/mobile/`: 150 frames, 15 fps, q30) inside a
+panel scaled from 532 to 656 px, drawn at 720 wide, so a 360 px screen renders it
+at ~0.5x and the type still reads.
+
+**Both cuts now run at the source file's own frame rate.** The clip is 1280x720 at
+24 fps; the first cut decimated it to 8 fps (desktop) and 6 fps (phone), which is
+what made playback look choppy. The desktop set is now the file's full 24 fps at
+480x270 — exactly the panel size, so nothing is upscaled — and the phone set is
+15 fps at 400x225.
 
 **This is the one card that ignores `prefers-reduced-motion`.** Every other card
 carries `style_block()`'s global `animation: none !important` guard; the intro
@@ -224,8 +230,8 @@ Frame sets:
 
 | Variant | Directory | Frames | Size |
 |:---|:---|:---|:---|
-| desktop | `assets/intro/` | 80 @ 8 fps, q30 | ~620 KB |
-| mobile | `assets/intro/mobile/` | 60 @ 6 fps, q26 | ~424 KB |
+| desktop | `assets/intro/` | 240 @ 24 fps (the file's rate), 480x270 q30 | ~3.1 MB |
+| mobile | `assets/intro/mobile/` | 150 @ 15 fps, 400x225 q30 | ~1.6 MB |
 
 `gen_v.load(variant)` reads each set's `meta.json` for fps/frame count and falls
 back to the desktop cut if a mobile one is missing, so re-cutting needs no code
@@ -233,8 +239,11 @@ change:
 
 ```bash
 # only when the source clip changes; needs imageio-ffmpeg (system ffmpeg may be absent)
-python3 tools/profile-art/make_frames.py                                        # desktop cut
-python3 tools/profile-art/make_frames.py --fps 6 --quality 26 --out assets/intro/mobile
+# desktop: the file's own 24 fps, cut at exactly the panel size (no upscale)
+python3 tools/profile-art/make_frames.py --fps 24 --width 480 --height 270 --quality 30
+# phone: lighter frame count, smaller canvas
+python3 tools/profile-art/make_frames.py --fps 15 --width 400 --height 225 --quality 30 \
+        --out assets/intro/mobile
 python3 tools/profile-art/build.py
 ```
 
@@ -242,9 +251,11 @@ python3 tools/profile-art/build.py
 reads the already-cut frames. Any renderer that ignores CSS animation shows the
 poster frame with the play button, which is the state the sequence settles into.
 
-Weight is the cost of this trick: `intro.svg` is ~886 KB and `intro-mobile.svg`
-~610 KB, while the hero dropped back to ~48 KB. Cutting the frame count, fps or
-quality in `make_frames.py` is the lever if that becomes a problem.
+Weight is the cost of this trick: one bitmap per frame means no temporal
+compression, so `intro.svg` is ~3.1 MB and `intro-mobile.svg` ~1.6 MB, against a
+hero that is back down to ~48 KB. Browsers cache them, and phones request the
+lighter cut only. The levers, if that ever needs to shrink: `--fps`, `--quality`,
+or the canvas size in `make_frames.py`.
 
 ## Cards that are kept but not linked
 
