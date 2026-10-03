@@ -55,3 +55,33 @@ Everything is drawn with plain shapes and mono/sans font stacks (`JetBrains Mono
 → `Fira Code` → `Consolas` → `Liberation Mono` → `monospace`), so the cards look
 right on GitHub without shipping a webfont. Bars, odometers and typed lines all
 animate from a *translated* group, so their static state is the finished card.
+
+
+## Mobile variants
+
+`gen_m.py` builds a second set of cards at **720px wide** (`hero-mobile.svg`,
+`about-life-mobile.svg`, `stack-mobile.svg`, `id-dashboard-mobile.svg`,
+`connect-mobile.svg`). The README serves them through `<picture>`:
+
+```html
+<picture>
+  <source media="(max-width: 700px)" srcset="./hero-mobile.svg?v=1">
+  <img src="./hero.svg?v=1" alt="..." width="100%"/>
+</picture>
+```
+
+Why they exist:
+
+* **Legibility.** A 1200px card shown on a 360px phone is scaled to ~0.3x, which
+  turns 12.5px text into ~4px. The 720px cards only scale ~0.5x, so the same
+  nominal size renders roughly **twice as large**; body text sits at 20-28px.
+* **Performance.** The heavy motion is gone: the rain is drawn once and never
+  repainted, there are no marquees, and only two small dots blink. Everything
+  else finishes within ~2s.
+* **Whitespace.** Fewer rows per view, tighter leading, and stat tiles instead of
+  a dense terminal.
+
+GitHub keeps the `media` attribute and rewrites the relative `srcset` to a raw
+URL on the rendered page, so this works on the profile without any hosting.
+`media="(max-width: 700px)"` targets phones in portrait; tablets and desktop get
+the full cards.

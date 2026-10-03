@@ -142,7 +142,7 @@ _RAIN_SHEETS = [
 
 
 def rain(width, height, cols=15, block_h=None, dt=33.6, seed=7, x0=0, chars_per_block=14,
-         colors=None, keep=(0.34, 0.24, 0.42), sheets=3):
+         colors=None, keep=(0.34, 0.24, 0.42), sheets=3, animate=True):
     """Seamless vertical rain as `sheets` composited layers.
 
     Every column holds 2 identical stacked blocks, so translating a sheet by
@@ -174,6 +174,9 @@ def rain(width, height, cols=15, block_h=None, dt=33.6, seed=7, x0=0, chars_per_
                                      opacity=round(min(op, 1.0), 2)))
     out = []
     for i, chars in enumerate(buckets):
+        if not animate:                      # frozen layer: drawn once, never repainted
+            out.append(G("".join(chars)))
+            continue
         dur = _RAIN_SHEETS[i][3]
         delay = -round(random.Random(seed + 41 + i * 7).uniform(0, dur), 2)
         out.append(G("".join(chars), cls="rain",

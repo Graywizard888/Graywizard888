@@ -1,25 +1,36 @@
 <div align="center">
 
-<!-- 🎬 HERO — cyber intro + name -->
+<!-- 🎬 HERO — cyber intro + name.
+     Phones get the 720px-wide card: ~2x the rendered text size and almost no
+     animation; everything else gets the full 1200px animated reel. -->
 <picture>
-<source media="(max-width: 700px)" srcset="./hero-mobile.svg?v=1">
-<img src="./hero.svg?v=1" alt="Hi, I'm Aditya (Graywizard)"/>
+  <source media="(max-width: 700px)" srcset="./hero-mobile.svg?v=1">
+  <img src="./hero.svg?v=1" alt="Hi, I'm Aditya (Graywizard) — script &amp; automation developer" width="100%"/>
 </picture>
 
 <br/><br/>
 
 <!-- 👨‍💻 LEFT: what I build   •   🎮 RIGHT: life outside code -->
-<img src="./about-life.svg?v=1" alt="What I build, and life beyond the code" width="100%"/>
+<picture>
+  <source media="(max-width: 700px)" srcset="./about-life-mobile.svg?v=1">
+  <img src="./about-life.svg?v=1" alt="What I build, and life beyond the code" width="100%"/>
+</picture>
 
 <br/><br/>
 
 <!-- 🧰 TECH STACK -->
-<img src="./stack.svg?v=1" alt="Tech stack" width="100%"/>
+<picture>
+  <source media="(max-width: 700px)" srcset="./stack-mobile.svg?v=1">
+  <img src="./stack.svg?v=1" alt="Tech stack" width="100%"/>
+</picture>
 
 <br/><br/>
 
-<!-- 🪪 DEVELOPER ID + LIVE DASHBOARD -->
-<img src="./id-dashboard.svg?v=1" alt="Developer ID and dashboard" width="100%"/>
+<!-- 🪪 DEVELOPER ID + DASHBOARD -->
+<picture>
+  <source media="(max-width: 700px)" srcset="./id-dashboard-mobile.svg?v=1">
+  <img src="./id-dashboard.svg?v=1" alt="Developer ID and dashboard" width="100%"/>
+</picture>
 
 <br/><br/>
 
@@ -66,7 +77,10 @@
 <br/><br/>
 
 <!-- 💌 LET'S CONNECT -->
-<img src="./connect.svg?v=1" alt="Let's connect" width="100%"/>
+<picture>
+  <source media="(max-width: 700px)" srcset="./connect-mobile.svg?v=1">
+  <img src="./connect.svg?v=1" alt="Let&#39;s connect" width="100%"/>
+</picture>
 
 <a href="https://github.com/Graywizard888"><img src="https://img.shields.io/badge/GitHub-22d3ee?style=for-the-badge&logo=github&logoColor=0d0e16" alt="GitHub"/></a>
 <a href="https://t.me/Graywizard_projects"><img src="https://img.shields.io/badge/Telegram-4ade80?style=for-the-badge&logo=telegram&logoColor=0d0e16" alt="Telegram"/></a>

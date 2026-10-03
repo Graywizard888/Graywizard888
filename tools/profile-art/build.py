@@ -17,6 +17,8 @@ sys.path.insert(0, HERE)
 from gen_a import hero, about          # noqa: E402
 from gen_b import stack, connect       # noqa: E402
 from gen_c import card_ids             # noqa: E402
+from gen_m import (hero_mobile, about_mobile, stack_mobile,   # noqa: E402
+                   connect_mobile, ids_mobile)
 
 # 1200 x <height>. Hero is the headline; the supporting cards step up in proportion.
 SIZES = {
@@ -35,7 +37,16 @@ if __name__ == "__main__":
         "id-dashboard.svg": card_ids(SIZES["id-dashboard"]),
         "connect.svg":      connect(SIZES["connect"]),
     }
-    for name, svg in cards.items():
+    # Phone variants: 720px wide (so text renders ~2x bigger on a 360px screen)
+    # with the heavy motion removed. Served via <picture><source media="...">.
+    mobile = {
+        "hero-mobile.svg":         hero_mobile(),
+        "about-life-mobile.svg":   about_mobile(),
+        "stack-mobile.svg":        stack_mobile(),
+        "id-dashboard-mobile.svg": ids_mobile(),
+        "connect-mobile.svg":      connect_mobile(),
+    }
+    for name, svg in list(cards.items()) + list(mobile.items()):
         with open(os.path.join(ROOT, name), "w") as fh:
             fh.write(svg)
-        print(f"wrote {name:20} {len(svg)/1024:6.1f} KB")
+        print(f"wrote {name:24} {len(svg)/1024:6.1f} KB")
