@@ -82,7 +82,7 @@ def intro(H=496):
     L_.append(C(46, y_head - 4, 8, fill="none", stroke=GREEN, sw=1.4, cls="pulse-soft"))
     L_.append(C(46, y_head - 4, 4, fill=GREEN, cls="pulse"))
     L_.append(T(62, y_head, "// intro.play", 15, GREEN, weight=600, ls=1.6))
-    fps = gen_v.load("desktop")[1].get("fps", 24)
+    fps = gen_v.load()[1].get("fps", 24)
     L_.append(T(W - 46, y_head,
                 f"graywizard.mp4 · {fps} fps (the file's own rate) · silent",
                 12, MUTED, anchor="end", ls=.8))
@@ -90,15 +90,14 @@ def intro(H=496):
     # footer hint
     y_foot = panel_y + PANEL_H + 30
     L_.append(L(46, y_foot - 20, W - 46, y_foot - 20, stroke=STROKE, sw=1, opacity=.8))
-    L_.append(T(46, y_foot, "▸ plays once on load · the play button opens the "
-                            "profile, where the intro runs again", 12, DIM, ls=.4))
-    L_.append(T(W - 46, y_foot, "tap = profile", 12, GREEN_D, anchor="end", ls=.8))
+    L_.append(T(46, y_foot, "▸ plays once on load · the play button plays the real "
+                            "clip — full quality, with sound", 12, DIM, ls=.4))
+    L_.append(T(W - 46, y_foot, "tap = full clip", 12, GREEN_D, anchor="end", ls=.8))
 
     return _wrap(W, H, defs, L_,
-                 "Graywizard intro - the ten-second clip plays once at its "
-                 "original frame rate, then shows a play button in the middle; "
-                 "tapping the card opens the profile page, where it plays again",
-                 v_css)
+                 "Graywizard intro - the ten-second clip plays here once at the "
+                 "file's own 24 fps, then shows a play button in the middle; the "
+                 "button plays the original video with sound", v_css)
 
 
 # ------------------------------------------------------------------ phone
@@ -116,14 +115,14 @@ def intro_mobile():
 
     defs, L_ = _backdrop(MOB_W, H, rain_cols=9, seed=5, rx=20)
 
-    v_body, v_css, v_defs, _ = gen_v.panel(panel_x, 0, mode="play", variant="mobile")
+    v_body, v_css, v_defs, _ = gen_v.panel(panel_x, 0, mode="play")
     defs += v_defs
 
     # header
     L_.append(C(54, 60, 11, fill="none", stroke=GREEN, sw=1.6, cls="pulse-soft"))
     L_.append(C(54, 60, 5.5, fill=GREEN, cls="pulse"))
     L_.append(T(78, 68, "// intro.play", 26, GREEN, weight=600, ls=1.2))
-    m_fps = gen_v.load("mobile")[1].get("fps", 15)
+    m_fps = gen_v.load()[1].get("fps", 24)
     L_.append(T(MOB_W - 32, 68, f"{m_fps} fps · silent", 20, MUTED, anchor="end", ls=1))
 
     L_.append(G(v_body, transform=f"translate({tx:.2f},{panel_top}) scale({scale})"))
@@ -131,14 +130,14 @@ def intro_mobile():
     # footer
     y_foot = panel_top + PANEL_H * scale + 46
     L_.append(L(32, y_foot - 30, MOB_W - 32, y_foot - 30, stroke=STROKE, sw=1, opacity=.8))
-    meta = gen_v.load("mobile")[1]
-    L_.append(T(32, y_foot, "▸ plays once · tap the play button for the profile",
+    meta = gen_v.load()[1]
+    L_.append(T(32, y_foot, "▸ plays once · tap the play button for the real clip",
                 21, DIM))
     L_.append(T(MOB_W - 32, y_foot + 30,
                 f"graywizard.mp4 · {meta.get('duration', 10):.0f}s · "
                 f"{meta.get('frames', 0)} frames", 18, MUTED, anchor="end", ls=.6))
 
     return _wrap(MOB_W, H, defs, L_,
-                 "Graywizard intro - the ten-second clip plays once, then shows a "
-                 "play button in the middle; tapping the card opens the profile "
-                 "page, where it plays again", v_css, rx=20)
+                 "Graywizard intro - the ten-second clip plays here once, then "
+                 "shows a play button in the middle; the button plays the original "
+                 "video with sound", v_css, rx=20)

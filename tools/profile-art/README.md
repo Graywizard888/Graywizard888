@@ -204,46 +204,34 @@ stacks them with per-frame `opacity` keyframes (`steps(1, end)`,
 shade and a centred play button, and the card is wrapped in a link so tapping it
 reloads the README and replays the clip.
 
-**Both variants really play.** The card used to live inside the hero and phones
-were only ever given `mode="poster"` — a still with a play button on it — so on a
-phone the clip looked broken. The phone card now plays its own lighter cut
-(`variant="mobile"`, `assets/intro/mobile/`: 150 frames, 15 fps, q30) inside a
-panel scaled from 532 to 656 px, drawn at 720 wide, so a 360 px screen renders it
-at ~0.5x and the type still reads.
+**Both cards play the file's own cut.** The clip is 1280x720 at 24 fps. It is cut
+once, at that frame rate and at the panel's exact pixel size (480x270, so nothing
+is upscaled), and both cards embed the same frames — the phone card draws the
+532 px panel at 656 px, and a 360 px screen renders it at ~0.5x.
 
-**Both cuts now run at the source file's own frame rate.** The clip is 1280x720 at
-24 fps; the first cut decimated it to 8 fps (desktop) and 6 fps (phone), which is
-what made playback look choppy. The desktop set is now the file's full 24 fps at
-480x270 — exactly the panel size, so nothing is upscaled — and the phone set is
-15 fps at 400x225.
+Earlier versions decimated playback to 8 fps (desktop) and 6 fps (phone), and the
+phone card was once `mode="poster"` — a single still with a play button painted on
+it and no frames at all. Both were dropped: with the frames in place, the phone
+card plays the real thing.
 
-**This is the one card that ignores `prefers-reduced-motion`.** Every other card
-carries `style_block()`'s global `animation: none !important` guard; the intro
-passes `reduced_motion=False`. Reason: a ten-second one-shot that settles on a
-still is not the kind of motion that switch exists to stop, it was explicitly
-asked to play, and with the guard on, a device that enables reduce-motion (quite
-common on phones) silently showed a frozen poster — which is exactly what "the
-video is not playing" looks like. Each SVG is its own document inside `<img>`, so
-the exception cannot leak to other cards.
+The play button is drawn *inside* the card image, and a plain image cannot carry
+its own link, so the card itself is the link. **It points at the real file**:
+`graywizard.mp4`, which plays in full 1280x720 with sound. A relative href
+(`href="graywizard.mp4"`) so it always resolves to whichever branch is being read.
 
-Frame sets:
+Frame set:
 
-| Variant | Directory | Frames | Size |
-|:---|:---|:---|:---|
-| desktop | `assets/intro/` | 240 @ 24 fps (the file's rate), 480x270 q30 | ~3.1 MB |
-| mobile | `assets/intro/mobile/` | 150 @ 15 fps, 400x225 q30 | ~1.6 MB |
+| Directory | Frames | Detail |
+|:---|:---|:---|
+| `assets/intro/` | 240 @ 24 fps (the file's rate) | 480x270 q30, the panel's own size |
 
-`gen_v.load(variant)` reads each set's `meta.json` for fps/frame count and falls
-back to the desktop cut if a mobile one is missing, so re-cutting needs no code
-change:
+`gen_v.load()` reads `meta.json` for the fps and frame count, so the generators
+follow whatever is in `assets/intro/` with no code change:
 
 ```bash
 # only when the source clip changes; needs imageio-ffmpeg (system ffmpeg may be absent)
-# desktop: the file's own 24 fps, cut at exactly the panel size (no upscale)
+# the file's own 24 fps, cut at exactly the panel size (no upscale)
 python3 tools/profile-art/make_frames.py --fps 24 --width 480 --height 270 --quality 30
-# phone: lighter frame count, smaller canvas
-python3 tools/profile-art/make_frames.py --fps 15 --width 400 --height 225 --quality 30 \
-        --out assets/intro/mobile
 python3 tools/profile-art/build.py
 ```
 
@@ -252,10 +240,12 @@ reads the already-cut frames. Any renderer that ignores CSS animation shows the
 poster frame with the play button, which is the state the sequence settles into.
 
 Weight is the cost of this trick: one bitmap per frame means no temporal
-compression, so `intro.svg` is ~3.1 MB and `intro-mobile.svg` ~1.6 MB, against a
-hero that is back down to ~48 KB. Browsers cache them, and phones request the
-lighter cut only. The levers, if that ever needs to shrink: `--fps`, `--quality`,
-or the canvas size in `make_frames.py`.
+compression, so `intro.svg` and `intro-mobile.svg` are each ~3.1 MB (they embed
+the same 240 frames), against a hero that is ~48 KB. Browsers cache them after the
+first load. The levers, if that needs to shrink: `--fps`, `--quality`, or the
+canvas size in `make_frames.py` — 15 fps would land near 2.1 MB, 12 fps near
+1.6 MB. `make_frames.py --out <dir>` still exists if a separate phone cut is ever
+wanted again.
 
 ## Cards that are kept but not linked
 

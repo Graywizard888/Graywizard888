@@ -1,12 +1,13 @@
 <div align="center">
 
 <!-- 🎬 INTRO — the ten-second clip as its own card.
-     Plays once on load, holds on the last frame with a play button in the middle.
-     The card is the link: tapping it loads the page again, which replays the clip
-     (a plain image has no click handling, so this is the only way to "play again").
-     Both variants really play - phones used to be shown a still poster, which is
-     why the clip looked broken there. -->
-<a href="https://github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./intro-mobile.svg?v=1"><img src="./intro.svg?v=1" alt="Ten-second intro clip — plays once at its original frame rate, then shows a play button in the middle; tapping the card opens the profile page, where it plays again" width="100%"/></picture></a>
+     Plays once on load at the file's own 24 fps, then holds on the last frame with
+     a play button in the middle. The play button is part of the image and a plain
+     image cannot carry its own link, so the card is the link - and it points at the
+     real file: graywizard.mp4, which plays in full quality WITH SOUND (this SVG
+     reproduction is silent, since a README cannot host a <video> element).
+     A relative href, so it keeps resolving to the current branch. -->
+<a href="graywizard.mp4"><picture><source media="(max-width: 820px)" srcset="./intro-mobile.svg?v=1"><img src="./intro.svg?v=1" alt="Ten-second intro clip — plays here once at the file's own 24 fps, then shows a play button in the middle; tapping the card plays the original video, with sound" width="100%"/></picture></a>
 
 <br/><br/>
 
