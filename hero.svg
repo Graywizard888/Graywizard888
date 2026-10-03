@@ -214,6 +214,6 @@
 <path d="M58 439 L71 446 L58 453 z" fill="#4ade80"/>
 <text x="82" y="450.5" font-size="11" fill="#718799" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">00:00</text>
 <rect x="128" y="444" width="940" height="4" rx="2" fill="#16222e"/>
-<g transform="translate(128,444)"><rect x="0" y="0" width="940" height="4" rx="2" fill="url(#hBar)" class="grow-x" style="animation-duration:14s;animation-delay:0s;animation-iteration-count:infinite;animation-direction:normal;animation-timing-function:cubic-bezier(.45,.05,.55,.95)"/></g>
+<g transform="translate(128,444)"><rect x="0" y="0" width="940" height="4" rx="2" fill="url(#hBar)" class="grow-x" style="animation-duration:14s;animation-delay:0s;animation-iteration-count:infinite;animation-direction:alternate;animation-timing-function:cubic-bezier(.45,.05,.55,.95)"/></g>
 <text x="1082" y="450.5" font-size="13" fill="#4ade80" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">∞</text>
 <text x="1140" y="424" font-size="11" fill="#4d6070" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" text-anchor="end">cyber-portfolio os v4.0.0 · profile reel</text></g><rect x="0.5" y="0.5" width="1199" height="469" rx="16" fill="none" stroke="#22303f" stroke-width="1"/></svg>
