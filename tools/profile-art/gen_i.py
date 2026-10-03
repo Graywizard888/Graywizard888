@@ -21,7 +21,7 @@ on a still, and it was explicitly asked to play; every other card still honours
 the switch.
 """
 from gen_common import (BG0, BG1, CYAN, DIM, GREEN, GREEN_D, MUTED, PANEL, STROKE,
-                        TEXT, C, G, L, R, T, hud_corners, rain)
+                        TEXT, C, G, L, R, T, hud_corners)
 from gen_anim import style_block
 
 import gen_v
@@ -32,7 +32,7 @@ PANEL_W = gen_v.WINDOW_W          # 532
 PANEL_H = gen_v.WINDOW_H          # 366
 
 
-def _backdrop(W, H, accent=GREEN, rain_cols=15, seed=11, rx=16):
+def _backdrop(W, H, accent=GREEN, rx=16):
     """Same graphite-and-grid backdrop the other wide cards use."""
     defs = [
         '<linearGradient id="iBg" x1="0" y1="0" x2=".7" y2="1">'
@@ -51,7 +51,6 @@ def _backdrop(W, H, accent=GREEN, rain_cols=15, seed=11, rx=16):
         body.append(L(x, 0, x, H, stroke="#101d28", sw=1, opacity=.75))
     for y in range(40, H, 47):
         body.append(L(0, y, W, y, stroke="#101d28", sw=1, opacity=.75))
-    body.append(rain(W, H, cols=rain_cols, chars_per_block=14, x0=-30, seed=seed))
     body.append(R(0, 0, W, H, fill="url(#iScanLines)", opacity=.28))
     body.append(hud_corners(12, 12, W - 24, H - 24, accent, 26, 2, .5, cls=None))
     return defs, body
@@ -113,7 +112,7 @@ def intro_mobile():
     panel_x = (MOB_W - PANEL_W) // 2                     # drawn in its own space
     tx = margin - panel_x * scale                        # scales about the panel
 
-    defs, L_ = _backdrop(MOB_W, H, rain_cols=9, seed=5, rx=20)
+    defs, L_ = _backdrop(MOB_W, H, rx=20)
 
     v_body, v_css, v_defs, _ = gen_v.panel(panel_x, 0, mode="play")
     defs += v_defs
