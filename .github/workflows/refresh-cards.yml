@@ -45,8 +45,14 @@ jobs:
           git add '*.svg' tools/profile-art/builds.json README.md
           if git diff --cached --quiet; then
             echo "counts unchanged - nothing to commit"
-          else
-            git commit -m "Refresh repo card stats"
-            git pull --rebase --autostash
-            git push
+            exit 0
           fi
+          git commit -m "Refresh repo card stats"
+          # the 3D-city workflow also pushes to this branch; if it lands between
+          # our checkout and our push, rebase onto it and try again
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash && git push && exit 0
+            echo "push attempt $attempt failed - retrying after the other workflow"
+            sleep 15
+          done
+          echo "could not push after 3 attempts"; exit 1
