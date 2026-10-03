@@ -81,12 +81,14 @@ def glyph(key, color, box, tile):
     return G(P(d=ic["d"], fill=color), transform=f"scale({s:.4f}) translate(-12,-12)")
 
 
-def chip(x, y, key, size=SIZE, h=H, delay=0, sweep=0.0, animate=True, lead=False):
+def chip(x, y, key, size=SIZE, h=H, delay=0, animate=True, lead=False):
     """One tool chip: tinted plate, brand hairline, mark, label.
 
-    `sweep` is the chip's offset inside the slow pulse that travels along a row
-    (the highlight rect's animation-delay), so the row lights up one after the
-    other instead of all at once. Returns (markup, width)."""
+    `delay` is where this chip sits inside the slow pulse that walks along the
+    row, so the row lights up one chip after the other instead of all at once.
+    It is a *time*, and it has to stay a small one: at 7.2s a cycle, a delay
+    measured in the hundreds of seconds is a chip that never blinks in the time
+    anyone spends on the page. Returns (markup, width)."""
     ic = ICONS[key]
     col = ic["color"]
     w = chip_w(ic["label"], size)
@@ -111,22 +113,27 @@ def chip(x, y, key, size=SIZE, h=H, delay=0, sweep=0.0, animate=True, lead=False
         # the wash it is lighting up
         out.insert(2, R(x - .5, y - .5, w + 1, h + 1, fill="none", rx=12.5, stroke=col,
                         sw=1.3, opacity=.28, cls="chip-hl",
-                        style=f"animation-delay:{delay + sweep * x:.2f}s"))
+                        style=f"animation-delay:{delay:.2f}s"))
     return "".join(out), w
 
 
-def flow(x0, y, maxw, keys, size=SIZE, h=H, gap=CHIP_GAP, row_gap=ROW_GAP, step=.05,
-         animate=True):
-    """Chips, wrapped into rows inside `maxw`. Returns (markup, height, rows)."""
+def flow(x0, y, maxw, keys, size=SIZE, h=H, gap=CHIP_GAP, row_gap=ROW_GAP, delay0=.4,
+         hl_step=.45, animate=True):
+    """Chips, wrapped into rows inside `maxw`. Returns (markup, height, rows).
+
+    The pulse delay counts from the *start of the row* (`n`), not from the chip's
+    index in the group or its x position: a row is what the eye follows, and this
+    keeps every delay inside a fraction of the 7.2s cycle. `delay0` shifts whole
+    groups against each other so the four rows blink as a diagonal, not as one
+    column."""
     out, cx, cy, n, rows = [], x0, y, 0, 1
     for i, key in enumerate(keys):
-        frag, w = chip(cx, cy, key, size, h, .35 + i * step, (h + gap) * .006, animate,
-                       lead=(i == 0))
+        frag, w = chip(cx, cy, key, size, h, delay0 + n * hl_step, animate, lead=(i == 0))
         if cx > x0 and cx + w > x0 + maxw + .5:              # wrap to the next row
             n, rows = 0, rows + 1
             cx, cy = x0, cy + h + row_gap
-            frag, w = chip(cx, cy, key, size, h, .35 + i * step, (h + gap) * .006,
-                           animate, lead=(i == 0))
+            frag, w = chip(cx, cy, key, size, h, delay0 + n * hl_step, animate,
+                           lead=(i == 0))
         out.append(frag)
         cx += w + gap
         n += 1

@@ -91,7 +91,7 @@ def stack(H=540):
     y0 = top + (free - gap * (len(GROUPS) - 1)) / 2
     for i, (hgt, (label, accent, keys)) in enumerate(zip(rows_h, GROUPS)):
         y = y0 + gap * i + sum(rows_h[:i])
-        markup, _, _ = flow(COL_X, y + 26, COL_W, keys)
+        markup, _, _ = flow(COL_X, y + 26, COL_W, keys, delay0=.4 + i * .3)
         L_.append(G(
             R(COL_X, y + 4, 14, 3, fill=accent, rx=1.5, opacity=.9) +
             T(COL_X + 22, y + 11, label, 11, SOFT, weight=700, ls=1.8) +

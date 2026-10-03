@@ -1,12 +1,17 @@
 """Mobile card variants: 720px wide so text lands at ~2x the rendered size of the
-1200px cards on a phone, with the heavy motion removed (frozen rain, no marquees,
-no continuous tweens beyond two tiny blinking dots).
+1200px cards on a phone, with the heavy motion removed (frozen rain, no marquees).
+
+What stays is the motion that carries meaning: the stack card keeps its orbiting
+medals and the pulse that walks along a row of chips, because on a phone those are
+the only things saying "this is a live card, rebuilt from a real repo". Everything
+animated here is revealed by CSS, so `prefers-reduced-motion` still turns the phone
+cards fully static.
 
 Served to phones via <picture><source media="(max-width: 700px)">.
 """
 import math, random
 from gen_common import *
-from gen_stack import GROUPS, N_CHIPS, core, flow
+from gen_stack import (GROUPS, N_CHIPS, ORBIT_KEYS, STACK_CSS, core, flow, orbit)
 import gen_v
 from gen_anim import style_block
 
@@ -34,7 +39,12 @@ def frame(H, accent=GREEN, rain_cols=9, seed=11):
 
 def wrap(H, defs, body, label, extra_css=""):
     D, B = "\n".join(defs), "\n".join(body)
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
+    # xmlns:xlink is declared even where nothing uses it: a stack card here puts
+    # xlink:href on an <mpath> for Firefox's benefit, and an undeclared prefix is
+    # a fatal XML error for an SVG loaded as an <img> — the card would not just
+    # lose its animation, it would not render at all.
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" '
+            f'xmlns:xlink="http://www.w3.org/1999/xlink" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
             f'role="img" aria-label="{label}">'
             f'<defs>{D}' + style_block(extra_css) + '</defs>' + G(B, clip="url(#mClip)") +
             R(1, 1, W - 2, H - 2, rx=20, stroke="#22303f", sw=2) + '</svg>')
@@ -160,29 +170,39 @@ def stack_mobile():
     """The stack card for phones: same chips, stacked one group per row of the
     720px canvas, at sizes that survive being scaled to ~0.5x.
 
-    The orbit cluster is the one thing that does not come across: at this width
-    its medals would be ~10px, so it is reduced to the core emblem in the header
-    and every tool stays where it can be read — as a labelled chip. The row of a
-    group is a wrap-width away from a second line, which the flow layout handles;
-    the card's height is measured from the layout instead of fixed.
+    The orbit does come across here — it just cannot sit *beside* the chips, so it
+    takes a band of its own across the card: three flat rings (tilts of +-22
+    rather than the desktop's 0/60/120, because a 720px card has no vertical room
+    for a leaning ellipse) around the same core, medals travelling on them exactly
+    as they do on the desktop. No caption under it — the header already says what
+    the band is, and the lowest arc needs the room. Everything that made the phone card readable stays:
+    16.5px labels, 54px chips, and the rain frozen.
+
+    A group's rows wrap freely, and the card is measured from its own layout — the
+    only way a wrapped row can never land on top of the footer.
     """
     ms, mh = 16.5, 54              # chip font size and height
     cgap, rgap = 10, 11            # chip gap, wrapped-row gap: a phone needs air
     mx, mw = 28, W - 56            # the column the chips flow inside
     head, foot = 152, 120
+    # The band is sized from the rings, not the other way round: the widest
+    # vertical reach of a tilted ellipse is sqrt((rx sin t)^2 + (ry cos t)^2),
+    # plus the medal's own radius — which for the geometry below is 107, so a
+    # 224px band leaves the groups 17px of clear air under the lowest arc.
+    orb_h, orb_r = 224, 107
+    ocx, ocy = W / 2, head + orb_h / 2 + 6
+    cx0 = head + orb_h + 12        # where the groups start
 
     rows_h = []
     for _, _, keys in GROUPS:
         _, h, _ = flow(mx, 0, mw, keys, size=ms, h=mh, gap=cgap, row_gap=rgap,
                        animate=False)
         rows_h.append(30 + h)                       # label + chip rows
-    # the card is measured from its own layout — that is the only way a wrapped
-    # row can never land on top of the footer
     body_h = sum(rows_h) + GROUP_GAP * (len(GROUPS) - 1)
-    H = head + body_h + foot
+    H = cx0 + body_h + foot
 
     defs, L_ = frame(H, GREEN, rain_cols=7, seed=13)
-    core_defs, core_body = core(W - 74, 64, 26, 17, pulse=False)
+    core_defs, core_body = core(ocx, ocy, 32, 21)
     defs.append(core_defs)
 
     L_.append(R(28, 30, 6, 22, fill=GREEN, rx=3))
@@ -190,11 +210,25 @@ def stack_mobile():
     L_.append(T(46, 88, "Tools I build with", 34, TEXT, weight=700, family=SANS, ls=-.5))
     L_.append(T(46, 116, f"{N_CHIPS} tools · {len(GROUPS)} groups · every one shipped in a public repo",
                 19, MUTED))
+
+    # ---- the shortlist, in its own band across the card
+    ring_geom = [(200, 62, 0, CYAN, 34.0), (194, 58, 20, GREEN, 40.0),
+                 (198, 60, -20, VIOLET, 46.0)]
+    per = [[] for _ in ring_geom]
+    n = len(ORBIT_KEYS)
+    for i, key in enumerate(ORBIT_KEYS):
+        per[i % len(ring_geom)].append((key, -1.5708 + i * 6.2832 / n))
+    for i, (rx, ry, rot, col, dur) in enumerate(ring_geom):
+        L_.append(G(orbit(ocx, ocy, rx, ry, rot, per[i], col, dur, f"mOrb{i}"),
+                    cls="fade-in", style=f"animation-delay:{.1 + i * .18:.2f}s"))
+    L_.append(C(ocx, ocy, 50, fill="none", stroke=GREEN, sw=1, opacity=.24,
+                style="stroke-dasharray:3 6"))
     L_.append(core_body)
 
-    y = head + 8
+    y = cx0 + 8
     for i, (label, accent, keys) in enumerate(GROUPS):
-        markup, _, _ = flow(mx, y + 38, mw, keys, size=ms, h=mh, gap=cgap, row_gap=rgap)
+        markup, _, _ = flow(mx, y + 38, mw, keys, size=ms, h=mh, gap=cgap, row_gap=rgap,
+                            delay0=.4 + i * .3)
         L_.append(G(R(mx, y + 8, 18, 4, fill=accent, rx=2, opacity=.9) +
                     T(mx + 30, y + 18, label, 15.5, SOFT, weight=700, ls=2.4) +
                     markup,
@@ -205,7 +239,7 @@ def stack_mobile():
                 20, MUTED))
     L_.append(L(mx, H - 56, W - mx, H - 56, stroke=STROKE, sw=1.2))
     L_.append(T(mx, H - 22, "agents on call · release builds on request", 20, DIM))
-    return wrap(H, defs, L_, "Tech stack")
+    return wrap(H, defs, L_, "Tech stack", extra_css=STACK_CSS)
 
 
 # ------------------------------------------------------------------ CONNECT

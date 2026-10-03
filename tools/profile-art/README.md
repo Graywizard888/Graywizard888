@@ -86,7 +86,19 @@ travelling copy that fades in at 0.55s. `prefers-reduced-motion` kills the fade,
 a reduce-motion reader keeps the parked set and sees nothing orbiting; a renderer
 without SMIL never gets the moving copy and shows the same finished composition.
 The motion's `begin` is `-phi/turn`, so a medal takes off from where it was parked
-and the handover does not twitch.
+and the handover does not twitch. Both cards declare `xmlns:xlink` because of the
+`xlink:href` on `<mpath>` (Firefox needs it) — an undeclared prefix is a fatal XML
+error for an SVG loaded as an `<img>`, which would blank the card rather than just
+stop it moving. `gen_m.wrap()` declares it for the phone cards; `build.py` writes
+no network fetch, so the namespace is the only thing `<mpath>` depends on.
+
+**The chip pulse is a delay, not a distance.** Each chip's highlight rect gets
+`animation-delay: delay0 + n * .45s`, where `n` is the chip's position *in its
+row* and `delay0` shifts whole groups against each other, so the four rows blink as
+a diagonal. Keep the numbers inside one cycle (7.2s): delaying by a pixel position
+instead — `x / 700` or worse, `x` itself — lands you at 100s+ and the chips simply
+never blink while anyone is reading the card. The phone card uses the same rule,
+which is what makes the two variants feel like one card.
 
 ## Refreshing the numbers
 
@@ -133,8 +145,9 @@ Why they exist:
   turns 12.5px text into ~4px. The 720px cards only scale ~0.5x, so the same
   nominal size renders roughly **twice as large**; body text sits at 20-28px.
 * **Performance.** The heavy motion is gone: the rain is drawn once and never
-  repainted, there are no marquees, and only two small dots blink. Everything
-  else finishes within ~2s.
+  repainted, and there are no marquees. The motion that carries meaning stays —
+  the stack card keeps its orbiting medals and the pulse that walks along a row
+  of chips — and it is all translate/scale/opacity, so it never repaints text.
 * **Whitespace.** Fewer rows per view, tighter leading, and stat tiles instead of
   a dense terminal.
 
