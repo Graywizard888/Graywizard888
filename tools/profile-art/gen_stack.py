@@ -23,7 +23,7 @@ GROUPS = [
     ("ANDROID & DEVICE", GREEN, ["termux", "androidstudio", "android", "gradle",
                                  "jetpackcompose", "cmake"]),
     ("TERMINAL & MEDIA", VIOLET, ["linux", "mpv", "ffmpeg", "ndk"]),
-    ("AUTOMATION & AI", AMBER, ["git", "github", "githubactions", "claude", "googlegemini"]),
+    ("AUTOMATION & AI", AMBER, ["claude"]),
 ]
 
 # The shortlist that rides the orbits: the tools that explain the rest, ordered so

@@ -45,8 +45,8 @@ ORBIT_KEYS = [...]                                 # the medals that orbit
 ```
 
 A key is a name in `gen_icons.ICONS`, which carries the chip's display label, its
-colour and its glyph — so `N_CHIPS` (the "21 tools" in the header) and the per-row
-chip count are derived and cannot drift out of date. A group whose chips do not
+colour and its glyph — so `N_CHIPS` (the "N tools" in the header) and the per-row
+chip count are derived from the lists, so they cannot drift out of date. A group whose chips do not
 fit `COL_W` wraps onto a second row; that is the whole layout rule, and the card's
 height is measured from the result.
 
