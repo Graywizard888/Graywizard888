@@ -19,6 +19,7 @@ from gen_b import stack, connect       # noqa: E402
 from gen_c import card_ids             # noqa: E402
 from gen_m import (hero_mobile, about_mobile, stack_mobile,   # noqa: E402
                    connect_mobile, ids_mobile)
+from gen_p import build_card, BUILDS                    # noqa: E402
 
 # 1200 x <height>. Hero is the headline; the supporting cards step up in proportion.
 SIZES = {
@@ -46,6 +47,11 @@ if __name__ == "__main__":
         "id-dashboard-mobile.svg": ids_mobile(),
         "connect-mobile.svg":      connect_mobile(),
     }
+    # Personal-build cards: one tappable image per repo, desktop + phone variants
+    for i, spec in enumerate(BUILDS):
+        mobile[f"builds/p{i+1:02d}-mobile.svg"] = build_card(i, spec, mobile=True)
+        cards[f"builds/p{i+1:02d}.svg"] = build_card(i, spec, mobile=False)
+
     for name, svg in list(cards.items()) + list(mobile.items()):
         with open(os.path.join(ROOT, name), "w") as fh:
             fh.write(svg)
