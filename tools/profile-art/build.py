@@ -3,9 +3,9 @@
 
     python3 tools/profile-art/build.py
 
-Requires nothing but the standard library. The stats baked into the artwork
-(repo count, stars, contributions, the weekly series, the language donut) are a
-snapshot — see README.md in this folder for how to refresh them.
+Requires nothing but the standard library. Card sizes live in SIZES below —
+each card recomposes its layout to fill whatever height it is given, so tuning
+one is a one-line change.
 """
 import os
 import sys
@@ -18,18 +18,24 @@ from gen_a import hero, about          # noqa: E402
 from gen_b import stack, connect       # noqa: E402
 from gen_c import card_ids             # noqa: E402
 
-FILES = {
-    "hero.svg": hero,
-    "about-life.svg": about,
-    "stack.svg": stack,
-    "connect.svg": connect,
-    "id-dashboard.svg": card_ids,
+# 1200 x <height>. Hero is the headline; the supporting cards step up in proportion.
+SIZES = {
+    "hero": 640,
+    "about-life": 560,
+    "stack": 392,
+    "id-dashboard": 500,
+    "connect": 300,
 }
 
 if __name__ == "__main__":
-    for name, fn in FILES.items():
-        path = os.path.join(ROOT, name)
-        svg = fn()
-        with open(path, "w") as fh:
+    cards = {
+        "hero.svg":         hero(SIZES["hero"]),
+        "about-life.svg":   about(SIZES["about-life"]),
+        "stack.svg":        stack(SIZES["stack"]),
+        "id-dashboard.svg": card_ids(SIZES["id-dashboard"]),
+        "connect.svg":      connect(SIZES["connect"]),
+    }
+    for name, svg in cards.items():
+        with open(os.path.join(ROOT, name), "w") as fh:
             fh.write(svg)
         print(f"wrote {name:20} {len(svg)/1024:6.1f} KB")
