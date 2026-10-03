@@ -1,7 +1,10 @@
 <div align="center">
 
 <!-- 🎬 HERO — cyber intro + name -->
-<img src="./hero.svg?v=1" alt="Hi, I'm Aditya (Graywizard) — script & automation developer" width="100%"/>
+<picture>
+<source media="(max-width: 700px)" srcset="./hero-mobile.svg?v=1">
+<img src="./hero.svg?v=1" alt="Hi, I'm Aditya (Graywizard)"/>
+</picture>
 
 <br/><br/>
 
