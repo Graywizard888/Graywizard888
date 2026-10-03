@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="820" viewBox="0 0 720 820" role="img" aria-label="Graywizard — coder, gamer, system architect"><defs><linearGradient id="mBg" x1="0" y1="0" x2=".6" y2="1"><stop offset="0" stop-color="#0a1017"/><stop offset="1" stop-color="#05070b"/></linearGradient>
+<pattern id="mScan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="1" fill="#000" opacity=".32"/></pattern>
+<clipPath id="mClip"><rect width="720" height="820" rx="20"/></clipPath>
+<linearGradient id="mName" x1="0" y1="0" x2="1" y2=".2"><stop offset="0" stop-color="#8bf5b4"/><stop offset=".45" stop-color="#4ade80"/><stop offset=".8" stop-color="#22d3ee"/><stop offset="1" stop-color="#60a5fa"/></linearGradient>
+<linearGradient id="mTerm" x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stop-color="#101a24"/><stop offset="1" stop-color="#080e15"/></linearGradient>
+<linearGradient id="mBar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#22c55e"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+<radialGradient id="mGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#4ade80" stop-opacity=".20"/><stop offset="1" stop-color="#4ade80" stop-opacity="0"/></radialGradient><style>
+  .mono-label { letter-spacing: 1.4px; }
+
+  /* font stacks are declared once here instead of on every text node */
+  .fm { font-family:'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace; }
+  .fs { font-family:'Inter','Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; }
+
+  /* rain columns: each column holds 3 stacked blocks of `period`, so a
+     translate of exactly one period loops seamlessly */
+  .rain { animation-name: fall; animation-timing-function: linear;
+           animation-iteration-count: infinite;
+           /* one layer per sheet: translate only, no per-frame text raster */
+           will-change: transform; }
+  .rain text { text-anchor: middle; }
+  @keyframes fall { from { transform: translateY(-470px); } to { transform: translateY(0px); } }
+
+  .breathe { animation: breathe 3.4s ease-in-out infinite; }
+  @keyframes breathe { 0%,100% { opacity: .34; } 50% { opacity: .85; } }
+
+  .pulse { animation: pulse 2.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
+
+  .pulse-soft { animation: pulseSoft 4s ease-in-out infinite; }
+  @keyframes pulseSoft { 0%,100% { opacity: .18; } 50% { opacity: .5; } }
+
+  .blink { animation: blink 1.05s steps(1,end) infinite; }
+  @keyframes blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+
+  .caret-in { animation: caretIn .1s steps(1,end) both; }
+  @keyframes caretIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .sweep { animation: sweep 7.5s ease-in-out infinite; }
+  @keyframes sweep { 0% { transform: translateY(-170px); } 100% { transform: translateY(480px); } }
+
+  /* bars grow from their own origin: the animated element sits inside a
+     translated group, so 0 0 is the bar's left/top corner */
+  .grow-x { animation-name: growx; animation-timing-function: cubic-bezier(.22,.8,.2,1);
+             animation-fill-mode: both; transform-origin: 0px 0px; }
+  @keyframes growx { from { transform: scaleX(.001); } to { transform: scaleX(1); } }
+
+  .eq { animation: eq 1.05s ease-in-out infinite; transform-origin: 0px 0px; }
+  @keyframes eq { 0%,100% { transform: scaleY(.22); } 50% { transform: scaleY(1); } }
+
+  .draw { animation: dashIn 2.4s cubic-bezier(.3,.9,.25,1) both; }
+  @keyframes dashIn { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
+
+  .fade-up { animation: fadeUp 1s cubic-bezier(.22,.8,.2,1) both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); }
+                       to { opacity: 1; transform: translateY(0); } }
+
+  .fade-in { animation: fadeIn 1.1s ease-out both; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .float { animation: float 6s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+
+  .float2 { animation: float2 8.5s ease-in-out infinite; }
+  @keyframes float2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(6px,-9px); } }
+
+  .marquee-l { animation: marqL 52s linear infinite; }
+  @keyframes marqL { from { transform: translateX(0); } to { transform: translateX(var(--shift)); } }
+  .marquee-r { animation: marqR 58s linear infinite; }
+  @keyframes marqR { from { transform: translateX(var(--shift)); } to { transform: translateX(0); } }
+
+  /* character-by-character typing: a clip rect steps across the line */
+  .typing { animation-name: typew; animation-timing-function: steps(var(--steps), end);
+             animation-fill-mode: both; }
+  @keyframes typew { from { transform: translateX(calc(var(--w) * -1)); }
+                      to { transform: translateX(0); } }
+
+  /* rolling odometer digits */
+  .odo { animation-name: roll; animation-timing-function: cubic-bezier(.16,.84,.24,1);
+          animation-fill-mode: both; transform-origin: 0px 0px; }
+  @keyframes roll { from { transform: translateY(calc(var(--rows) * var(--lh))); }
+                     to { transform: translateY(0); } }
+
+  .shine { animation: shine 6.5s ease-in-out infinite; }
+  @keyframes shine { 0% { transform: translateX(-320px); }
+                      55%,100% { transform: translateX(1500px); } }
+
+  .holo { animation: holo 5.5s ease-in-out infinite; }
+  @keyframes holo { 0% { transform: translateX(-460px) skewX(-16deg); }
+                     45%,100% { transform: translateX(760px) skewX(-16deg); } }
+
+  .spin { animation: spin 26s linear infinite; transform-origin: 0px 0px; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .drift { animation: drift 12s ease-in-out infinite; }
+  @keyframes drift { 0%,100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; }
+  }
+</style></defs><g clip-path="url(#mClip)"><rect x="0" y="0" width="720" height="820" rx="20" fill="url(#mBg)"/>
+<line x1="48" y1="0" x2="48" y2="820" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
+<line x1="96" y1="0" x2="96" y2="820" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
+<line x1="144" y1="0" x2="144" y2="820" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
+<line x1="192" y1="0" x2="192" y2="820" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
+<line x1="240" y1="0" x2="240" y2="820" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
+<line x1="288" y1="0" x2="288" y2="820" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
+<line x1="336" y1="0" x2="336" y2="820" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
+<line x1="384" y1="0" x2="384" y2="820" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
+<line x1="432" y1="0" x2="432" y2="820" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
+<line x1="480" y1="0" x2="480" y2="820" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
+<line x1="528" y1="0" x2="528" y2="820" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
+<line x1="576" y1="0" x2="576" y2="820" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
+<line x1="624" y1="0" x2="624" y2="820" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
+<line x1="672" y1="0" x2="672" y2="820" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
+<g><text x="19.5" y="0.0" font-size="12.5" fill="#22c55e" opacity="0.14" class="fm fm">-</text><text x="19.5" y="51.2" font-size="12.5" fill="#22c55e" opacity="0.15" class="fm fm">D</text><text x="19.5" y="153.8" font-size="12.5" fill="#22d3ee" opacity="0.11" class="fm fm">D</text><text x="19.5" y="205.0" font-size="12.5" fill="#22c55e" opacity="0.1" class="fm fm">0</text><text x="19.5" y="307.5" font-size="12.5" fill="#4ade80" opacity="0.21" class="fm fm">6</text><text x="19.5" y="358.8" font-size="12.5" fill="#22d3ee" opacity="0.07" class="fm fm">0</text><text x="19.5" y="461.2" font-size="12.5" fill="#4ade80" opacity="0.33" class="fm fm">B</text><text x="19.5" y="512.5" font-size="12.5" fill="#4ade80" opacity="0.35" class="fm fm">0</text><text x="19.5" y="615.0" font-size="12.5" fill="#4ade80" opacity="0.35" class="fm fm">/</text><text x="19.5" y="666.2" font-size="12.5" fill="#22c55e" opacity="0.15" class="fm fm">1</text><text x="19.5" y="717.5" font-size="12.5" fill="#4ade80" opacity="0.18" class="fm fm">1</text><text x="19.5" y="768.8" font-size="12.5" fill="#22d3ee" opacity="0.07" class="fm fm">1</text><text x="19.5" y="871.2" font-size="12.5" fill="#22d3ee" opacity="0.07" class="fm fm">0</text><text x="19.5" y="922.5" font-size="12.5" fill="#22d3ee" opacity="0.13" class="fm fm">1</text><text x="19.5" y="1025.0" font-size="12.5" fill="#22c55e" opacity="0.08" class="fm fm">1</text><text x="19.5" y="1076.2" font-size="12.5" fill="#4ade80" opacity="0.25" class="fm fm">?</text><text x="19.5" y="1127.5" font-size="12.5" fill="#22d3ee" opacity="0.1" class="fm fm">\</text><text x="19.5" y="1178.8" font-size="12.5" fill="#22d3ee" opacity="0.06" class="fm fm">0</text><text x="19.5" y="1281.2" font-size="12.5" fill="#4ade80" opacity="0.2" class="fm fm">A</text><text x="19.5" y="1383.8" font-size="12.5" fill="#22d3ee" opacity="0.11" class="fm fm">#</text><text x="19.5" y="1435.0" font-size="12.5" fill="#4ade80" opacity="0.33" class="fm fm">E</text><text x="19.5" y="1537.5" font-size="12.5" fill="#22d3ee" opacity="0.06" class="fm fm">5</text><text x="19.5" y="1588.8" font-size="12.5" fill="#4ade80" opacity="0.22" class="fm fm">1</text><text x="259.7" y="0.0" font-size="12.5" fill="#4ade80" opacity="0.26" class="fm fm">6</text><text x="259.7" y="51.2" font-size="12.5" fill="#4ade80" opacity="0.24" class="fm fm">+</text><text x="259.7" y="102.5" font-size="12.5" fill="#4ade80" opacity="0.25" class="fm fm">6</text><text x="259.7" y="153.8" font-size="12.5" fill="#4ade80" opacity="0.29" class="fm fm">0</text><text x="259.7" y="256.2" font-size="12.5" fill="#4ade80" opacity="0.23" class="fm fm">+</text><text x="259.7" y="358.8" font-size="12.5" fill="#4ade80" opacity="0.27" class="fm fm">1</text><text x="259.7" y="461.2" font-size="12.5" fill="#22d3ee" opacity="0.08" class="fm fm">1</text><text x="259.7" y="615.0" font-size="12.5" fill="#22d3ee" opacity="0.08" class="fm fm">*</text><text x="259.7" y="666.2" font-size="12.5" fill="#22c55e" opacity="0.11" class="fm fm">0</text><text x="259.7" y="717.5" font-size="12.5" fill="#4ade80" opacity="0.37" class="fm fm">!</text><text x="259.7" y="820.0" font-size="12.5" fill="#22c55e" opacity="0.06" class="fm fm">*</text><text x="259.7" y="973.8" font-size="12.5" fill="#22d3ee" opacity="0.13" class="fm fm">&gt;</text><text x="259.7" y="1076.2" font-size="12.5" fill="#22c55e" opacity="0.06" class="fm fm">}</text><text x="259.7" y="1178.8" font-size="12.5" fill="#22c55e" opacity="0.06" class="fm fm">0</text><text x="259.7" y="1230.0" font-size="12.5" fill="#22d3ee" opacity="0.14" class="fm fm">9</text><text x="259.7" y="1281.2" font-size="12.5" fill="#4ade80" opacity="0.26" class="fm fm">*</text><text x="259.7" y="1332.5" font-size="12.5" fill="#4ade80" opacity="0.35" class="fm fm">A</text><text x="259.7" y="1383.8" font-size="12.5" fill="#22c55e" opacity="0.09" class="fm fm">.</text><text x="259.7" y="1486.2" font-size="12.5" fill="#22d3ee" opacity="0.12" class="fm fm">|</text><text x="259.7" y="1537.5" font-size="12.5" fill="#22c55e" opacity="0.08" class="fm fm">1</text><text x="259.7" y="1588.8" font-size="12.5" fill="#22d3ee" opacity="0.11" class="fm fm">+</text><text x="501.0" y="0.0" font-size="12.5" fill="#4ade80" opacity="0.3" class="fm fm">]</text><text x="501.0" y="51.2" font-size="12.5" fill="#22c55e" opacity="0.1" class="fm fm">F</text><text x="501.0" y="102.5" font-size="12.5" fill="#22d3ee" opacity="0.08" class="fm fm">}</text><text x="501.0" y="205.0" font-size="12.5" fill="#22d3ee" opacity="0.15" class="fm fm">:</text><text x="501.0" y="256.2" font-size="12.5" fill="#22d3ee" opacity="0.07" class="fm fm">D</text><text x="501.0" y="307.5" font-size="12.5" fill="#22c55e" opacity="0.12" class="fm fm">}</text><text x="501.0" y="358.8" font-size="12.5" fill="#22c55e" opacity="0.06" class="fm fm">-</text><text x="501.0" y="410.0" font-size="12.5" fill="#22d3ee" opacity="0.12" class="fm fm">$</text><text x="501.0" y="461.2" font-size="12.5" fill="#4ade80" opacity="0.21" class="fm fm">A</text><text x="501.0" y="512.5" font-size="12.5" fill="#22c55e" opacity="0.11" class="fm fm">7</text><text x="501.0" y="717.5" font-size="12.5" fill="#22c55e" opacity="0.14" class="fm fm">0</text><text x="501.0" y="871.2" font-size="12.5" fill="#22d3ee" opacity="0.11" class="fm fm">+</text><text x="501.0" y="922.5" font-size="12.5" fill="#22c55e" opacity="0.13" class="fm fm">[</text><text x="501.0" y="973.8" font-size="12.5" fill="#4ade80" opacity="0.31" class="fm fm">1</text><text x="501.0" y="1025.0" font-size="12.5" fill="#4ade80" opacity="0.29" class="fm fm">C</text><text x="501.0" y="1127.5" font-size="12.5" fill="#22d3ee" opacity="0.14" class="fm fm">~</text><text x="501.0" y="1435.0" font-size="12.5" fill="#22c55e" opacity="0.09" class="fm fm">&gt;</text><text x="501.0" y="1486.2" font-size="12.5" fill="#22c55e" opacity="0.13" class="fm fm">D</text><text x="501.0" y="1537.5" font-size="12.5" fill="#22c55e" opacity="0.07" class="fm fm">5</text><text x="501.0" y="1588.8" font-size="12.5" fill="#22c55e" opacity="0.15" class="fm fm">6</text></g><g><text x="96.4" y="0.0" font-size="13.0" fill="#4ade80" opacity="0.12" class="fm fm">1</text><text x="96.4" y="51.2" font-size="13.0" fill="#4ade80" opacity="0.17" class="fm fm">1</text><text x="96.4" y="153.8" font-size="13.0" fill="#22c55e" opacity="0.18" class="fm fm">[</text><text x="96.4" y="256.2" font-size="13.0" fill="#22c55e" opacity="0.09" class="fm fm">!</text><text x="96.4" y="307.5" font-size="13.0" fill="#22c55e" opacity="0.11" class="fm fm">7</text><text x="96.4" y="358.8" font-size="13.0" fill="#4ade80" opacity="0.17" class="fm fm">E</text><text x="96.4" y="461.2" font-size="13.0" fill="#4ade80" opacity="0.25" class="fm fm">[</text><text x="96.4" y="512.5" font-size="13.0" fill="#22c55e" opacity="0.21" class="fm fm">B</text><text x="96.4" y="563.8" font-size="13.0" fill="#4ade80" opacity="0.1" class="fm fm">0</text><text x="96.4" y="615.0" font-size="13.0" fill="#22c55e" opacity="0.19" class="fm fm">1</text><text x="96.4" y="717.5" font-size="13.0" fill="#22c55e" opacity="0.21" class="fm fm">&gt;</text><text x="96.4" y="768.8" font-size="13.0" fill="#4ade80" opacity="0.14" class="fm fm">+</text><text x="96.4" y="871.2" font-size="13.0" fill="#22c55e" opacity="0.13" class="fm fm">1</text><text x="96.4" y="922.5" font-size="13.0" fill="#4ade80" opacity="0.41" class="fm fm">1</text><text x="96.4" y="973.8" font-size="13.0" fill="#22c55e" opacity="0.09" class="fm fm">3</text><text x="96.4" y="1076.2" font-size="13.0" fill="#4ade80" opacity="0.09" class="fm fm">=</text><text x="96.4" y="1127.5" font-size="13.0" fill="#22c55e" opacity="0.18" class="fm fm">4</text><text x="96.4" y="1178.8" font-size="13.0" fill="#4ade80" opacity="0.19" class="fm fm">)</text><text x="96.4" y="1281.2" font-size="13.0" fill="#4ade80" opacity="0.32" class="fm fm">)</text><text x="96.4" y="1332.5" font-size="13.0" fill="#4ade80" opacity="0.29" class="fm fm">]</text><text x="96.4" y="1383.8" font-size="13.0" fill="#4ade80" opacity="0.39" class="fm fm">*</text><text x="96.4" y="1486.2" font-size="13.0" fill="#4ade80" opacity="0.19" class="fm fm">#</text><text x="96.4" y="1537.5" font-size="13.0" fill="#4ade80" opacity="0.12" class="fm fm">4</text><text x="96.4" y="1588.8" font-size="13.0" fill="#4ade80" opacity="0.2" class="fm fm">8</text><text x="333.9" y="0.0" font-size="13.0" fill="#22c55e" opacity="0.18" class="fm fm">1</text><text x="333.9" y="205.0" font-size="13.0" fill="#4ade80" opacity="0.44" class="fm fm">3</text><text x="333.9" y="256.2" font-size="13.0" fill="#4ade80" opacity="0.43" class="fm fm">7</text><text x="333.9" y="358.8" font-size="13.0" fill="#4ade80" opacity="0.41" class="fm fm">C</text><text x="333.9" y="410.0" font-size="13.0" fill="#22c55e" opacity="0.21" class="fm fm">1</text><text x="333.9" y="461.2" font-size="13.0" fill="#22c55e" opacity="0.11" class="fm fm">$</text><text x="333.9" y="563.8" font-size="13.0" fill="#22c55e" opacity="0.09" class="fm fm">0</text><text x="333.9" y="666.2" font-size="13.0" fill="#4ade80" opacity="0.09" class="fm fm">0</text><text x="333.9" y="717.5" font-size="13.0" fill="#4ade80" opacity="0.2" class="fm fm">?</text><text x="333.9" y="820.0" font-size="13.0" fill="#4ade80" opacity="0.15" class="fm fm">2</text><text x="333.9" y="871.2" font-size="13.0" fill="#4ade80" opacity="0.49" class="fm fm">5</text><text x="333.9" y="1025.0" font-size="13.0" fill="#4ade80" opacity="0.2" class="fm fm">}</text><text x="333.9" y="1076.2" font-size="13.0" fill="#22c55e" opacity="0.12" class="fm fm">&gt;</text><text x="333.9" y="1127.5" font-size="13.0" fill="#4ade80" opacity="0.15" class="fm fm">E</text><text x="333.9" y="1281.2" font-size="13.0" fill="#4ade80" opacity="0.11" class="fm fm">?</text><text x="333.9" y="1332.5" font-size="13.0" fill="#4ade80" opacity="0.09" class="fm fm">]</text><text x="333.9" y="1383.8" font-size="13.0" fill="#22c55e" opacity="0.15" class="fm fm">1</text><text x="333.9" y="1435.0" font-size="13.0" fill="#4ade80" opacity="0.15" class="fm fm">6</text><text x="333.9" y="1537.5" font-size="13.0" fill="#4ade80" opacity="0.09" class="fm fm">1</text><text x="580.4" y="0.0" font-size="13.0" fill="#22c55e" opacity="0.14" class="fm fm">&gt;</text><text x="580.4" y="51.2" font-size="13.0" fill="#22c55e" opacity="0.18" class="fm fm">]</text><text x="580.4" y="102.5" font-size="13.0" fill="#22c55e" opacity="0.19" class="fm fm">F</text><text x="580.4" y="153.8" font-size="13.0" fill="#4ade80" opacity="0.09" class="fm fm">0</text><text x="580.4" y="307.5" font-size="13.0" fill="#22c55e" opacity="0.09" class="fm fm">0</text><text x="580.4" y="358.8" font-size="13.0" fill="#22c55e" opacity="0.09" class="fm fm">\</text><text x="580.4" y="512.5" font-size="13.0" fill="#22c55e" opacity="0.11" class="fm fm">E</text><text x="580.4" y="563.8" font-size="13.0" fill="#22c55e" opacity="0.13" class="fm fm">5</text><text x="580.4" y="666.2" font-size="13.0" fill="#22c55e" opacity="0.12" class="fm fm">0</text><text x="580.4" y="717.5" font-size="13.0" fill="#22c55e" opacity="0.14" class="fm fm">[</text><text x="580.4" y="768.8" font-size="13.0" fill="#4ade80" opacity="0.36" class="fm fm">-</text><text x="580.4" y="871.2" font-size="13.0" fill="#4ade80" opacity="0.16" class="fm fm">C</text><text x="580.4" y="1025.0" font-size="13.0" fill="#4ade80" opacity="0.21" class="fm fm">0</text><text x="580.4" y="1076.2" font-size="13.0" fill="#22c55e" opacity="0.19" class="fm fm">0</text><text x="580.4" y="1127.5" font-size="13.0" fill="#22c55e" opacity="0.21" class="fm fm">1</text><text x="580.4" y="1230.0" font-size="13.0" fill="#4ade80" opacity="0.13" class="fm fm">*</text><text x="580.4" y="1435.0" font-size="13.0" fill="#22c55e" opacity="0.13" class="fm fm">4</text><text x="580.4" y="1486.2" font-size="13.0" fill="#22c55e" opacity="0.16" class="fm fm">{</text><text x="580.4" y="1537.5" font-size="13.0" fill="#22c55e" opacity="0.19" class="fm fm">1</text><text x="580.4" y="1588.8" font-size="13.0" fill="#22c55e" opacity="0.1" class="fm fm">0</text></g><g><text x="166.6" y="0.0" font-size="13.5" fill="#4ade80" opacity="0.61" class="fm fm">$</text><text x="166.6" y="51.2" font-size="13.5" fill="#4ade80" opacity="0.35" class="fm fm">:</text><text x="166.6" y="102.5" font-size="13.5" fill="#4ade80" opacity="0.57" class="fm fm">A</text><text x="166.6" y="153.8" font-size="13.5" fill="#4ade80" opacity="0.39" class="fm fm">*</text><text x="166.6" y="256.2" font-size="13.5" fill="#4ade80" opacity="0.2" class="fm fm">8</text><text x="166.6" y="307.5" font-size="13.5" fill="#4ade80" opacity="0.51" class="fm fm">:</text><text x="166.6" y="358.8" font-size="13.5" fill="#22d3ee" opacity="0.22" class="fm fm">&gt;</text><text x="166.6" y="512.5" font-size="13.5" fill="#4ade80" opacity="0.14" class="fm fm">]</text><text x="166.6" y="563.8" font-size="13.5" fill="#4ade80" opacity="0.26" class="fm fm">[</text><text x="166.6" y="615.0" font-size="13.5" fill="#4ade80" opacity="0.32" class="fm fm">0</text><text x="166.6" y="922.5" font-size="13.5" fill="#4ade80" opacity="0.19" class="fm fm">6</text><text x="166.6" y="1025.0" font-size="13.5" fill="#4ade80" opacity="0.41" class="fm fm">0</text><text x="166.6" y="1076.2" font-size="13.5" fill="#4ade80" opacity="0.58" class="fm fm">8</text><text x="166.6" y="1127.5" font-size="13.5" fill="#22d3ee" opacity="0.25" class="fm fm">\</text><text x="166.6" y="1178.8" font-size="13.5" fill="#4ade80" opacity="0.15" class="fm fm">1</text><text x="166.6" y="1230.0" font-size="13.5" fill="#22d3ee" opacity="0.25" class="fm fm">|</text><text x="166.6" y="1281.2" font-size="13.5" fill="#22d3ee" opacity="0.23" class="fm fm">8</text><text x="166.6" y="1332.5" font-size="13.5" fill="#22d3ee" opacity="0.12" class="fm fm">5</text><text x="166.6" y="1383.8" font-size="13.5" fill="#22d3ee" opacity="0.25" class="fm fm">&gt;</text><text x="166.6" y="1435.0" font-size="13.5" fill="#4ade80" opacity="0.33" class="fm fm">&lt;</text><text x="166.6" y="1486.2" font-size="13.5" fill="#4ade80" opacity="0.16" class="fm fm">{</text><text x="166.6" y="1588.8" font-size="13.5" fill="#4ade80" opacity="0.35" class="fm fm">/</text><text x="429.0" y="0.0" font-size="13.5" fill="#4ade80" opacity="0.11" class="fm fm">C</text><text x="429.0" y="51.2" font-size="13.5" fill="#4ade80" opacity="0.56" class="fm fm">+</text><text x="429.0" y="153.8" font-size="13.5" fill="#4ade80" opacity="0.15" class="fm fm">4</text><text x="429.0" y="205.0" font-size="13.5" fill="#4ade80" opacity="0.41" class="fm fm">)</text><text x="429.0" y="256.2" font-size="13.5" fill="#22d3ee" opacity="0.2" class="fm fm">0</text><text x="429.0" y="307.5" font-size="13.5" fill="#22d3ee" opacity="0.18" class="fm fm">9</text><text x="429.0" y="358.8" font-size="13.5" fill="#4ade80" opacity="0.22" class="fm fm">&gt;</text><text x="429.0" y="410.0" font-size="13.5" fill="#4ade80" opacity="0.11" class="fm fm">0</text><text x="429.0" y="563.8" font-size="13.5" fill="#4ade80" opacity="0.51" class="fm fm">*</text><text x="429.0" y="615.0" font-size="13.5" fill="#22d3ee" opacity="0.15" class="fm fm">9</text><text x="429.0" y="666.2" font-size="13.5" fill="#4ade80" opacity="0.4" class="fm fm">9</text><text x="429.0" y="717.5" font-size="13.5" fill="#4ade80" opacity="0.2" class="fm fm">A</text><text x="429.0" y="820.0" font-size="13.5" fill="#4ade80" opacity="0.35" class="fm fm">*</text><text x="429.0" y="1127.5" font-size="13.5" fill="#22d3ee" opacity="0.25" class="fm fm">0</text><text x="429.0" y="1178.8" font-size="13.5" fill="#4ade80" opacity="0.21" class="fm fm">1</text><text x="429.0" y="1230.0" font-size="13.5" fill="#4ade80" opacity="0.23" class="fm fm">1</text><text x="429.0" y="1332.5" font-size="13.5" fill="#4ade80" opacity="0.11" class="fm fm">D</text><text x="429.0" y="1383.8" font-size="13.5" fill="#4ade80" opacity="0.21" class="fm fm">&gt;</text><text x="429.0" y="1435.0" font-size="13.5" fill="#22d3ee" opacity="0.21" class="fm fm">)</text><text x="429.0" y="1537.5" font-size="13.5" fill="#22d3ee" opacity="0.13" class="fm fm">0</text><text x="644.4" y="0.0" font-size="13.5" fill="#22d3ee" opacity="0.18" class="fm fm">A</text><text x="644.4" y="51.2" font-size="13.5" fill="#4ade80" opacity="0.23" class="fm fm">/</text><text x="644.4" y="102.5" font-size="13.5" fill="#4ade80" opacity="0.18" class="fm fm">0</text><text x="644.4" y="153.8" font-size="13.5" fill="#22d3ee" opacity="0.1" class="fm fm">1</text><text x="644.4" y="205.0" font-size="13.5" fill="#22d3ee" opacity="0.18" class="fm fm">&gt;</text><text x="644.4" y="256.2" font-size="13.5" fill="#22d3ee" opacity="0.17" class="fm fm">/</text><text x="644.4" y="307.5" font-size="13.5" fill="#4ade80" opacity="0.19" class="fm fm">|</text><text x="644.4" y="358.8" font-size="13.5" fill="#4ade80" opacity="0.21" class="fm fm">5</text><text x="644.4" y="410.0" font-size="13.5" fill="#22d3ee" opacity="0.11" class="fm fm">0</text><text x="644.4" y="512.5" font-size="13.5" fill="#22d3ee" opacity="0.15" class="fm fm">|</text><text x="644.4" y="563.8" font-size="13.5" fill="#4ade80" opacity="0.6" class="fm fm">F</text><text x="644.4" y="768.8" font-size="13.5" fill="#4ade80" opacity="0.59" class="fm fm">1</text><text x="644.4" y="820.0" font-size="13.5" fill="#4ade80" opacity="0.18" class="fm fm">?</text><text x="644.4" y="973.8" font-size="13.5" fill="#22d3ee" opacity="0.16" class="fm fm">-</text><text x="644.4" y="1076.2" font-size="13.5" fill="#4ade80" opacity="0.25" class="fm fm">1</text><text x="644.4" y="1127.5" font-size="13.5" fill="#22d3ee" opacity="0.12" class="fm fm">6</text><text x="644.4" y="1178.8" font-size="13.5" fill="#22d3ee" opacity="0.14" class="fm fm">\</text><text x="644.4" y="1332.5" font-size="13.5" fill="#4ade80" opacity="0.24" class="fm fm">&gt;</text><text x="644.4" y="1435.0" font-size="13.5" fill="#4ade80" opacity="0.14" class="fm fm">~</text><text x="644.4" y="1537.5" font-size="13.5" fill="#22d3ee" opacity="0.17" class="fm fm">[</text><text x="644.4" y="1588.8" font-size="13.5" fill="#4ade80" opacity="0.15" class="fm fm">:</text></g>
+<rect x="0" y="0" width="720" height="820" fill="url(#mScan)" opacity="0.3"/>
+<path d="M12 54 L12 12 L54 12 M666 12 L708 12 L708 54 M708 766 L708 808 L666 808 M54 808 L12 808 L12 766" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+<rect x="32" y="34" width="250" height="46" rx="23" fill="#0b1a14" stroke="#22c55e" stroke-width="1.4" opacity="0.92"/>
+<circle cx="60" cy="57" r="11" fill="none" stroke="#4ade80" stroke-width="1.4" class="pulse-soft"/>
+<circle cx="60" cy="57" r="5.5" fill="#4ade80" class="pulse"/>
+<text x="84" y="64" font-size="21" fill="#4ade80" font-weight="600" letter-spacing="1.4" class="None fm">SYSTEM.ONLINE</text>
+<circle cx="628" cy="57" r="7" fill="#ff6b60"/>
+<text x="648" y="64" font-size="21" fill="#ff8f88" font-weight="600" letter-spacing="2" class="None fm">REC</text>
+<text x="32" y="132" font-size="23" fill="#4ade80" opacity="0.92" class="None fm">graywizard@cyber:~$ whoami</text>
+<ellipse cx="300" cy="250" rx="330" ry="180" fill="url(#mGlow)"/>
+<text x="30" y="226" font-size="76" fill="url(#mName)" font-weight="800" letter-spacing="1" class="fade-in fm" style="animation-duration:1.2s">GRAYWIZARD</text>
+<text x="32" y="288" font-size="30" fill="#d3e6f5" class="fade-up fm" style="animation-delay:.3s">Coder · Gamer · System Architect</text>
+<text x="32" y="332" font-size="26" fill="#718799" class="fade-up fm" style="animation-delay:.45s">India (IST) · terminal-first</text>
+<rect x="32" y="380" width="208" height="104" rx="16" fill="#0d141d" stroke="#1d2b3a" stroke-width="1.4"/>
+<rect x="33" y="380" width="206" height="4" rx="2" fill="#4ade80" opacity="0.85"/>
+<text x="52" y="434" font-size="40" fill="#dbe7f3" font-weight="700" class="None fm">12</text>
+<text x="52" y="464" font-size="19" fill="#718799" class="None fm">public repos</text>
+<rect x="256" y="380" width="208" height="104" rx="16" fill="#0d141d" stroke="#1d2b3a" stroke-width="1.4"/>
+<rect x="257" y="380" width="206" height="4" rx="2" fill="#22d3ee" opacity="0.85"/>
+<text x="276" y="434" font-size="40" fill="#dbe7f3" font-weight="700" class="None fm">309</text>
+<text x="276" y="464" font-size="19" fill="#718799" class="None fm">stars earned</text>
+<rect x="480" y="380" width="208" height="104" rx="16" fill="#0d141d" stroke="#1d2b3a" stroke-width="1.4"/>
+<rect x="481" y="380" width="206" height="4" rx="2" fill="#a78bfa" opacity="0.85"/>
+<text x="500" y="434" font-size="40" fill="#dbe7f3" font-weight="700" class="None fm">1,042</text>
+<text x="500" y="464" font-size="19" fill="#718799" class="None fm">contributions</text>
+<text x="32" y="540" font-size="28" fill="#95f2b8" font-weight="500" class="fade-up fm" style="animation-delay:.6s">&gt; "Build. Break. Rebuild. Optimize."</text>
+<rect x="32" y="576" width="656" height="186" rx="16" fill="url(#mTerm)" stroke="#26394c" stroke-width="1.4"/>
+<line x1="32" y1="618" x2="688" y2="618" stroke="#1d2b3a" stroke-width="1.2" stroke-linecap="butt"/>
+<circle cx="54" cy="597" r="7" fill="#ff5f57"/>
+<circle cx="76" cy="597" r="7" fill="#fbbf24"/>
+<circle cx="98" cy="597" r="7" fill="#28c840"/>
+<text x="672" y="604" font-size="20" fill="#718799" text-anchor="end" class="None fm">zsh</text>
+<text x="54" y="650" font-size="22" fill="#4ade80" class="fade-up fm" style="animation-delay:0.50s">$ neofetch --short</text>
+<text x="54" y="677" font-size="22" fill="#c3d3e2" class="fade-up fm" style="animation-delay:0.62s">os       Termux · Android 8+</text>
+<text x="54" y="704" font-size="22" fill="#c3d3e2" class="fade-up fm" style="animation-delay:0.74s">shell    bash · lua · python</text>
+<text x="54" y="731" font-size="22" fill="#c3d3e2" class="fade-up fm" style="animation-delay:0.86s">builds   scripts · TUIs · forks</text>
+<text x="54" y="752" font-size="22" fill="#4ade80" class="None fm">$</text>
+<rect x="72" y="736" width="12" height="20" fill="#4ade80" class="blink"/>
+<line x1="32" y1="788" x2="688" y2="788" stroke="#1d2b3a" stroke-width="1" stroke-linecap="butt"/>
+<text x="32" y="806" font-size="19" fill="#4d6070" class="None fm">since Jun 2024 · 4 mpv + lua scripts · MIT / GPL-3.0</text></g><rect x="1" y="1" width="718" height="818" rx="20" fill="none" stroke="#22303f" stroke-width="2"/></svg>

@@ -1,0 +1,58 @@
+name: Refresh repo card stats
+
+# Keeps every machine-knowable number on the cards current, the same way the 3D
+# contribution city keeps itself current: the account numbers in the whoami
+# banner and the dashboard (public repos, stars earned, contributions, gists),
+# plus the per-repo stars, forks, PR counts, licences and "pushed N ago" labels.
+# Runs on the default branch only (GitHub ignores `schedule` on other branches),
+# so merge first, then it takes over by itself.
+on:
+  schedule: # 09:50 IST == 04:20 UTC - clear of the 3D city job at 19:00 UTC
+    - cron: "20 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-cards
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Pull live counts from the GitHub API
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 tools/profile-art/refresh_stats.py
+
+      - name: Redraw the cards
+        run: python3 tools/profile-art/build.py
+
+      - name: Commit if anything moved
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # the root SVGs (hero, dashboard, phone variants) carry the account
+          # numbers too, so stage every SVG at any depth
+          git add '*.svg' tools/profile-art/builds.json README.md
+          if git diff --cached --quiet; then
+            echo "counts unchanged - nothing to commit"
+            exit 0
+          fi
+          git commit -m "Refresh repo card stats"
+          # the 3D-city workflow also pushes to this branch; if it lands between
+          # our checkout and our push, rebase onto it and try again
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash && git push && exit 0
+            echo "push attempt $attempt failed - retrying after the other workflow"
+            sleep 15
+          done
+          echo "could not push after 3 attempts"; exit 1

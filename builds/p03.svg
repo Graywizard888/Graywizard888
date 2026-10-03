@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1012" height="212" viewBox="0 0 1012 212" role="img" aria-label="GPlayDL-TUI — 8 stars, 2 forks, 1 pull requests, Python, MIT"><defs><linearGradient id="cBg" x1="0" y1="0" x2=".7" y2="1"><stop offset="0" stop-color="#111b26"/><stop offset="1" stop-color="#05070b"/></linearGradient>
+<linearGradient id="cAcc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#a78bfa" stop-opacity=".15"/></linearGradient>
+<linearGradient id="cShine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".10"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<radialGradient id="cGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#a78bfa" stop-opacity=".22"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></radialGradient>
+<pattern id="cScan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="1" fill="#000" opacity=".3"/></pattern>
+<clipPath id="cClip"><rect width="1012" height="212" rx="14"/></clipPath>
+<clipPath id="w20d0"><rect x="236.45" y="163.00" width="18.60" height="26.50"/></clipPath><clipPath id="w21d0"><rect x="321.45" y="163.00" width="18.60" height="26.50"/></clipPath><clipPath id="w22d0"><rect x="406.45" y="163.00" width="18.60" height="26.50"/></clipPath><style>
+  .mono-label { letter-spacing: 1.4px; }
+
+  /* font stacks are declared once here instead of on every text node */
+  .fm { font-family:'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace; }
+  .fs { font-family:'Inter','Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; }
+
+  /* rain columns: each column holds 3 stacked blocks of `period`, so a
+     translate of exactly one period loops seamlessly */
+  .rain { animation-name: fall; animation-timing-function: linear;
+           animation-iteration-count: infinite;
+           /* one layer per sheet: translate only, no per-frame text raster */
+           will-change: transform; }
+  .rain text { text-anchor: middle; }
+  @keyframes fall { from { transform: translateY(-470px); } to { transform: translateY(0px); } }
+
+  .breathe { animation: breathe 3.4s ease-in-out infinite; }
+  @keyframes breathe { 0%,100% { opacity: .34; } 50% { opacity: .85; } }
+
+  .pulse { animation: pulse 2.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
+
+  .pulse-soft { animation: pulseSoft 4s ease-in-out infinite; }
+  @keyframes pulseSoft { 0%,100% { opacity: .18; } 50% { opacity: .5; } }
+
+  .blink { animation: blink 1.05s steps(1,end) infinite; }
+  @keyframes blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+
+  .caret-in { animation: caretIn .1s steps(1,end) both; }
+  @keyframes caretIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .sweep { animation: sweep 7.5s ease-in-out infinite; }
+  @keyframes sweep { 0% { transform: translateY(-170px); } 100% { transform: translateY(480px); } }
+
+  /* bars grow from their own origin: the animated element sits inside a
+     translated group, so 0 0 is the bar's left/top corner */
+  .grow-x { animation-name: growx; animation-timing-function: cubic-bezier(.22,.8,.2,1);
+             animation-fill-mode: both; transform-origin: 0px 0px; }
+  @keyframes growx { from { transform: scaleX(.001); } to { transform: scaleX(1); } }
+
+  .eq { animation: eq 1.05s ease-in-out infinite; transform-origin: 0px 0px; }
+  @keyframes eq { 0%,100% { transform: scaleY(.22); } 50% { transform: scaleY(1); } }
+
+  .draw { animation: dashIn 2.4s cubic-bezier(.3,.9,.25,1) both; }
+  @keyframes dashIn { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
+
+  .fade-up { animation: fadeUp 1s cubic-bezier(.22,.8,.2,1) both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); }
+                       to { opacity: 1; transform: translateY(0); } }
+
+  .fade-in { animation: fadeIn 1.1s ease-out both; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .float { animation: float 6s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+
+  .float2 { animation: float2 8.5s ease-in-out infinite; }
+  @keyframes float2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(6px,-9px); } }
+
+  .marquee-l { animation: marqL 52s linear infinite; }
+  @keyframes marqL { from { transform: translateX(0); } to { transform: translateX(var(--shift)); } }
+  .marquee-r { animation: marqR 58s linear infinite; }
+  @keyframes marqR { from { transform: translateX(var(--shift)); } to { transform: translateX(0); } }
+
+  /* character-by-character typing: a clip rect steps across the line */
+  .typing { animation-name: typew; animation-timing-function: steps(var(--steps), end);
+             animation-fill-mode: both; }
+  @keyframes typew { from { transform: translateX(calc(var(--w) * -1)); }
+                      to { transform: translateX(0); } }
+
+  /* rolling odometer digits */
+  .odo { animation-name: roll; animation-timing-function: cubic-bezier(.16,.84,.24,1);
+          animation-fill-mode: both; transform-origin: 0px 0px; }
+  @keyframes roll { from { transform: translateY(calc(var(--rows) * var(--lh))); }
+                     to { transform: translateY(0); } }
+
+  .shine { animation: shine 6.5s ease-in-out infinite; }
+  @keyframes shine { 0% { transform: translateX(-320px); }
+                      55%,100% { transform: translateX(1500px); } }
+
+  .holo { animation: holo 5.5s ease-in-out infinite; }
+  @keyframes holo { 0% { transform: translateX(-460px) skewX(-16deg); }
+                     45%,100% { transform: translateX(760px) skewX(-16deg); } }
+
+  .spin { animation: spin 26s linear infinite; transform-origin: 0px 0px; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .drift { animation: drift 12s ease-in-out infinite; }
+  @keyframes drift { 0%,100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; }
+  }
+.shimmer { animation-name: shim; animation-timing-function: ease-in-out; animation-iteration-count: infinite; } @keyframes shim { from { transform: translateX(0); } to { transform: translateX(1300px); } }</style></defs><g clip-path="url(#cClip)"><rect x="0" y="0" width="1012" height="212" rx="14" fill="url(#cBg)"/>
+<line x1="40" y1="0" x2="40" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="80" y1="0" x2="80" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="120" y1="0" x2="120" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="160" y1="0" x2="160" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="200" y1="0" x2="200" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="240" y1="0" x2="240" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="280" y1="0" x2="280" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="320" y1="0" x2="320" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="360" y1="0" x2="360" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="400" y1="0" x2="400" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="440" y1="0" x2="440" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="480" y1="0" x2="480" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="520" y1="0" x2="520" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="560" y1="0" x2="560" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="600" y1="0" x2="600" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="640" y1="0" x2="640" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="680" y1="0" x2="680" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="720" y1="0" x2="720" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="760" y1="0" x2="760" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="800" y1="0" x2="800" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="840" y1="0" x2="840" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="880" y1="0" x2="880" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="920" y1="0" x2="920" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="960" y1="0" x2="960" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<line x1="1000" y1="0" x2="1000" y2="212" stroke="#101d28" stroke-width="1" stroke-linecap="butt" opacity="0.55"/>
+<rect x="0" y="0" width="1012" height="212" fill="url(#cScan)" opacity="0.26"/>
+<rect x="0" y="0" width="1012" height="4.5" rx="2" fill="url(#cAcc)"/>
+<path d="M8 32 L8 8 L32 8 M980 8 L1004 8 L1004 32 M1004 180 L1004 204 L980 204 M32 204 L8 204 L8 180" fill="none" stroke="#a78bfa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.38"/>
+<text x="26" y="36" font-size="13.5" fill="#4d6070" class="None fm">~/repos/gplaydl-tui$</text>
+<text x="986" y="36" font-size="13.5" fill="#4d6070" text-anchor="end" class="None fm">pushed 2mo ago</text>
+<ellipse cx="180" cy="80" rx="240" ry="46" fill="url(#cGlow)"/>
+<text x="26" y="92" font-size="34" fill="#dbe7f3" font-weight="700" class="None fm">GPlayDL-TUI</text>
+<rect x="928" y="60" width="58" height="36" rx="10" fill="#a78bfa" opacity="0.13"/>
+<rect x="928" y="60" width="58" height="36" rx="10" fill="none" stroke="#a78bfa" stroke-width="1.3" opacity="0.7"/>
+<text x="957" y="85" font-size="17" fill="#a78bfa" font-weight="700" text-anchor="middle" class="None fm">03</text>
+<text x="380" y="82" font-size="18" fill="#a8bccd" class="None fm">Feature-rich Terminal UI for downloading Android</text>
+<text x="380" y="105" font-size="18" fill="#a8bccd" class="None fm">APKs from Google Play</text>
+<line x1="26" y1="140" x2="986" y2="140" stroke="#1d2b3a" stroke-width="1" stroke-linecap="butt"/>
+<circle cx="32" cy="178" r="6" fill="#4B8BBE"/>
+<text x="46" y="183" font-size="17" fill="#a8bccd" font-weight="500" class="None fm">Python</text>
+<text x="220.0" y="183" font-size="16.0" fill="#a78bfa" class="None fm">★</text><g clip-path="url(#w20d0)"><g transform="translate(0,-559.00)"><g class="odo" style="animation-duration:1.60s;animation-delay:0.25s;--rows:28;--lh:26.50px"><text x="245.8" y="0.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">0</text><text x="245.8" y="26.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">1</text><text x="245.8" y="53.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">2</text><text x="245.8" y="79.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">3</text><text x="245.8" y="106.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">4</text><text x="245.8" y="132.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">5</text><text x="245.8" y="159.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">6</text><text x="245.8" y="185.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">7</text><text x="245.8" y="212.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">8</text><text x="245.8" y="238.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">9</text><text x="245.8" y="265.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">0</text><text x="245.8" y="291.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">1</text><text x="245.8" y="318.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">2</text><text x="245.8" y="344.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">3</text><text x="245.8" y="371.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">4</text><text x="245.8" y="397.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">5</text><text x="245.8" y="424.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">6</text><text x="245.8" y="450.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">7</text><text x="245.8" y="477.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">8</text><text x="245.8" y="503.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">9</text><text x="245.8" y="530.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">0</text><text x="245.8" y="556.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">1</text><text x="245.8" y="583.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">2</text><text x="245.8" y="609.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">3</text><text x="245.8" y="636.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">4</text><text x="245.8" y="662.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">5</text><text x="245.8" y="689.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">6</text><text x="245.8" y="715.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">7</text><text x="245.8" y="742.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">8</text></g></g></g><text x="305.0" y="183" font-size="16.0" fill="#a8bccd" class="None fm">⑂</text><g clip-path="url(#w21d0)"><g transform="translate(0,-400.00)"><g class="odo" style="animation-duration:1.60s;animation-delay:0.37s;--rows:22;--lh:26.50px"><text x="330.8" y="0.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">0</text><text x="330.8" y="26.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">1</text><text x="330.8" y="53.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">2</text><text x="330.8" y="79.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">3</text><text x="330.8" y="106.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">4</text><text x="330.8" y="132.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">5</text><text x="330.8" y="159.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">6</text><text x="330.8" y="185.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">7</text><text x="330.8" y="212.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">8</text><text x="330.8" y="238.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">9</text><text x="330.8" y="265.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">0</text><text x="330.8" y="291.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">1</text><text x="330.8" y="318.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">2</text><text x="330.8" y="344.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">3</text><text x="330.8" y="371.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">4</text><text x="330.8" y="397.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">5</text><text x="330.8" y="424.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">6</text><text x="330.8" y="450.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">7</text><text x="330.8" y="477.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">8</text><text x="330.8" y="503.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">9</text><text x="330.8" y="530.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">0</text><text x="330.8" y="556.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">1</text><text x="330.8" y="583.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">2</text></g></g></g><text x="390.0" y="183" font-size="16.0" fill="#22d3ee" class="None fm">⇄</text><g clip-path="url(#w22d0)"><g transform="translate(0,-373.50)"><g class="odo" style="animation-duration:1.60s;animation-delay:0.49s;--rows:21;--lh:26.50px"><text x="415.8" y="0.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">0</text><text x="415.8" y="26.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">1</text><text x="415.8" y="53.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">2</text><text x="415.8" y="79.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">3</text><text x="415.8" y="106.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">4</text><text x="415.8" y="132.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">5</text><text x="415.8" y="159.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">6</text><text x="415.8" y="185.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">7</text><text x="415.8" y="212.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">8</text><text x="415.8" y="238.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">9</text><text x="415.8" y="265.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">0</text><text x="415.8" y="291.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">1</text><text x="415.8" y="318.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">2</text><text x="415.8" y="344.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">3</text><text x="415.8" y="371.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">4</text><text x="415.8" y="397.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">5</text><text x="415.8" y="424.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">6</text><text x="415.8" y="450.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">7</text><text x="415.8" y="477.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">8</text><text x="415.8" y="503.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">9</text><text x="415.8" y="530.0" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">0</text><text x="415.8" y="556.5" font-size="25" fill="#dbe7f3" font-weight="700" text-anchor="middle" class="None fm">1</text></g></g></g>
+<rect x="929" y="162" width="57" height="28" rx="14" fill="#101c26" stroke="#26394c" stroke-width="1"/>
+<text x="957.5" y="181" font-size="13.5" fill="#718799" text-anchor="middle" class="None fm">MIT</text>
+<text x="911" y="183" font-size="14" fill="#a78bfa" font-weight="500" text-anchor="end" class="None fm">$ open repo ↗</text>
+<g clip-path="url(#cClip)"><rect x="-240" y="0" width="200" height="212" fill="url(#cShine)" opacity="0.9" class="shimmer" style="animation-duration:10.4s"/></g></g><rect x="0.5" y="0.5" width="1011" height="211" rx="14" fill="none" stroke="#22303f" stroke-width="1"/></svg>
