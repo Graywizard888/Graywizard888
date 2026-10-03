@@ -42,40 +42,19 @@
 
 <div align="center">
 
-<a href="https://github.com/Graywizard888/Enhancify"><picture>
-  <source media="(max-width: 820px)" srcset="./builds/p01-mobile.svg?v=1">
-  <img src="./builds/p01.svg?v=1" alt="Enhancify — 201 stars, 11 forks, 30 PRs, Shell, unlicensed" width="100%"/>
-</picture></a>
+<a href="https://github.com/Graywizard888/Enhancify"><picture><source media="(max-width: 820px)" srcset="./builds/p01-mobile.svg?v=1"><img src="./builds/p01.svg?v=1" alt="Enhancify — 201 stars, 11 forks, 30 PRs, Shell, unlicensed" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/Terminal_EX"><picture>
-  <source media="(max-width: 820px)" srcset="./builds/p02-mobile.svg?v=1">
-  <img src="./builds/p02.svg?v=1" alt="Terminal_EX — 87 stars, 0 forks, 0 PRs, Java, GPL-3.0" width="100%"/>
-</picture></a>
+<a href="https://github.com/Graywizard888/Terminal_EX"><picture><source media="(max-width: 820px)" srcset="./builds/p02-mobile.svg?v=1"><img src="./builds/p02.svg?v=1" alt="Terminal_EX — 87 stars, 0 forks, 0 PRs, Java, GPL-3.0" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/GPlayDL-TUI"><picture>
-  <source media="(max-width: 820px)" srcset="./builds/p03-mobile.svg?v=1">
-  <img src="./builds/p03.svg?v=1" alt="GPlayDL-TUI — 8 stars, 2 forks, 1 PRs, Python, MIT" width="100%"/>
-</picture></a>
+<a href="https://github.com/Graywizard888/GPlayDL-TUI"><picture><source media="(max-width: 820px)" srcset="./builds/p03-mobile.svg?v=1"><img src="./builds/p03.svg?v=1" alt="GPlayDL-TUI — 8 stars, 2 forks, 1 PRs, Python, MIT" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/Gists_Collection"><picture>
-  <source media="(max-width: 820px)" srcset="./builds/p04-mobile.svg?v=1">
-  <img src="./builds/p04.svg?v=1" alt="Gists_Collection — 5 stars, 0 forks, 0 PRs, Lua, MIT" width="100%"/>
-</picture></a>
+<a href="https://github.com/Graywizard888/Gists_Collection"><picture><source media="(max-width: 820px)" srcset="./builds/p04-mobile.svg?v=1"><img src="./builds/p04.svg?v=1" alt="Gists_Collection — 5 stars, 0 forks, 0 PRs, Lua, MIT" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/Gemini-Setup"><picture>
-  <source media="(max-width: 820px)" srcset="./builds/p05-mobile.svg?v=1">
-  <img src="./builds/p05.svg?v=1" alt="Gemini-Setup — 3 stars, 0 forks, 0 PRs, Shell, MIT" width="100%"/>
-</picture></a>
+<a href="https://github.com/Graywizard888/Gemini-Setup"><picture><source media="(max-width: 820px)" srcset="./builds/p05-mobile.svg?v=1"><img src="./builds/p05.svg?v=1" alt="Gemini-Setup — 3 stars, 0 forks, 0 PRs, Shell, MIT" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/Extension_Fetcher"><picture>
-  <source media="(max-width: 820px)" srcset="./builds/p06-mobile.svg?v=1">
-  <img src="./builds/p06.svg?v=1" alt="Extension_Fetcher — 3 stars, 0 forks, 0 PRs, Python, Apache-2.0" width="100%"/>
-</picture></a>
+<a href="https://github.com/Graywizard888/Extension_Fetcher"><picture><source media="(max-width: 820px)" srcset="./builds/p06-mobile.svg?v=1"><img src="./builds/p06.svg?v=1" alt="Extension_Fetcher — 3 stars, 0 forks, 0 PRs, Python, Apache-2.0" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/Claude_code_setup"><picture>
-  <source media="(max-width: 820px)" srcset="./builds/p07-mobile.svg?v=1">
-  <img src="./builds/p07.svg?v=1" alt="Claude_code_setup — 1 stars, 1 forks, 0 PRs, Python, MIT" width="100%"/>
-</picture></a>
+<a href="https://github.com/Graywizard888/Claude_code_setup"><picture><source media="(max-width: 820px)" srcset="./builds/p07-mobile.svg?v=1"><img src="./builds/p07.svg?v=1" alt="Claude_code_setup — 1 stars, 1 forks, 0 PRs, Python, MIT" width="100%"></picture></a>
 
 </div>
 
