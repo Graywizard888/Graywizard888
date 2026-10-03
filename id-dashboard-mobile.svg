@@ -147,7 +147,7 @@
 <text x="272" y="544" font-size="20" fill="#718799" class="None fm">stars</text>
 <rect x="476" y="448" width="208" height="118" rx="16" fill="#0d141d" stroke="#1d2b3a" stroke-width="1.4"/>
 <rect x="477" y="448" width="206" height="4" rx="2" fill="#a78bfa" opacity="0.85"/>
-<text x="496" y="508" font-size="42" fill="#dbe7f3" font-weight="700" class="None fm">1,041</text>
+<text x="496" y="508" font-size="42" fill="#dbe7f3" font-weight="700" class="None fm">1,042</text>
 <text x="496" y="544" font-size="20" fill="#718799" class="None fm">contributions</text>
 <rect x="28" y="588" width="664" height="224" rx="16" fill="#0d141d" stroke="#1d2b3a" stroke-width="1.3"/>
 <text x="52" y="622" font-size="20" fill="#718799" letter-spacing="1.1" class="None fm">// primary languages</text>
@@ -203,4 +203,4 @@
 <g transform="translate(644.3,976)"><rect x="0" y="-7.2" width="18.692307692307693" height="7.2" rx="2.5" fill="#2b4459" opacity="0.92" class="grow-x" style="animation-duration:1s;animation-delay:1.05s"/></g>
 <text x="52" y="1002" font-size="19" fill="#4d6070" class="None fm">peak 40 · Jul → Oct 2026</text>
 <line x1="28" y1="1040" x2="692" y2="1040" stroke="#1d2b3a" stroke-width="1" stroke-linecap="butt"/>
-<text x="28" y="1064" font-size="19" fill="#4d6070" class="None fm">since Jun 2024 · 4 gists · snapshot 03 Oct 2026</text></g><rect x="1" y="1" width="718" height="1078" rx="20" fill="none" stroke="#22303f" stroke-width="2"/></svg>
+<text x="28" y="1064" font-size="19" fill="#4d6070" class="None fm">since Jun 2024 · 4 gists · refreshed daily</text></g><rect x="1" y="1" width="718" height="1078" rx="20" fill="none" stroke="#22303f" stroke-width="2"/></svg>

@@ -1,9 +1,11 @@
 name: Refresh repo card stats
 
-# Keeps the star / fork / PR counts, licences and "pushed N ago" labels on the
-# Personal-build cards current, the same way the 3D contribution city keeps
-# itself current. Runs on the default branch only (GitHub ignores `schedule` on
-# other branches), so merge first, then it takes over by itself.
+# Keeps every machine-knowable number on the cards current, the same way the 3D
+# contribution city keeps itself current: the account numbers in the whoami
+# banner and the dashboard (public repos, stars earned, contributions, gists),
+# plus the per-repo stars, forks, PR counts, licences and "pushed N ago" labels.
+# Runs on the default branch only (GitHub ignores `schedule` on other branches),
+# so merge first, then it takes over by itself.
 on:
   schedule: # 09:50 IST == 04:20 UTC - clear of the 3D city job at 19:00 UTC
     - cron: "20 4 * * *"
@@ -38,7 +40,9 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tools/profile-art/builds.json builds README.md
+          # the root SVGs (hero, dashboard, phone variants) carry the account
+          # numbers too, so stage every SVG at any depth
+          git add '*.svg' tools/profile-art/builds.json README.md
           if git diff --cached --quiet; then
             echo "counts unchanged - nothing to commit"
           else

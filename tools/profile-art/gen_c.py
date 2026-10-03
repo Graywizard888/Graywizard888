@@ -3,8 +3,11 @@ import math, random
 from gen_common import *
 from gen_anim import style_block
 
-# real data, pulled from the GitHub API on 2026-10-03
-REPOS, STARS, CONTRIB = 12, 309, 1041
+# live account numbers, refreshed from the GitHub API by refresh_stats.py.
+# Pre-formatted strings: odometer() draws str(value) char by char, so the
+# thousands comma has to be in the value already.
+REPOS, STARS, CONTRIB = (fmt(PROFILE["public_repos"]), fmt(PROFILE["stars"]),
+                         fmt(PROFILE["contributions"]))
 TILES = [("PUBLIC REPOS", REPOS, GREEN),
          ("STARS EARNED", STARS, CYAN),
          ("CONTRIBUTIONS", CONTRIB, VIOLET)]
@@ -134,14 +137,16 @@ def card_ids(H=404):
         w = rr.choice([1.4, 2.4, 3.4])
         L_.append(R(bx, card_b - 40, w, 24, fill="#c9d8e6", opacity=rr.uniform(.4, .95), rx=.4))
         bx += w + rr.choice([2.0, 3.0])
-    L_.append(T(556, card_b - 26, "member since Jun 2024", 10, MUTED, anchor="end", ls=.4))
+    L_.append(T(556, card_b - 26, f"member since {PROFILE['created']}", 10, MUTED, anchor="end", ls=.4))
     L_.append(T(556, card_b - 40, "ID · GW-888-2024-IST", 10, DIM, anchor="end", ls=.8))
 
     # ============================================================ DASHBOARD (right)
     L_.append(R(616, 60, 544, 304 + d, fill=BG0, rx=14, stroke=STROKE, sw=1.1, opacity=.72))
     L_.append(R(636, 46, 4, 12, fill=CYAN, rx=2))
     L_.append(T(648, 56, "// system_dashboard", 12.5, SOFT, ls=1.6))
-    L_.append(T(1180, 56, "snapshot · 03 Oct 2026", 11, MUTED, anchor="end", ls=1))
+    # the tiles/counters on this card are now live, so the old "snapshot" stamp
+    # would be a lie; the donut and the weekly bars are still a fixed snapshot
+    L_.append(T(1180, 56, "counts live", 11, MUTED, anchor="end", ls=1))
 
     tw = 166
     ododefs = []
@@ -201,7 +206,10 @@ def card_ids(H=404):
     # footer strip inside the dashboard
     L_.append(L(636, card_b - 20, 1180, card_b - 20, stroke=STROKE, sw=1))
     L_.append(C(644, card_b - 4, 4, fill=GREEN, cls="pulse"))
-    L_.append(T(656, card_b, "12 repos · 309 stars · 1,041 contributions · 4 gists · since Jun 2024",
+    L_.append(T(656, card_b,
+                f"{fmt(PROFILE['public_repos'])} repos · {fmt(PROFILE['stars'])} stars · "
+                f"{fmt(PROFILE['contributions'])} contributions · {fmt(PROFILE['gists'])} gists · "
+                f"since {PROFILE['created']}",
                 10.5, MUTED))
     # closing rule under the dashboard
     L_.append(L(636, H - 26, 1180, H - 26, stroke="#182838", sw=1, opacity=.7))

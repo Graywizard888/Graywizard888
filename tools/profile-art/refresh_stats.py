@@ -6,11 +6,21 @@
 
 What it updates in builds.json (the numbers a machine can know):
 
-    stars, forks, pulls, language, license, size_kb, pushed
+    profile  public_repos, stars, contributions, gists, created, login
+    repos    stars, forks, pulls, language, license, size_kb, pushed
+
+Two definitions worth knowing:
+
+  * `profile.stars` counts every public repository the account owns, **forks
+    included** - Terminal_EX is a fork with 87 stars on it and is presented as
+    one of the build cards, so its stars belong in the headline. Non-forks only
+    would read 221 instead of 309.
+  * `profile.contributions` is the **all-time** total since the account was
+    created (the card has always meant that, not the rolling 365-day figure).
 
 What it deliberately leaves alone (editorial, hand-tuned for the canvas):
 
-    repo, name, description, language_color
+    profile.login, and per repo: repo, name, description, language_color
 
   * `description` stays yours - the API blurbs are longer than the card can
     hold, and build_card draws the first two wrapped lines only.
@@ -34,7 +44,7 @@ import sys
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BUILDS_JSON = os.path.join(HERE, "builds.json")
@@ -131,6 +141,96 @@ def fetch(row, token):
     return fresh
 
 
+def graphql(query, token):
+    req = urllib.request.Request(
+        API + "/graphql",
+        data=json.dumps({"query": query}).encode(),
+        headers={
+            "Accept": "application/vnd.github+json",
+            "Content-Type": "application/json",
+            "User-Agent": "refresh-stats",
+            **({"Authorization": f"Bearer {token}"} if token else {}),
+        },
+    )
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        payload = json.load(resp)
+    if payload.get("errors") and not payload.get("data"):
+        raise ValueError("GraphQL: " + str(payload["errors"][0].get("message"))[:120])
+    return payload
+
+
+def all_time_contributions(login, created_at, token):
+    """Every contribution since the account was created.
+
+    contributionsCollection is capped at a one-year span and BOTH of its
+    endpoints are inclusive - a query for [D, D+1) returns the sum of day D and
+    day D+1 - so the chunks have to step apart by a day, or each boundary day
+    gets counted twice.
+    """
+    start = datetime.fromisoformat(created_at.replace("Z", "+00:00")).date()
+    today = datetime.now(timezone.utc).date()
+    total = 0
+    while start <= today:
+        try:
+            end = start.replace(year=start.year + 1) - timedelta(days=1)
+        except ValueError:                      # 29 February
+            end = start.replace(year=start.year + 1, day=28) - timedelta(days=1)
+        end = min(end, today)
+        query = ('query { user(login: "%s") { contributionsCollection('
+                 'from: "%sT00:00:00Z", to: "%sT00:00:00Z") '
+                 '{ contributionCalendar { totalContributions } } } }'
+                 % (login, start, end))
+        node = (graphql(query, token).get("data") or {}).get("user")
+        if not node or not node.get("contributionsCollection"):
+            raise ValueError(f"no contribution data for {start}..{end}")
+        total += node["contributionsCollection"]["contributionCalendar"]["totalContributions"]
+        start = end + timedelta(days=1)
+    return total
+
+
+def fetch_profile(token):
+    """Account-level numbers, or None if the profile request failed."""
+    login = owner()
+    try:
+        user = api_get(f"/users/{login}", token)
+        stars, page = 0, 1
+        while True:
+            chunk = api_get(f"/users/{login}/repos?per_page=100&type=owner&page={page}", token)
+            stars += sum(r.get("stargazers_count", 0) for r in chunk)
+            if len(chunk) < 100:
+                break
+            page += 1
+        created = datetime.strptime(user["created_at"][:7], "%Y-%m").strftime("%b %Y")
+    except (urllib.error.URLError, urllib.error.HTTPError, KeyError, ValueError) as exc:
+        print(f"  ! profile: {exc}")
+        return None
+
+    fresh = {
+        "login": login,
+        "public_repos": user["public_repos"],
+        "stars": stars,
+        "gists": user["public_gists"],
+        "created": created,
+    }
+    # contributions need GraphQL, which needs a token: without one, keep the
+    # number the card already shows rather than reporting zero
+    if token:
+        try:
+            fresh["contributions"] = all_time_contributions(login, user["created_at"], token)
+        except (urllib.error.URLError, urllib.error.HTTPError, KeyError, ValueError) as exc:
+            print(f"  ! profile.contributions: {exc}")
+    else:
+        print("  ! no token: contributions left as-is (GraphQL needs auth)")
+    return fresh
+
+
+def merge(row, fresh, changed, label):
+    for key, value in fresh.items():
+        if row.get(key) != value:
+            changed.append(f"  {label}.{key}: {row.get(key)!r} -> {value!r}")
+            row[key] = value
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true", help="print the diff, write nothing")
@@ -141,15 +241,19 @@ def main():
         doc = json.load(fh)
 
     changed, failed = [], []
+
+    fresh_profile = fetch_profile(token)
+    if fresh_profile is None:
+        print("  ! profile stats unavailable - keeping the current values")
+    else:
+        merge(doc["profile"], fresh_profile, changed, "profile")
+
     for row in doc["repos"]:
         fresh = fetch(row, token)
         if fresh is None:
             failed.append(row["repo"])
             continue
-        for key, value in fresh.items():
-            if row.get(key) != value:
-                changed.append(f'  {row["repo"]}.{key}: {row.get(key)!r} -> {value!r}')
-                row[key] = value
+        merge(row, fresh, changed, row["repo"])
 
     if len(failed) == len(doc["repos"]):
         print("every request failed - nothing written")

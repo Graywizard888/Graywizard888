@@ -1,6 +1,14 @@
 {
-  "_comment": "Source of truth for the Personal-build cards. Machines refresh the numbers: `refresh_stats.py` rewrites stars/forks/pulls/language/license/size_kb/pushed from the GitHub API, then `build.py` redraws the SVGs. `description`, `name` and `language_color` are editorial - hand-tuned to fit the canvas and the neon palette, so the refresher never touches them.",
+  "_comment": "Source of truth for everything on the cards that a machine can know: the account-level `profile` numbers and the per-repo `repos` list. `refresh_stats.py` rewrites the machine fields from the GitHub API, then `build.py` redraws the SVGs. Editorial fields - per-repo `name`/`description`/`language_color` and `profile.login` - are hand-tuned for the canvas and the neon palette, so the refresher never touches them.",
   "generated": "2026-10-03T05:48:42Z",
+  "profile": {
+    "login": "Graywizard888",
+    "public_repos": 12,
+    "stars": 309,
+    "contributions": 1042,
+    "gists": 4,
+    "created": "Jun 2024"
+  },
   "repos": [
     {
       "repo": "Enhancify",

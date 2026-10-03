@@ -71,7 +71,9 @@ def hero_mobile():
                 cls="fade-up", style="animation-delay:.45s"))
 
     # three stat tiles with the real numbers
-    stats = [("12", "public repos", GREEN), ("309", "stars earned", CYAN), ("1,041", "contributions", VIOLET)]
+    stats = [(fmt(PROFILE["public_repos"]), "public repos", GREEN),
+             (fmt(PROFILE["stars"]), "stars earned", CYAN),
+             (fmt(PROFILE["contributions"]), "contributions", VIOLET)]
     tw, gap = 208, 16
     for i, (val, label, col) in enumerate(stats):
         x = 32 + i * (tw + gap)
@@ -101,7 +103,7 @@ def hero_mobile():
     L_.append(R(72, ty + 160, 12, 20, fill=GREEN, cls="blink"))
 
     L_.append(L(32, 788, W - 32, 788, stroke=STROKE, sw=1))
-    L_.append(T(32, 806, "since Jun 2024 · 4 mpv + lua scripts · MIT / GPL-3.0", 19, DIM))
+    L_.append(T(32, 806, f"since {PROFILE['created']} · 4 mpv + lua scripts · MIT / GPL-3.0", 19, DIM))
     return wrap(H, defs, L_, "Graywizard — coder, gamer, system architect", )
 
 
@@ -254,7 +256,9 @@ def ids_mobile():
         cx += w + 10
 
     # stat tiles
-    stats = [("12", "repos", GREEN), ("309", "stars", CYAN), ("1,041", "contributions", VIOLET)]
+    stats = [(fmt(PROFILE["public_repos"]), "repos", GREEN),
+             (fmt(PROFILE["stars"]), "stars", CYAN),
+             (fmt(PROFILE["contributions"]), "contributions", VIOLET)]
     tw = 208
     for i, (val, label, col) in enumerate(stats):
         x = 28 + i * (tw + 16)
@@ -304,5 +308,6 @@ def ids_mobile():
                     transform=f"translate({52 + i * bw:.1f},{base})"))
     L_.append(T(52, 1002, "peak 40 · Jul → Oct 2026", 19, DIM))
     L_.append(L(28, 1040, W - 28, 1040, stroke=STROKE, sw=1))
-    L_.append(T(28, 1064, "since Jun 2024 · 4 gists · snapshot 03 Oct 2026", 19, DIM))
+    L_.append(T(28, 1064,
+                f"since {PROFILE['created']} · {fmt(PROFILE['gists'])} gists · refreshed daily", 19, DIM))
     return wrap(H, defs, L_, "Graywizard developer ID and dashboard")

@@ -118,24 +118,53 @@ own `<a href>` so tapping anywhere on it opens the repository (GitHub strips
 
 ## Card data: `builds.json`
 
-`builds.json` is the single source of truth for the cards — `gen_p.py` loads it
-into `BUILDS` at import time.
+`builds.json` is the single source of truth for every number a machine can know.
+`card_data.py` loads it and `gen_common.py` re-exports it, so every generator
+gets `PROFILE`, `BUILDS` and `fmt()` from its usual `from gen_common import *`.
 
 | Field | Owner |
 |:---|:---|
-| `stars`, `forks`, `pulls`, `language`, `license`, `size_kb`, `pushed` | **machine** — rewritten by `refresh_stats.py` from the GitHub API |
-| `repo`, `name`, `description`, `language_color` | **you** — editorial, hand-tuned for the canvas and the neon palette |
+| `profile`: `public_repos`, `stars`, `contributions`, `gists`, `created` | **machine** — rewritten by `refresh_stats.py` |
+| `repos`: `stars`, `forks`, `pulls`, `language`, `license`, `size_kb`, `pushed` | **machine** — rewritten by `refresh_stats.py` |
+| `profile.login` | derived from the repository owner |
+| `repos`: `repo`, `name`, `description`, `language_color` | **you** — editorial, hand-tuned for the canvas and the neon palette |
+
+### The account numbers
+
+`PROFILE` feeds the whoami banner (`hero.svg`, `hero-mobile.svg`) and the
+dashboard (`id-dashboard.svg`, `id-dashboard-mobile.svg`). Three things about it
+are deliberate:
+
+* **`stars` includes forks.** Terminal_EX is a fork with 87 stars on it and is
+  presented as one of the build cards, so its stars belong in the headline.
+  Counting non-forks only would read 221 instead of 309.
+* **`contributions` is all-time**, not the rolling 365-day figure — that is what
+  the card has always shown. It is summed year by year with GraphQL, and
+  `contributionsCollection` is capped at a one-year span whose **both endpoints
+  are inclusive** (a query for `[D, D+1)` returns day D *and* day D+1), so the
+  chunks step apart by a day. Overlapping them silently double-counts every
+  anniversary day.
+* **The hero's `gh repo list` block is generated from `BUILDS`** (top five by
+  stars, ties in file order), so it can never contradict the cards below it.
+
+Still hand-written, because they are prose or name specific items rather than
+count things: `uptime 840 days`, the gist/script filenames, the commit hash and
+the `last push:` line.
 
 `refresh_stats.py` never touches the editorial fields, and `build.py` is
 deterministic: cards whose facts did not change come out byte-identical, so a
 refresh commit only contains the cards that actually moved.
 
 ```bash
-# refresh the counts, then redraw (a token avoids API rate limits)
+# refresh the counts, then redraw (a token avoids API rate limits; the
+# contributions total needs it - GraphQL cannot be called anonymously)
 GITHUB_TOKEN=$(gh auth token) python3 tools/profile-art/refresh_stats.py
-python3 tools/profile-art/build.py           # writes all 26 SVGs
+python3 tools/profile-art/build.py           # writes all 24 SVGs
 python3 tools/profile-art/refresh_stats.py --dry-run    # preview the diff only
 ```
+
+Without a token the repo counts still refresh but the contributions total is left
+alone rather than reported as zero.
 
 It also rewrites the `alt="…"` text of every card in `README.md`, which carries
 the same counts for screen readers, so the artwork and the alt text cannot drift

@@ -13,26 +13,8 @@ The mobile card also drops the shimmer, so phones get zero perpetual animation.
 from gen_common import *
 from gen_anim import style_block
 
-# Repo data lives in builds.json so it can be refreshed by machine:
-# tools/profile-art/refresh_stats.py rewrites the counts from the GitHub API and
-# build.py redraws every card from it. Field order per repo is
-# (repo, display name, language, language colour, licence, description,
-#  stars, forks, pulls, size_kb, last push).
-import json as _json
-import os as _os
-
-BUILDS_JSON = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "builds.json")
-
-
-def _load_builds():
-    with open(BUILDS_JSON, encoding="utf-8") as fh:
-        data = _json.load(fh)
-    return [(r["repo"], r["name"], r["language"], r["language_color"], r.get("license"),
-             r["description"], r["stars"], r["forks"], r["pulls"], r["size_kb"], r["pushed"])
-            for r in data["repos"]]
-
-
-BUILDS = _load_builds()
+# BUILDS / PROFILE / fmt come from card_data via the gen_common star
+# import: builds.json holds every value a machine can refresh.
 
 ACCENTS = [GREEN, CYAN, VIOLET, AMBER, PINK, "#60a5fa", GREEN_D, CYAN]
 

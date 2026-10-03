@@ -109,7 +109,9 @@ def hero(H=470):
     L_.append(C(78, 67, 9, fill="none", stroke=GREEN, sw=1, cls="pulse-soft"))
     L_.append(C(78, 67, 4.5, fill=GREEN, cls="pulse"))
     L_.append(T(93, 71.5, "SYSTEM.ONLINE", 11.5, GREEN, weight=500, ls=1.8))
-    L_.append(T(288, 71.5, "12 public repos · 309 stars · 1,041 contributions · since Jun 2024",
+    L_.append(T(288, 71.5,
+                f"{fmt(PROFILE['public_repos'])} public repos · {fmt(PROFILE['stars'])} stars · "
+                f"{fmt(PROFILE['contributions'])} contributions · since {PROFILE['created']}",
                 11, MUTED, ls=.6, cls="fade-in", style="animation-delay:2.2s"))
     L_.append(C(1078, 67, 5, fill="#ff6b60"))
     L_.append(T(1093, 71.5, "REC", 11.5, "#ff8f88", weight=500, ls=2.4))
@@ -177,6 +179,12 @@ def hero(H=470):
         L_.append(C(dx, t_y + 11, 5, fill=col, opacity=.95))
     L_.append(T(925, t_y + 16, "graywizard@cyber: ~/profile — zsh", 11.5, MUTED, anchor="middle"))
 
+    # Top repos by stars, drawn from the same live data as the build cards so
+    # the two can never disagree. Sorted descending; ties keep BUILDS order.
+    repo_rows = [(f"{name:<25}★ {stars:>3}   {lang.lower()}", "#c3d3e2", "")
+                 for _repo, name, lang, _col, _lic, _desc, stars, _f, _p, _kb, _push
+                 in sorted(BUILDS, key=lambda b: -b[6])[:5]]
+
     rows = [("$ neofetch --short", GREEN, "type"),
             ("os        Termux · Android 8+ · Linux", "#c3d3e2", ""),
             ("shell     bash · lua · python", "#c3d3e2", ""),
@@ -184,11 +192,7 @@ def hero(H=470):
             ("delivers  scripts, TUIs, extensions, forks", "#c3d3e2", ""),
             ("uptime    840 days (since Jun 2024)", "#c3d3e2", ""),
             ("$ gh repo list Graywizard888 --sort stars", GREEN, "type"),
-            ("Enhancify                ★ 201   shell", "#c3d3e2", ""),
-            ("Terminal_EX              ★  87   java", "#c3d3e2", ""),
-            ("GPlayDL-TUI              ★   8   python", "#c3d3e2", ""),
-            ("Gists_Collection         ★   5   lua", "#c3d3e2", ""),
-            ("Gemini-Setup             ★   3   shell", "#c3d3e2", ""),
+            *repo_rows,
             ("$ gist list --user Graywizard888", GREEN, "type"),
             ("audio_enhancer.lua   stereo / 5.1 / 7.1 EQ", "#c3d3e2", ""),
             ("auto_skip.lua        chapter skipper", "#c3d3e2", ""),
@@ -334,7 +338,8 @@ def about(H=468):
     # ---- footer strip
     L_.append(R(40, foot_y, 1120, 40, fill=PANEL2, rx=12, stroke=STROKE, sw=1.1))
     L_.append(T(66, foot_y + 25, "> Build. Break. Rebuild. Optimize.", 12.5, GREEN, weight=600))
-    L_.append(T(1134, foot_y + 25, "India (IST) · terminal-first · open source · 12 public repos",
+    L_.append(T(1134, foot_y + 25,
+                f"India (IST) · terminal-first · open source · {fmt(PROFILE['public_repos'])} public repos",
                 11.5, MUTED, anchor="end"))
 
     D, B = "\n".join(defs), "\n".join(L_)
