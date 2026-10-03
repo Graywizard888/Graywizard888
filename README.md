@@ -1,63 +1,82 @@
-![Header](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=Welcome%20to%20My%20Profile%20🙋&fontSize=40&animation=twinkling)
+<div align="center">
 
-![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Bitcount+Grid+Single&pause=1000&background=000000&center=true&vCenter=true&width=435&lines=Hii+!+I'm+%5BGraywizard%5D+%F0%9F%99%8B;Indian+Tech+Enthunsiast+%F0%9F%94%A7;Nickname+Unidentified+%E2%9D%8C;Free+Time+Developer+%F0%9F%A7%91%E2%80%8D%F0%9F%92%BB;Loves+To+Experiment+%F0%9F%94%AC)
+<!-- 🎬 HERO — cyber intro + name -->
+<img src="./hero.svg?v=1" alt="Hi, I'm Aditya (Graywizard) — script & automation developer" width="100%"/>
 
-![Graywizard's GitHub stats](https://github-readme-stats-beta-ten-76.vercel.app/api?username=graywizard888&show_icons=true&theme=tokyonight&rank_icon=rank)
+<br/><br/>
 
+<!-- 👨‍💻 LEFT: what I build   •   🎮 RIGHT: life outside code -->
+<img src="./about-life.svg?v=1" alt="What I build, and life beyond the code" width="100%"/>
 
-<h2 align="center">Worked On</h2>
+<br/><br/>
 
-<img align="left" alt="GitHub" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original-wordmark.svg" />
-<img align="left" alt="Python" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original-wordmark.svg" />
-<img align="left" alt="Linux" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" />
-<img align="left" alt="AndroidStudio" width="40px" style="padding-right:20px;"
-src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/androidstudio-original.svg" />
-<img align="left" alt="Java" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original-wordmark.svg" />
-<img align="left" alt="Kotlin" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kotlin/kotlin-original.svg" />
-<img align="left" alt="JetpackCompose" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jetpackcompose/jetpackcompose-original.svg" />
-<img align="left" alt="Bash" width="40px" style="padding-right:20px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" /> 
-<img align="left" alt="Lua" width="40px" style="padding-right:20px;"
-src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/lua/lua-plain.svg" /> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+<!-- 🧰 TECH STACK -->
+<img src="./stack.svg?v=1" alt="Tech stack" width="100%"/>
 
+<br/><br/>
 
-<h2 align="center"> Programming Status</h2>
-<img src="https://github-readme-stats-beta-ten-76.vercel.app/api/top-langs?username=Graywizard888&locale=en&hide_title=false&layout=donut&card_width=320&langs_count=5&theme=dracula&hide_border=false" height="150" alt="languages graph"  />
+<!-- 🪪 DEVELOPER ID + LIVE DASHBOARD -->
+<img src="./id-dashboard.svg?v=1" alt="Developer ID and dashboard" width="100%"/>
 
-<h2 align="center">My Featured Projects</h2>
-<a href="https://github.com/Graywizard888/Enhancify">
-  <img align="center" src="https://github-readme-stats-beta-ten-76.vercel.app/api/pin/?username=Graywizard888&repo=Enhancify&theme=algolia" />
-</a>
-<a href="https://github.com/Graywizard888/Terminal_EX">
-  <img align="center" src="https://github-readme-stats-beta-ten-76.vercel.app/api/pin/?username=Graywizard888&repo=Terminal_EX&theme=algolia" />
-</a>
-<a href="https://github.com/Graywizard888/Extension_Fetcher">
-  <img align="center" src="https://github-readme-stats-beta-ten-76.vercel.app/api/pin/?username=Graywizard888&repo=Extension_Fetcher&theme=algolia" />
-</a>
-<a href="https://github.com/Graywizard888/Custom-Enhancify-aapt2-binary">
-  <img align="center" src="https://github-readme-stats-beta-ten-76.vercel.app/api/pin/?username=Graywizard888&repo=Custom-Enhancify-aapt2-binary&theme=algolia" />
-</a>
-<a href="https://github.com/Graywizard888/GPlayDL-TUI">
-  <img align="center" src="https://github-readme-stats-beta-ten-76.vercel.app/api/pin/?username=Graywizard888&repo=GPlayDL-TUI&theme=algolia" />
-</a>
-<a href="https://github.com/Graywizard888/Gists_Collection">
-  <img align="center" src="https://github-readme-stats-beta-ten-76.vercel.app/api/pin/?username=Graywizard888&repo=Gists_Collection&theme=algolia" />
-</a>
-<a href="https://github.com/Graywizard888/Claude_code_setup">
-  <img align="center" src="https://github-readme-stats-beta-ten-76.vercel.app/api/pin/?username=Graywizard888&repo=Claude_code_setup&theme=algolia" />
-</a>
+<br/><br/>
 
-<h2 align="center">Support My Work</h2>
+</div>
 
-<p align="center">
-<a href="https://github.com/sponsors/Graywizard888">
-    <img src="https://img.shields.io/badge/Sponsor-GitHub-green?style=for-the-badge&logo=github-sponsors" height="50" />
-  </a>
-</p>
+## ⚡ Featured builds
 
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer" />
-</p>
-          
-          
+*Everything here started as one personal annoyance — then became a repo someone else could use.*
 
-          
+| Project | What it is | Stack | Stars |
+|:---|:---|:---|:---:|
+| [**Enhancify**](https://github.com/Graywizard888/Enhancify) | The only custom Revancify — extra features, more customization, harder to keep track of | `Shell` | ⭐ 201 |
+| [**Terminal_EX**](https://github.com/Graywizard888/Terminal_EX) | Termux Monet fork — a terminal for Android 8+ that's extendible with packages, now with Monet theming | `Java` | ⭐ 87 |
+| [**GPlayDL-TUI**](https://github.com/Graywizard888/GPlayDL-TUI) | Feature-rich terminal UI for downloading Android APKs from Google Play | `Python` | ⭐ 8 |
+| [**Gists_Collection**](https://github.com/Graywizard888/Gists_Collection) | The collection of my Gists — mpv scripting, audio pipelines and day-to-day hacks | `Lua` `Bash` | ⭐ 5 |
+| [**Gemini-Setup**](https://github.com/Graywizard888/Gemini-Setup) | One-command installer + configurator for Gemini CLI, built with privacy in mind | `Shell` | ⭐ 3 |
+| [**Extension_Fetcher**](https://github.com/Graywizard888/Extension_Fetcher) | Download any extension by its ID — no browser required | `Python` | ⭐ 3 |
+| [**MovieBox-TUI-Mastered**](https://github.com/Graywizard888/MovieBox-Tui-Mastered) | Terminal interface to find, download and stream movies, TV and live TV in your local player | `Rust` | ⭐ 1 |
+| [**Claude_code_setup**](https://github.com/Graywizard888/Claude_code_setup) | Self-contained, one-command Claude Code setup for Android Termux | `Python` | ⭐ 1 |
+
+<details>
+<summary><b>🎧 Also shipped: four mpv / Lua scripts used daily</b></summary>
+<br/>
+
+| Script | What it does |
+|:---|:---|
+| [**auto_skip**](https://gist.github.com/Graywizard888/9ac8bdf1947063407d11079144b75474) | Auto chapter skipper — opening, credits, preview, intro, outro, ending |
+| [**audio_enhancer**](https://gist.github.com/Graywizard888/ba9ce533c4117ae58af29ae3ec5ce71b) | Industry-grade audio enhancement for mpv Android — stereo/mono/5.1/7.1 + smart normalisation |
+| [**Duration_OSD**](https://gist.github.com/Graywizard888/44c76b134d576cf299df8908672295c8) | MX Player–style always-on video duration overlay |
+| [**Up_next**](https://gist.github.com/Graywizard888/88d78790a86b2d905c02b82421e6db57) | Up-next episode overlay with proper on-screen display |
+
+</details>
+
+<div align="center">
+
+<br/>
+
+## 🌆 My contribution city
+
+*Every commit builds another tower — rebuilt automatically every day.*
+
+<img src="./profile-3d-contrib/profile-night-green.svg" alt="3D contribution city" width="100%"/>
+
+<br/><br/>
+
+<!-- 💌 LET'S CONNECT -->
+<img src="./connect.svg?v=1" alt="Let's connect" width="100%"/>
+
+<a href="https://github.com/Graywizard888"><img src="https://img.shields.io/badge/GitHub-22d3ee?style=for-the-badge&logo=github&logoColor=0d0e16" alt="GitHub"/></a>
+<a href="https://t.me/Graywizard_projects"><img src="https://img.shields.io/badge/Telegram-4ade80?style=for-the-badge&logo=telegram&logoColor=0d0e16" alt="Telegram"/></a>
+<a href="https://gist.github.com/Graywizard888"><img src="https://img.shields.io/badge/mpv%20scripts-a78bfa?style=for-the-badge&logo=lua&logoColor=0d0e16" alt="mpv scripts"/></a>
+<a href="https://website-src-seven.vercel.app/"><img src="https://img.shields.io/badge/Portfolio-fbbf24?style=for-the-badge&logo=vercel&logoColor=0d0e16" alt="Portfolio"/></a>
+<a href="https://github.com/sponsors/Graywizard888"><img src="https://img.shields.io/badge/Sponsor-f472b6?style=for-the-badge&logo=githubsponsors&logoColor=0d0e16" alt="Sponsor"/></a>
+
+<br/><br/>
+
+<img src="https://komarev.com/ghpvc/?username=Graywizard888&color=4ade80&style=for-the-badge&label=PROFILE+VIEWS" alt="Profile views"/>
+
+<br/>
+
+**Build. Break. Rebuild. Optimize.** 💚
+
+</div>
