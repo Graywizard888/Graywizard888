@@ -42,9 +42,6 @@ def hero():
         f'<stop offset=".78" stop-color="{CYAN}"/><stop offset="1" stop-color="#60a5fa"/></linearGradient>',
         '<linearGradient id="hTerm" x1="0" y1="0" x2=".4" y2="1">'
         f'<stop offset="0" stop-color="#101a24"/><stop offset="1" stop-color="#080e15"/></linearGradient>',
-        '<linearGradient id="hShine" x1="0" y1="0" x2="1" y2="0">'
-        '<stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/>'
-        '<stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>',
         '<linearGradient id="hScan" x1="0" y1="0" x2="0" y2="1">'
         f'<stop offset="0" stop-color="{CYAN}" stop-opacity="0"/><stop offset=".5" stop-color="{CYAN}" stop-opacity=".5"/>'
         f'<stop offset="1" stop-color="{CYAN}" stop-opacity="0"/></linearGradient>',
@@ -59,8 +56,6 @@ def hero():
         '<pattern id="hScanLines" width="4" height="4" patternUnits="userSpaceOnUse">'
         '<rect width="4" height="1.1" fill="#000" opacity=".55"/></pattern>',
         f'<clipPath id="hClip"><rect width="{W}" height="{H}" rx="16"/></clipPath>',
-        '<clipPath id="hTitle"><text x="58" y="228" font-size="82" font-weight="800" '
-        f'letter-spacing="1.5" font-family="{MONO}">GRAYWIZARD</text></clipPath>',
         '<filter id="hBlur" x="-25%" y="-60%" width="150%" height="220%">'
         '<feGaussianBlur stdDeviation="9"/></filter>',
     ]
@@ -78,8 +73,7 @@ def hero():
     # matrix rain
     L_.append(rain(W, H, cols=15, chars_per_block=14, x0=-30, seed=11))
     # floating code glyphs
-    for gx, gy, s, op in [(560, 96, "$", .30), (620, 402, "#", .26), (500, 320, ">", .22),
-                          (118, 120, "{", .20), (610, 200, "=", .18), (232, 430, "}", .20)]:
+    for gx, gy, s, op in [(560, 96, "$", .30), (118, 120, "{", .20), (500, 320, ">", .22)]:
         L_.append(T(gx, gy, s, 22, GREEN, cls="float", opacity=op,
                     style=f"animation-duration:{rnd.uniform(5.5,8.5):.1f}s;animation-delay:-{rnd.uniform(0,4):.1f}s"))
     # CRT scanlines + travelling scan bar + vignette
@@ -93,7 +87,7 @@ def hero():
     L_.append(C(78, 67, 9, fill="none", stroke=GREEN, sw=1, cls="pulse-soft"))
     L_.append(C(78, 67, 4.5, fill=GREEN, cls="pulse"))
     L_.append(T(93, 71.5, "SYSTEM.ONLINE", 11.5, GREEN, weight=500, ls=1.8))
-    L_.append(C(1078, 67, 5, fill="#ff6b60", cls="pulse"))
+    L_.append(C(1078, 67, 5, fill="#ff6b60"))
     L_.append(T(1093, 71.5, "REC", 11.5, "#ff8f88", weight=500, ls=2.4))
     L_.append(T(288, 71.5, "12 public repos · 309 stars · 1,041 contributions · since Jun 2024",
                 11, MUTED, ls=.6, cls="fade-in", style="animation-delay:2.2s"))
@@ -103,14 +97,12 @@ def hero():
     L_.append(T(58, 228, "GRAYWIZARD", 82, GREEN, weight=800, family=MONO, ls=1.5,
                 opacity=.55, style='filter:url(#hBlur)'))
     L_.append(T(58, 228, "GRAYWIZARD", 82, "url(#hName)", weight=800, family=MONO, ls=1.5))
-    L_.append(G(G(R(-320, 150, 200, 110, fill="url(#hShine)", opacity=.9), cls="shine"), clip="url(#hTitle)"))
 
     role_clip, role_body = typing_line("hRole", 62, 266,
                                        "Coder • Gamer • System Architect • Digital Phantom",
                                        17.5, "#d3e6f5", 540, delay=.65, dur=2.0)
     defs.append(role_clip)
     L_.append(role_body)
-    L_.append(R(592, 252, 9, 18, fill=CYAN, cls="blink"))
 
     chips = [("Aditya", 76, GREEN, .45), ("he/him", 76, CYAN, .45),
              ("India • IST", 110, VIOLET, .45), ("terminal-first", 133, AMBER, .35)]
@@ -124,15 +116,15 @@ def hero():
 
     # equaliser: bars live inside translate-groups so scaleY grows upward
     ex = 62
-    for i in range(30):
-        h = rnd.uniform(12, 42)
+    for i in range(15):
+        h = rnd.uniform(16, 46)
         col = CYAN if i % 7 == 3 else (GREEN if i % 3 else GREEN_D)
-        L_.append(G(R(0, -h, 6, h, fill=col, rx=3, opacity=.85, cls="eq",
-                      style=f"animation-duration:{rnd.uniform(.75,1.35):.2f}s;"
+        L_.append(G(R(0, -h, 8, h, fill=col, rx=4, opacity=.85, cls="eq",
+                      style=f"animation-duration:{rnd.uniform(.85,1.45):.2f}s;"
                             f"animation-delay:-{rnd.uniform(0,1.2):.2f}s"),
                     transform=f"translate({ex},{430})"))
-        ex += 12
-    L_.append(T(440, 412, "// ambient: mpv + lua audio pipeline", 11, MUTED))
+        ex += 15
+    L_.append(T(316, 412, "// ambient: mpv + lua audio pipeline", 11, MUTED))
 
     # --- terminal card
     L_.append(R(696, 96, 470, 300, fill="#000", rx=12, opacity=.4))
@@ -177,7 +169,7 @@ def hero():
     L_.append(T(82, 450.5, "00:00", 11, MUTED))
     L_.append(R(128, 444, 940, 4, fill="#16222e", rx=2))
     L_.append(G(R(0, 0, 940, 4, fill="url(#hBar)", rx=2, cls="grow-x",
-                  style="animation-duration:14s;animation-delay:0s;animation-iteration-count:infinite;animation-direction:normal;animation-timing-function:cubic-bezier(.45,.05,.55,.95)"),
+                  style="animation-duration:14s;animation-delay:0s;animation-iteration-count:infinite;animation-direction:alternate;animation-timing-function:cubic-bezier(.45,.05,.55,.95)"),
                 transform="translate(128,444)"))
     L_.append(T(1082, 450.5, "∞", 13, GREEN))
     L_.append(T(1140, 424, "cyber-portfolio os v4.0.0 · profile reel", 11, DIM, anchor="end"))
@@ -209,7 +201,7 @@ def about():
     for x in range(80, W, 80):
         L_.append(L(x, 0, x, H, stroke="#0f1a24", sw=1, opacity=.8))
     L_.append(R(0, 0, W, H, fill="url(#aScan)", opacity=.3))
-    L_.append(hud_corners(10, 10, W - 20, H - 20, CYAN, 24, 2, .45))
+    L_.append(hud_corners(10, 10, W - 20, H - 20, CYAN, 24, 2, .45, cls=None))
 
     # ---- panel A : what I build
     L_.append(panel(40, 36, 536, 360, title="// system.capabilities", tag="live", accent=GREEN))
@@ -243,10 +235,12 @@ def about():
     ]
     ry = 176
     for i, (title, desc, col, icon) in enumerate(life):
+        icon_cls = "float" if i < 2 else ""
+        icon_style = f"animation-duration:{6 + i * .8:.1f}s;animation-delay:-{i * 1.3:.1f}s" if i < 2 else None
         L_.append(G(G(R(-22, -22, 44, 44, fill=col, rx=12, opacity=.1) +
                       R(-22, -22, 44, 44, fill="none", rx=12, stroke=col, sw=1.2, opacity=.55) +
                       icon(col),
-                      cls="float", style=f"animation-duration:{6 + i * .8:.1f}s;animation-delay:-{i * 1.3:.1f}s"),
+                      cls=icon_cls or None, style=icon_style),
                     transform=f"translate(670,{ry - 8})", cls="fade-in"))
         L_.append(T(708, ry, title, 14.5, TEXT, weight=600, cls="fade-up",
                     style=f"animation-delay:{.15 + i * .12:.2f}s"))

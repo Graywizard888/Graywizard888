@@ -4,10 +4,17 @@
 <filter id="cGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter><style>
   .mono-label { letter-spacing: 1.4px; }
 
+  /* font stacks are declared once here instead of on every text node */
+  .fm { font-family:'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace; }
+  .fs { font-family:'Inter','Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; }
+
   /* rain columns: each column holds 3 stacked blocks of `period`, so a
      translate of exactly one period loops seamlessly */
   .rain { animation-name: fall; animation-timing-function: linear;
-           animation-iteration-count: infinite; }
+           animation-iteration-count: infinite;
+           /* one layer per sheet: translate only, no per-frame text raster */
+           will-change: transform; }
+  .rain text { text-anchor: middle; }
   @keyframes fall { from { transform: translateY(-470px); } to { transform: translateY(0px); } }
 
   .breathe { animation: breathe 3.4s ease-in-out infinite; }
@@ -83,6 +90,10 @@
 
   .drift { animation: drift 12s ease-in-out infinite; }
   @keyframes drift { 0%,100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; }
+  }
 </style></defs><g clip-path="url(#cClip)"><rect x="0" y="0" width="1200" height="258" rx="16" fill="url(#cBg)"/>
 <line x1="60" y1="0" x2="60" y2="258" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
 <line x1="120" y1="0" x2="120" y2="258" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
@@ -104,44 +115,44 @@
 <line x1="1080" y1="0" x2="1080" y2="258" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
 <line x1="1140" y1="0" x2="1140" y2="258" stroke="#0f1a24" stroke-width="1" stroke-linecap="butt" opacity="0.7"/>
 <rect x="0" y="0" width="1200" height="258" fill="url(#cScan)" opacity="0.28"/>
-<path d="M10 42 L10 10 L42 10 M1158 10 L1190 10 L1190 42 M1190 216 L1190 248 L1158 248 M42 248 L10 248 L10 216" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" class="breathe"/>
+<path d="M10 42 L10 10 L42 10 M1158 10 L1190 10 L1190 42 M1190 216 L1190 248 L1158 248 M42 248 L10 248 L10 216" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.45"/>
 <rect x="56" y="28" width="4" height="12" rx="2" fill="#22d3ee"/>
-<text x="68" y="38" font-size="12.5" fill="#a8bccd" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" letter-spacing="1.6">// connect</text>
-<text x="1144" y="38" font-size="11" fill="#718799" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" text-anchor="end" letter-spacing="1">secure channels · open to collaboration</text>
+<text x="68" y="38" font-size="12.5" fill="#a8bccd" letter-spacing="1.6" class="None fm">// connect</text>
+<text x="1144" y="38" font-size="11" fill="#718799" text-anchor="end" letter-spacing="1" class="None fm">secure channels · open to collaboration</text>
 <rect x="40" y="60" width="265" height="118" rx="14" fill="#0d141d" stroke="#1a2836" stroke-width="1.1"/>
 <rect x="40" y="60" width="265" height="3" rx="1.5" fill="#22A7E0" opacity="0.85"/>
 <path d="M62 98 L92 84 L82 116 L73 103 Z" fill="#22A7E0" opacity="0.9"/>
 <path d="M73 103 L92 84" fill="none" stroke="#05070b" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
 <circle cx="100" cy="96" r="3" fill="#22A7E0" class="pulse"/>
-<text x="114" y="92" font-size="11" fill="#718799" font-weight="600" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" letter-spacing="1.8">TELEGRAM</text>
-<text x="114" y="116" font-size="13.5" fill="#22A7E0" font-weight="600" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">@Graywizard_projects</text>
-<text x="64" y="150" font-size="10.5" fill="#4d6070" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">t.me/Graywizard_projects</text>
+<text x="114" y="92" font-size="11" fill="#718799" font-weight="600" letter-spacing="1.8" class="None fm">TELEGRAM</text>
+<text x="114" y="116" font-size="13.5" fill="#22A7E0" font-weight="600" class="None fm">@Graywizard_projects</text>
+<text x="64" y="150" font-size="10.5" fill="#4d6070" class="None fm">t.me/Graywizard_projects</text>
 <path d="M273 158 l10 -10 M273 148 h10 v10" fill="none" stroke="#22A7E0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
 <rect x="325" y="60" width="265" height="118" rx="14" fill="#0d141d" stroke="#1a2836" stroke-width="1.1"/>
 <rect x="325" y="60" width="265" height="3" rx="1.5" fill="#E6EDF3" opacity="0.85"/>
 <g transform="translate(349,84) scale(1.75)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.20 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" fill="#E6EDF3"/></g>
-<text x="399" y="92" font-size="11" fill="#718799" font-weight="600" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" letter-spacing="1.8">GITHUB</text>
-<text x="399" y="116" font-size="13.5" fill="#E6EDF3" font-weight="600" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">@Graywizard888</text>
-<text x="349" y="150" font-size="10.5" fill="#4d6070" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">github.com/Graywizard888</text>
+<text x="399" y="92" font-size="11" fill="#718799" font-weight="600" letter-spacing="1.8" class="None fm">GITHUB</text>
+<text x="399" y="116" font-size="13.5" fill="#E6EDF3" font-weight="600" class="None fm">@Graywizard888</text>
+<text x="349" y="150" font-size="10.5" fill="#4d6070" class="None fm">github.com/Graywizard888</text>
 <path d="M558 158 l10 -10 M558 148 h10 v10" fill="none" stroke="#E6EDF3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
 <rect x="610" y="60" width="265" height="118" rx="14" fill="#0d141d" stroke="#1a2836" stroke-width="1.1"/>
 <rect x="610" y="60" width="265" height="3" rx="1.5" fill="#4ADE80" opacity="0.85"/>
 <circle cx="646" cy="98" r="12" fill="none" stroke="#4ADE80" stroke-width="1.6"/>
 <path d="M634 98 h24 M646 86 a16 16 0 0 1 0 24 a16 16 0 0 1 0 -24" fill="none" stroke="#4ADE80" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="684" y="92" font-size="11" fill="#718799" font-weight="600" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" letter-spacing="1.8">PORTFOLIO</text>
-<text x="684" y="116" font-size="13.5" fill="#4ADE80" font-weight="600" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">website-src-seven</text>
-<text x="634" y="150" font-size="10.5" fill="#4d6070" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">website-src-seven.vercel.app/</text>
+<text x="684" y="92" font-size="11" fill="#718799" font-weight="600" letter-spacing="1.8" class="None fm">PORTFOLIO</text>
+<text x="684" y="116" font-size="13.5" fill="#4ADE80" font-weight="600" class="None fm">website-src-seven</text>
+<text x="634" y="150" font-size="10.5" fill="#4d6070" class="None fm">website-src-seven.vercel.app/</text>
 <path d="M843 158 l10 -10 M843 148 h10 v10" fill="none" stroke="#4ADE80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
 <rect x="895" y="60" width="265" height="118" rx="14" fill="#0d141d" stroke="#1a2836" stroke-width="1.1"/>
 <rect x="895" y="60" width="265" height="3" rx="1.5" fill="#FBBF24" opacity="0.85"/>
 <path d="M935 84 a14 14 0 1 0 0 28 a11.5 11.5 0 1 1 0 -28 z" fill="#FBBF24" opacity="0.95"/>
 <circle cx="925" cy="92" r="1.6" fill="#FBBF24" opacity="0.8"/>
 <circle cx="922" cy="101" r="1.1" fill="#FBBF24" opacity="0.5"/>
-<text x="969" y="92" font-size="11" fill="#718799" font-weight="600" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" letter-spacing="1.8">GISTS</text>
-<text x="969" y="116" font-size="13.5" fill="#FBBF24" font-weight="600" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">mpv · lua scripts</text>
-<text x="919" y="150" font-size="10.5" fill="#4d6070" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">gist.github.com/Graywizard888</text>
+<text x="969" y="92" font-size="11" fill="#718799" font-weight="600" letter-spacing="1.8" class="None fm">GISTS</text>
+<text x="969" y="116" font-size="13.5" fill="#FBBF24" font-weight="600" class="None fm">mpv · lua scripts</text>
+<text x="919" y="150" font-size="10.5" fill="#4d6070" class="None fm">gist.github.com/Graywizard888</text>
 <path d="M1128 158 l10 -10 M1128 148 h10 v10" fill="none" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
 <line x1="40" y1="200" x2="1160" y2="200" stroke="#1d2b3a" stroke-width="1" stroke-linecap="butt"/>
 <circle cx="56" cy="225" r="4.5" fill="#4ade80" class="pulse"/>
-<text x="68" y="229.5" font-size="11.5" fill="#718799" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace">open to collaboration · issue reports and PRs welcome · every repo MIT or GPL-3.0</text>
-<text x="1144" y="229.5" font-size="11.5" fill="#4d6070" font-family="'JetBrains Mono','Fira Code','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace" text-anchor="end">reply window: IST evenings</text></g><rect x="0.5" y="0.5" width="1199" height="257" rx="16" fill="none" stroke="#22303f" stroke-width="1"/></svg>
+<text x="68" y="229.5" font-size="11.5" fill="#718799" class="None fm">open to collaboration · issue reports and PRs welcome · every repo MIT or GPL-3.0</text>
+<text x="1144" y="229.5" font-size="11.5" fill="#4d6070" text-anchor="end" class="None fm">reply window: IST evenings</text></g><rect x="0.5" y="0.5" width="1199" height="257" rx="16" fill="none" stroke="#22303f" stroke-width="1"/></svg>

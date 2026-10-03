@@ -60,7 +60,7 @@ def card_ids():
     for x in range(60, W, 60):
         L_.append(L(x, 0, x, H, stroke="#0f1a24", sw=1, opacity=.7))
     L_.append(R(0, 0, W, H, fill="url(#idScan)", opacity=.28))
-    L_.append(hud_corners(10, 10, W - 20, H - 20, GREEN, 22, 2, .45))
+    L_.append(hud_corners(10, 10, W - 20, H - 20, GREEN, 22, 2, .45, cls=None))
 
     # ============================================================ ID CARD (left)
     L_.append(R(56, 46, 4, 12, fill=GREEN, rx=2))
@@ -69,14 +69,11 @@ def card_ids():
     L_.append(R(40, 60, 532, 304, fill=PANEL2, rx=14, stroke=STROKE2, sw=1.2))
     L_.append(G(R(0, 0, 532, 70, fill="url(#iHead)", opacity=.9), clip="url(#iHeadClip)"))
     # diagonal security strip inside the header
-    L_.append(G(R(0, 0, 6, 70, fill=GREEN, cls="drift"), transform="translate(300,60)",
+    L_.append(G(R(0, 0, 6, 70, fill=GREEN), transform="translate(300,60)",
                 clip="url(#iHeadClip)"))
     for i in range(6):
         L_.append(G(R(0, 0, 3, 70, fill=GREEN_D, opacity=.22), transform=f"translate({320 + i*26},60)",
                     clip="url(#iHeadClip)"))
-    L_.append(G(G(R(-300, 60, 130, 70, fill="url(#iShine)", opacity=.85, cls="holo",
-                   style="animation-duration:7s"),
-                 clip="url(#iHeadClip)")))
 
     # portrait block
     L_.append(R(38, 92, 132, 132, fill="#07120e", rx=12))
@@ -106,8 +103,9 @@ def card_ids():
     for i, c in enumerate(CHIPS):
         w = 22 + len(c) * 7.2
         L_.append(R(cx, 278, w, 26, fill="#101c26", rx=13, stroke=STROKE2, sw=1))
-        L_.append(C(cx + 12, 291, 2.6, fill=GREEN, opacity=.9, cls="pulse",
-                    style=f"animation-delay:{i * .3:.1f}s"))
+        L_.append(C(cx + 12, 291, 2.6, fill=GREEN, opacity=.9,
+                    cls="pulse" if i < 2 else None,
+                    style=f"animation-delay:{i * .3:.1f}s" if i < 2 else None))
         L_.append(T(cx + 20, 295.5, c, 11, SOFT))
         cx += w + 8
 
@@ -152,8 +150,9 @@ def card_ids():
     L_.append(T(790, 194, "// primary languages", 10.5, MUTED, ls=1.2))
     ly = 216
     for i, (name, val, col) in enumerate(LANGS):
-        L_.append(C(796, ly - 4, 4.5, fill=col, cls="pulse-soft",
-                    style=f"animation-duration:4s;animation-delay:{i * .4:.1f}s"))
+        L_.append(C(796, ly - 4, 4.5, fill=col,
+                    cls="pulse-soft" if i < 2 else None,
+                    style=f"animation-duration:4s;animation-delay:{i * .4:.1f}s" if i < 2 else None))
         L_.append(T(810, ly, name, 12.5, SOFT, weight=500))
         L_.append(T(944, ly, f"{val}", 12.5, TEXT, weight=600, anchor="end"))
         ly += 25
@@ -173,10 +172,10 @@ def card_ids():
               f'<stop offset="1" stop-color="{GREEN}" stop-opacity="0"/></linearGradient>')
     L_.append(P(area, fill="url(#iArea)", cls="fade-in", style="animation-delay:.6s"))
     L_.append(P(d, stroke=GREEN, sw=1.8, cls="draw",
-                style=f"--len:520;animation-duration:2.2s;animation-delay:.5s"))
-    for i, (px, py) in enumerate(pts):
-        if WEEKLY[i] >= 20:
-            L_.append(C(px, py, 2.6, fill=GREEN, cls="pulse", style="animation-delay:.2s"))
+                style=f"--len:419;animation-duration:2.2s;animation-delay:.5s"))
+    peak = WEEKLY.index(max(WEEKLY))
+    px, py = pts[peak]
+    L_.append(C(px, py, 3.0, fill=GREEN, cls="pulse", style="animation-delay:.2s"))
     L_.append(L(1000, 304, 1180, 304, stroke="#1a2a38", sw=1))
     L_.append(T(1000, 322, "Jul 2026", 9.5, MUTED))
     L_.append(T(1180, 322, "Oct 2026", 9.5, MUTED, anchor="end"))

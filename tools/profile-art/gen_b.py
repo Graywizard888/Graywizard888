@@ -43,7 +43,7 @@ def stack():
     for x in range(60, W, 60):
         L_.append(L(x, 0, x, H, stroke="#0f1a24", sw=1, opacity=.7))
     L_.append(R(0, 0, W, H, fill="url(#sScan)", opacity=.28))
-    L_.append(hud_corners(10, 10, W - 20, H - 20, GREEN, 22, 2, .45))
+    L_.append(hud_corners(10, 10, W - 20, H - 20, GREEN, 22, 2, .45, cls=None))
     L_.append(R(56, 30, 4, 12, fill=GREEN, rx=2))
     L_.append(T(68, 40, "// tech_stack  ·  worked_on", 12.5, SOFT, ls=1.6))
     L_.append(T(1144, 40, "built with · shipped in", 11, MUTED, anchor="end", ls=1))
@@ -86,7 +86,7 @@ def connect():
     for x in range(60, W, 60):
         L_.append(L(x, 0, x, H, stroke="#0f1a24", sw=1, opacity=.7))
     L_.append(R(0, 0, W, H, fill="url(#cScan)", opacity=.28))
-    L_.append(hud_corners(10, 10, W - 20, H - 20, CYAN, 22, 2, .45))
+    L_.append(hud_corners(10, 10, W - 20, H - 20, CYAN, 22, 2, .45, cls=None))
     L_.append(R(56, 28, 4, 12, fill=CYAN, rx=2))
     L_.append(T(68, 38, "// connect", 12.5, SOFT, ls=1.6))
     L_.append(T(1144, 38, "secure channels · open to collaboration", 11, MUTED, anchor="end", ls=1))

@@ -30,11 +30,17 @@ def esc(s):
 
 def T(x, y, s, size=13, fill=TEXT, weight=400, family=MONO, anchor="start",
       opacity=None, ls=None, cls=None, style=None):
-    """Text node. y is the BASELINE (no dominant-baseline games -> max compatibility)."""
+    """Text node. y is the BASELINE (no dominant-baseline games -> max compatibility).
+    Font stacks live in CSS classes (.fm / .fs) so we don't repeat a ~110 char
+    font-family attribute on every one of a thousand text nodes."""
     a = [f'x="{x}"', f'y="{y}"', f'font-size="{size}"', f'fill="{fill}"']
     if weight != 400:
         a.append(f'font-weight="{weight}"')
-    if family:
+    if family == MONO:
+        cls = f"{cls} fm".strip()
+    elif family == SANS:
+        cls = f"{cls} fs".strip()
+    elif family:
         a.append(f'font-family="{family}"')
     if anchor != "start":
         a.append(f'text-anchor="{anchor}"')
@@ -124,37 +130,53 @@ def G(inner, transform=None, cls=None, style=None, opacity=None, clip=None):
 # ---------------------------------------------------------------- matrix rain
 _RAIN_POOL = list("01") * 6 + list("ABCDEF0123456789") + list("$#*+=:/\\>|<>[]{}()!?.~-")
 
+# (opacity scale, font size, colour pool, duration) — one entry per sheet.
+# Columns keep their own x jitter, phase and opacity; only the *speed* is shared
+# inside a sheet, so the rain reads the same while the engine moves 3 textures
+# instead of re-rasterising ~400 text glyphs every frame.
+_RAIN_SHEETS = [
+    (0.60, 12.5, (GREEN_D, CYAN), 9.60),
+    (0.82, 13.0, (GREEN_D, GREEN), 7.40),
+    (1.00, 13.5, (GREEN, CYAN), 5.80),
+]
 
-def rain(width, height, cols=14, block_h=None, dt=33.6, seed=7, x0=0, chars_per_block=14,
-         colors=None, keep=(0.34, 0.24, 0.42)):
-    """Seamless vertical rain: each column holds 3 stacked blocks of `block_h`,
-    so animating translateY by exactly block_h loops perfectly."""
+
+def rain(width, height, cols=15, block_h=None, dt=33.6, seed=7, x0=0, chars_per_block=14,
+         colors=None, keep=(0.34, 0.24, 0.42), sheets=3):
+    """Seamless vertical rain as `sheets` composited layers.
+
+    Every column holds 2 identical stacked blocks, so translating a sheet by
+    exactly `block_h` loops perfectly. Keeping the sheets whole (instead of one
+    animated group per column) means the engine moves 3 textures per frame
+    rather than re-rasterising ~400 text glyphs."""
     rnd = random.Random(seed)
     block_h = block_h or height
-    colors = colors or [GREEN_D, GREEN, CYAN]
     span = width / cols
-    out = []
+    buckets = [[] for _ in range(sheets)]
     for c in range(cols):
-        # column x jitter
-        x = x0 + span * c + span / 2 + rnd.uniform(-span * 0.18, span * 0.18)
-        dur = rnd.uniform(4.6, 9.2)
-        delay = -rnd.uniform(0, dur)
-        chars = []
-        for b in range(3):                       # 3 identical blocks -> seamless
+        si = c % sheets
+        oscale, fs, pool, _dur = _RAIN_SHEETS[si]
+        if colors:
+            pool = colors
+        x = round(x0 + span * c + span / 2 + rnd.uniform(-span * 0.18, span * 0.18), 1)
+        for b in range(2):   # two identical stacked blocks -> seamless -H..0 loop
             for i in range(chars_per_block):
-                y = b * block_h + i * (block_h / chars_per_block)
-                ch = rnd.choice(_RAIN_POOL)
                 r = rnd.random()
                 if r < keep[0]:
                     continue
-                elif r < keep[1] + 0.6:
-                    col, op, fs = rnd.choice(colors), rnd.uniform(0.10, 0.26), 13
+                y = round(b * block_h + i * (block_h / chars_per_block), 1)
+                ch = rnd.choice(_RAIN_POOL)
+                if r < keep[1] + 0.6:
+                    col, op = rnd.choice(pool), rnd.uniform(0.10, 0.26) * oscale
                 else:
-                    col, op, fs = GREEN, rnd.uniform(0.30, 0.62), 13.5
-                chars.append(T(round(x, 1), round(y, 1), ch, fs, col, family=MONO,
-                               anchor="middle", opacity=round(op, 2)))
-        inner = "".join(chars)
-        out.append(G(inner, cls="rain",
+                    col, op = GREEN, rnd.uniform(0.30, 0.62) * oscale
+                buckets[si].append(T(x, y, ch, fs, col, cls="fm",
+                                     opacity=round(min(op, 1.0), 2)))
+    out = []
+    for i, chars in enumerate(buckets):
+        dur = _RAIN_SHEETS[i][3]
+        delay = -round(random.Random(seed + 41 + i * 7).uniform(0, dur), 2)
+        out.append(G("".join(chars), cls="rain",
                      style=f"animation-duration:{dur:.2f}s;animation-delay:{delay:.2f}s"))
     return "".join(out)
 

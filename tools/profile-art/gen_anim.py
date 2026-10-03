@@ -1,13 +1,20 @@
 """Animation CSS + typed-line helper. Pure CSS/SVG (GitHub-safe: no scripts)."""
-from gen_common import T, G, esc, MONO
+from gen_common import T, G, esc, MONO, SANS
 
 CSS_VARS = f"""
   .mono-label {{ letter-spacing: 1.4px; }}
 
+  /* font stacks are declared once here instead of on every text node */
+  .fm {{ font-family:{MONO}; }}
+  .fs {{ font-family:{SANS}; }}
+
   /* rain columns: each column holds 3 stacked blocks of `period`, so a
      translate of exactly one period loops seamlessly */
   .rain {{ animation-name: fall; animation-timing-function: linear;
-           animation-iteration-count: infinite; }}
+           animation-iteration-count: infinite;
+           /* one layer per sheet: translate only, no per-frame text raster */
+           will-change: transform; }}
+  .rain text {{ text-anchor: middle; }}
   @keyframes fall {{ from {{ transform: translateY(-470px); }} to {{ transform: translateY(0px); }} }}
 
   .breathe {{ animation: breathe 3.4s ease-in-out infinite; }}
@@ -87,7 +94,7 @@ CSS_VARS = f"""
 
 
 def style_block(extra=""):
-    return "<style>" + CSS_VARS + extra + "</style>"
+    return "<style>" + CSS_VARS + reduced_motion_block() + extra + "</style>"
 
 
 def typing_line(cid, x, baseline, text, size, color, width, delay, dur=1.0,
@@ -101,3 +108,13 @@ def typing_line(cid, x, baseline, text, size, color, width, delay, dur=1.0,
     body = G(T(x, baseline, text, size, color, weight=weight, family=family, ls=ls),
              clip=f"url(#{cid})")
     return clip, body
+
+
+def reduced_motion_block():
+    """Honour the OS 'reduce motion' switch: one toggle on a phone turns every
+    card fully static, with the finished state showing."""
+    return """
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; }
+  }
+"""
