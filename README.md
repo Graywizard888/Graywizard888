@@ -36,8 +36,8 @@
      upright: the orbit takes a band across the top, the chips stack one group per
      row at ~2x the rendered type size, and both animations come along. -->
 <picture>
-  <source media="(max-width: 820px)" srcset="./stack-mobile.svg?v=1">
-  <img src="./stack.svg?v=1" alt="Tech stack" width="100%"/>
+  <source media="(max-width: 820px)" srcset="./stack-mobile.svg?v=2">
+  <img src="./stack.svg?v=2" alt="Tech stack" width="100%"/>
 </picture>
 
 <br/><br/>

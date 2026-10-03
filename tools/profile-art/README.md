@@ -156,6 +156,12 @@ Why they exist:
 layout before adding the footer band — so a longer stack cannot grow into the
 footer, because the footer is placed from the measured height.
 
+Bump `?v=` when a card's *artwork* changes and readers must see it — the number is
+hand-managed, nothing in `tools/` rewrites it, so without a bump a phone can keep
+the SVG it cached yesterday and show a card that no longer exists in the repo.
+Bump only the cards that moved: the two intro cards are 3 MB each and a needless
+re-download of them is a real cost on mobile data.
+
 GitHub keeps the `media` attribute and rewrites the relative `srcset` to a raw
 URL on the rendered page, so this works on the profile without any hosting.
 `media="(max-width: 820px)"` targets phones in portrait; tablets and desktop get
