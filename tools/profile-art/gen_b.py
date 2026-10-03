@@ -24,8 +24,8 @@ def tile(x, y, glyph, name, col, i):
     ])
 
 
-def stack():
-    W, H = 1200, 332
+def stack(H=332):
+    W = 1200
     PITCH, N = 140, 7
     pattern = N * PITCH
     defs = [
@@ -48,7 +48,8 @@ def stack():
     L_.append(T(68, 40, "// tech_stack  ·  worked_on", 12.5, SOFT, ls=1.6))
     L_.append(T(1144, 40, "built with · shipped in", 11, MUTED, anchor="end", ls=1))
 
-    rows = [(ROW1, 96, "marquee-l", GREEN), (ROW2, 204, "marquee-r", CYAN)]
+    row1_y, row2_y = 96, H - 128                      # marquees pinned to the edges
+    rows = [(ROW1, row1_y, "marquee-l", GREEN), (ROW2, row2_y, "marquee-r", CYAN)]
     for row, y, cls, col in rows:
         inner = []
         for rep in range(3):
@@ -57,11 +58,12 @@ def stack():
         L_.append(G("".join(inner), cls=cls,
                     style=f"--shift:-{pattern}px", transform=f"translate(0,{y})"))
     # edge fades so tiles slide in/out of the card cleanly
-    L_.append(R(0, 78, 96, 232, fill="url(#sFadeL)"))
-    L_.append(R(W - 96, 78, 96, 232, fill="url(#sFadeR)"))
-    L_.append(L(40, 300, 1160, 300, stroke=STROKE, sw=1))
-    L_.append(T(56, 319, "> 3 languages · Android tooling · shell automation · Lua scripts", 11.5, MUTED))
-    L_.append(T(1144, 319, "release builds on request", 11.5, DIM, anchor="end"))
+    fade_y, fade_h = row1_y - 18, (row2_y + 92 + 18) - (row1_y - 18)
+    L_.append(R(0, fade_y, 96, fade_h, fill="url(#sFadeL)"))
+    L_.append(R(W - 96, fade_y, 96, fade_h, fill="url(#sFadeR)"))
+    L_.append(L(40, H - 32, 1160, H - 32, stroke=STROKE, sw=1))
+    L_.append(T(56, H - 13, "> 3 languages · Android tooling · shell automation · Lua scripts", 11.5, MUTED))
+    L_.append(T(1144, H - 13, "release builds on request", 11.5, DIM, anchor="end"))
 
     D, B = "\n".join(defs), "\n".join(L_)
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
@@ -71,8 +73,8 @@ def stack():
 
 
 # ---------------------------------------------------------------- CONNECT
-def connect():
-    W, H = 1200, 258
+def connect(H=258):
+    W = 1200
     defs = [
         '<linearGradient id="cBg" x1="0" y1="0" x2=".6" y2="1">'
         f'<stop offset="0" stop-color="{BG1}"/><stop offset="1" stop-color="{BG0}"/></linearGradient>',
@@ -98,16 +100,17 @@ def connect():
         ("GISTS", "mpv · lua scripts", "https://gist.github.com/Graywizard888", "#FBBF24", "lua"),
     ]
     tw, gap = 265, 20
+    tile_y = 60 + (H - 258) * 0.38
     for i, (label, handle, url, col, kind) in enumerate(cards):
         x = 40 + i * (tw + gap)
-        L_.append(R(x, 60, tw, 118, fill=PANEL, rx=14, stroke="#1a2836", sw=1.1))
-        L_.append(R(x, 60, tw, 3, fill=col, rx=1.5, opacity=.85))
+        L_.append(R(x, tile_y, tw, 118, fill=PANEL, rx=14, stroke="#1a2836", sw=1.1))
+        L_.append(R(x, tile_y, tw, 3, fill=col, rx=1.5, opacity=.85))
         # icon
         if kind == "chan":
-            L_.append(P(f"M{x+22} {98} L{x+52} {84} L{x+42} {116} L{x+33} {103} Z",
+            L_.append(P(f"M{x+22} {tile_y+38} L{x+52} {tile_y+24} L{x+42} {tile_y+56} L{x+33} {tile_y+43} Z",
                         fill=col, opacity=.9))
-            L_.append(P(f"M{x+33} {103} L{x+52} {84}", stroke=BG0, sw=1.3, opacity=.75))
-            L_.append(C(x + 60, 96, 3, fill=col, cls="pulse"))
+            L_.append(P(f"M{x+33} {tile_y+43} L{x+52} {tile_y+24}", stroke=BG0, sw=1.3, opacity=.75))
+            L_.append(C(x + 60, tile_y + 36, 3, fill=col, cls="pulse"))
         elif kind == "gh":
             GH = ("M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49"
                   "-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82"
@@ -115,24 +118,25 @@ def connect():
                   "-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82"
                   ".44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2"
                   "0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z")
-            L_.append(G(P(GH, fill=col), transform=f"translate({x+24},84) scale(1.75)"))
+            L_.append(G(P(GH, fill=col), transform=f"translate({x+24},{tile_y+24}) scale(1.75)"))
         elif kind == "web":
-            L_.append(C(x + 36, 98, 12, stroke=col, sw=1.6))
-            L_.append(P(f"M{x+24} 98 h24 M{x+36} 86 a16 16 0 0 1 0 24 a16 16 0 0 1 0 -24", stroke=col, sw=1.3))
+            L_.append(C(x + 36, tile_y + 38, 12, stroke=col, sw=1.6))
+            L_.append(P(f"M{x+24} {tile_y+38} h24 M{x+36} {tile_y+26} a16 16 0 0 1 0 24 a16 16 0 0 1 0 -24", stroke=col, sw=1.3))
         else:
-            L_.append(P(f"M{x+40} 84 a14 14 0 1 0 0 28 a11.5 11.5 0 1 1 0 -28 z", fill=col, opacity=.95))
-            L_.append(C(x + 30, 92, 1.6, fill=col, opacity=.8))
-            L_.append(C(x + 27, 101, 1.1, fill=col, opacity=.5))
-        L_.append(T(x + 74, 92, label, 11, MUTED, ls=1.8, weight=600))
-        L_.append(T(x + 74, 116, handle, 13.5, col, weight=600))
-        L_.append(T(x + 24, 150, url.replace("https://", "")[:34], 10.5, DIM))
-        L_.append(P(f"M{x+tw-32} 158 l10 -10 M{x+tw-32} 148 h10 v10", stroke=col, sw=1.5, opacity=.8))
+            L_.append(P(f"M{x+40} {tile_y+24} a14 14 0 1 0 0 28 a11.5 11.5 0 1 1 0 -28 z", fill=col, opacity=.95))
+            L_.append(C(x + 30, tile_y + 32, 1.6, fill=col, opacity=.8))
+            L_.append(C(x + 27, tile_y + 41, 1.1, fill=col, opacity=.5))
+        L_.append(T(x + 74, tile_y + 32, label, 11, MUTED, ls=1.8, weight=600))
+        L_.append(T(x + 74, tile_y + 56, handle, 13.5, col, weight=600))
+        L_.append(T(x + 24, tile_y + 90, url.replace("https://", "")[:34], 10.5, DIM))
+        L_.append(P(f"M{x+tw-32} {tile_y+98} l10 -10 M{x+tw-32} {tile_y+88} h10 v10", stroke=col, sw=1.5, opacity=.8))
 
-    L_.append(L(40, 200, 1160, 200, stroke=STROKE, sw=1))
-    L_.append(C(56, 225, 4.5, fill=GREEN, cls="pulse"))
-    L_.append(T(68, 229.5, "open to collaboration · issue reports and PRs welcome · every repo MIT or GPL-3.0",
+    foot = H - 58
+    L_.append(L(40, foot, 1160, foot, stroke=STROKE, sw=1))
+    L_.append(C(56, foot + 25, 4.5, fill=GREEN, cls="pulse"))
+    L_.append(T(68, foot + 29.5, "open to collaboration · issue reports and PRs welcome · every repo MIT or GPL-3.0",
                 11.5, MUTED))
-    L_.append(T(1144, 229.5, "reply window: IST evenings", 11.5, DIM, anchor="end"))
+    L_.append(T(1144, foot + 29.5, "reply window: IST evenings", 11.5, DIM, anchor="end"))
 
     D, B = "\n".join(defs), "\n".join(L_)
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '

@@ -35,8 +35,10 @@ def donut(cx, cy, r, sw, parts, gap_deg=2.6):
     return "".join(out)
 
 
-def card_ids():
-    W, H = 1200, 404
+def card_ids(H=404):
+    W = 1200
+    d = H - 404
+    card_b = 364 + d                       # bottom edge of the ID card
     defs = [
         '<linearGradient id="iBg" x1="0" y1="0" x2=".6" y2="1">'
         f'<stop offset="0" stop-color="{BG1}"/><stop offset="1" stop-color="{BG0}"/></linearGradient>',
@@ -66,7 +68,7 @@ def card_ids():
     L_.append(R(56, 46, 4, 12, fill=GREEN, rx=2))
     L_.append(T(68, 56, "// developer_id", 12.5, SOFT, ls=1.6))
     L_.append(T(584, 56, "GW-888 · IST 05:30", 11, MUTED, anchor="end", ls=1))
-    L_.append(R(40, 60, 532, 304, fill=PANEL2, rx=14, stroke=STROKE2, sw=1.2))
+    L_.append(R(40, 60, 532, 304 + d, fill=PANEL2, rx=14, stroke=STROKE2, sw=1.2))
     L_.append(G(R(0, 0, 532, 70, fill="url(#iHead)", opacity=.9), clip="url(#iHeadClip)"))
     # diagonal security strip inside the header
     L_.append(G(R(0, 0, 6, 70, fill=GREEN), transform="translate(300,60)",
@@ -99,31 +101,44 @@ def card_ids():
         L_.append(T(190, y, k, 10, MUTED, ls=1.6))
         L_.append(T(248, y, v, 12.5, col, weight=500))
         y += 26
+    # activity record — fills the extra room at taller sizes with real numbers
+    years = [("2026", "393 commits · 7 PRs · 19 issues", GREEN),
+             ("2025", "574 commits · 30 issues", CYAN),
+             ("2024", "first commit, Jun — 5 contributions", DIM)]
+    y_top, y_bot = 278, (card_b - 86) - 14
+    shown_years = max(0, min(3, int((y_bot - y_top) // 24)))
+    if shown_years:
+        L_.append(L(190, y_top - 12, 556, y_top - 12, stroke=STROKE, sw=1))
+        for i, (yr, txt, col) in enumerate(years[:shown_years]):
+            yy = y_top + 8 + i * 24
+            L_.append(T(190, yy, yr, 11.5, col, weight=600))
+            L_.append(T(236, yy, txt, 11.5, MUTED))
+
     cx = 190
     for i, c in enumerate(CHIPS):
         w = 22 + len(c) * 7.2
-        L_.append(R(cx, 278, w, 26, fill="#101c26", rx=13, stroke=STROKE2, sw=1))
-        L_.append(C(cx + 12, 291, 2.6, fill=GREEN, opacity=.9,
+        L_.append(R(cx, card_b - 86, w, 26, fill="#101c26", rx=13, stroke=STROKE2, sw=1))
+        L_.append(C(cx + 12, card_b - 73, 2.6, fill=GREEN, opacity=.9,
                     cls="pulse" if i < 2 else None,
                     style=f"animation-delay:{i * .3:.1f}s" if i < 2 else None))
-        L_.append(T(cx + 20, 295.5, c, 11, SOFT))
+        L_.append(T(cx + 20, card_b - 68.5, c, 11, SOFT))
         cx += w + 8
 
     # footer: signature strip + barcode
-    L_.append(L(40, 314, 572, 314, stroke=STROKE, sw=1))
-    L_.append(T(64, 334, "SIGNED", 8.5, MUTED, ls=2))
-    L_.append(P("M64 348 q9 -8 18 0 q9 -8 18 0 q8 -7 17 0", stroke=GREEN, sw=1.2, opacity=.55))
+    L_.append(L(40, card_b - 50, 572, card_b - 50, stroke=STROKE, sw=1))
+    L_.append(T(64, card_b - 30, "SIGNED", 8.5, MUTED, ls=2))
+    L_.append(P(f"M64 {card_b-16} q9 -8 18 0 q9 -8 18 0 q8 -7 17 0", stroke=GREEN, sw=1.2, opacity=.55))
     rr = random.Random(5)
     bx = 176
     for i in range(30):
         w = rr.choice([1.4, 2.4, 3.4])
-        L_.append(R(bx, 324, w, 24, fill="#c9d8e6", opacity=rr.uniform(.4, .95), rx=.4))
+        L_.append(R(bx, card_b - 40, w, 24, fill="#c9d8e6", opacity=rr.uniform(.4, .95), rx=.4))
         bx += w + rr.choice([2.0, 3.0])
-    L_.append(T(556, 338, "member since Jun 2024", 10, MUTED, anchor="end", ls=.4))
-    L_.append(T(556, 324, "ID · GW-888-2024-IST", 10, DIM, anchor="end", ls=.8))
+    L_.append(T(556, card_b - 26, "member since Jun 2024", 10, MUTED, anchor="end", ls=.4))
+    L_.append(T(556, card_b - 40, "ID · GW-888-2024-IST", 10, DIM, anchor="end", ls=.8))
 
     # ============================================================ DASHBOARD (right)
-    L_.append(R(616, 60, 544, 304, fill=BG0, rx=14, stroke=STROKE, sw=1.1, opacity=.72))
+    L_.append(R(616, 60, 544, 304 + d, fill=BG0, rx=14, stroke=STROKE, sw=1.1, opacity=.72))
     L_.append(R(636, 46, 4, 12, fill=CYAN, rx=2))
     L_.append(T(648, 56, "// system_dashboard", 12.5, SOFT, ls=1.6))
     L_.append(T(1180, 56, "snapshot · 03 Oct 2026", 11, MUTED, anchor="end", ls=1))
@@ -142,13 +157,14 @@ def card_ids():
     L_.append(L(636, 170, 1180, 170, stroke=STROKE, sw=1))
 
     # donut + legend
-    L_.append(C(716, 250, 46, fill="none", stroke="#16222e", sw=18))
-    L_.append(donut(716, 250, 46, 18, [(v, c) for _, v, c in LANGS]))
-    L_.append(T(716, 245, str(sum(v for _, v, _ in LANGS)), 26, TEXT, weight=700,
+    donut_cy = 250 + d * 0.5                      # charts grow with the card
+    L_.append(C(716, donut_cy, 46, fill="none", stroke="#16222e", sw=18))
+    L_.append(donut(716, donut_cy, 46, 18, [(v, c) for _, v, c in LANGS]))
+    L_.append(T(716, donut_cy - 5, str(sum(v for _, v, _ in LANGS)), 26, TEXT, weight=700,
                 anchor="middle", cls="fade-in", style="animation-delay:.9s"))
-    L_.append(T(716, 264, "repos coded", 9.5, MUTED, anchor="middle", ls=.6))
-    L_.append(T(790, 194, "// primary languages", 10.5, MUTED, ls=1.2))
-    ly = 216
+    L_.append(T(716, donut_cy + 14, "repos coded", 9.5, MUTED, anchor="middle", ls=.6))
+    ly = donut_cy - 60                            # legend centred on the donut
+    L_.append(T(790, ly - 20, "// primary languages", 10.5, MUTED, ls=1.2))
     for i, (name, val, col) in enumerate(LANGS):
         L_.append(C(796, ly - 4, 4.5, fill=col,
                     cls="pulse-soft" if i < 2 else None,
@@ -157,36 +173,38 @@ def card_ids():
         L_.append(T(944, ly, f"{val}", 12.5, TEXT, weight=600, anchor="end"))
         ly += 25
     L_.append(T(1000, 194, "// weekly commits", 10.5, MUTED, ls=1.2))
-    L_.append(T(1180, 216, "peak 40", 9.5, DIM, anchor="end"))
+    L_.append(T(1180, 208 + d * 0.5, "peak 40", 9.5, DIM, anchor="end"))
 
     # sparkline of the same weekly series (real data)
     pts, mn, mx = [], min(WEEKLY), max(WEEKLY)
+    chart_h = 96 + d * 0.6                        # taller card -> taller chart
+    base_y = card_b - 60
     for i, v in enumerate(WEEKLY):
         px = 1000 + i * (180 / (len(WEEKLY) - 1))
-        py = 300 - (v / mx) * 96
+        py = (base_y - 4) - (v / mx) * chart_h
         pts.append((px, py))
-    d = "M" + " L".join(f"{px:.1f} {py:.1f}" for px, py in pts)
-    area = d + f" L{pts[-1][0]:.1f} 304 L{pts[0][0]:.1f} 304 Z"
+    path = "M" + " L".join(f"{px:.1f} {py:.1f}" for px, py in pts)
+    area = path + f" L{pts[-1][0]:.1f} {base_y} L{pts[0][0]:.1f} {base_y} Z"
     L_.append(f'<linearGradient id="iArea" x1="0" y1="0" x2="0" y2="1">'
               f'<stop offset="0" stop-color="{GREEN}" stop-opacity=".45"/>'
               f'<stop offset="1" stop-color="{GREEN}" stop-opacity="0"/></linearGradient>')
     L_.append(P(area, fill="url(#iArea)", cls="fade-in", style="animation-delay:.6s"))
-    L_.append(P(d, stroke=GREEN, sw=1.8, cls="draw",
+    L_.append(P(path, stroke=GREEN, sw=1.8, cls="draw",
                 style=f"--len:419;animation-duration:2.2s;animation-delay:.5s"))
     peak = WEEKLY.index(max(WEEKLY))
     px, py = pts[peak]
     L_.append(C(px, py, 3.0, fill=GREEN, cls="pulse", style="animation-delay:.2s"))
-    L_.append(L(1000, 304, 1180, 304, stroke="#1a2a38", sw=1))
-    L_.append(T(1000, 322, "Jul 2026", 9.5, MUTED))
-    L_.append(T(1180, 322, "Oct 2026", 9.5, MUTED, anchor="end"))
+    L_.append(L(1000, base_y, 1180, base_y, stroke="#1a2a38", sw=1))
+    L_.append(T(1000, base_y + 18, "Jul 2026", 9.5, MUTED))
+    L_.append(T(1180, base_y + 18, "Oct 2026", 9.5, MUTED, anchor="end"))
 
     # footer strip inside the dashboard
-    L_.append(L(636, 344, 1180, 344, stroke=STROKE, sw=1))
-    L_.append(C(644, 360, 4, fill=GREEN, cls="pulse"))
-    L_.append(T(656, 364, "12 repos · 309 stars · 1,041 contributions · 4 gists · since Jun 2024",
+    L_.append(L(636, card_b - 20, 1180, card_b - 20, stroke=STROKE, sw=1))
+    L_.append(C(644, card_b - 4, 4, fill=GREEN, cls="pulse"))
+    L_.append(T(656, card_b, "12 repos · 309 stars · 1,041 contributions · 4 gists · since Jun 2024",
                 10.5, MUTED))
     # closing rule under the dashboard
-    L_.append(L(636, 378, 1180, 378, stroke="#182838", sw=1, opacity=.7))
+    L_.append(L(636, H - 26, 1180, H - 26, stroke="#182838", sw=1, opacity=.7))
 
     D, B = "\n".join(defs), "\n".join(L_)
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '

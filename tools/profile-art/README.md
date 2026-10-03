@@ -6,6 +6,23 @@ Generator for the animated SVG cards used by the profile README.
 python3 tools/profile-art/build.py     # rewrites the *.svg files in the repo root
 ```
 
+## Card heights
+
+Every card takes a height argument and recomposes its layout to fill it — taller
+never means emptier. `build_final.py` shows the values currently in use:
+
+| Card | Function | Current | What a taller card does |
+|:---|:---|---:|:---|
+| `hero.svg` | `hero(H)` | **640** | terminal earns extra `gh repo list` / `gist list` output, boot log appears, wordmark + equaliser scale |
+| `about-life.svg` | `about(H)` | **560** | capability bars and life rows spread, footer pins to the bottom edge |
+| `stack.svg` | `stack(H)` | **392** | the two marquees move to the top/bottom edges |
+| `id-dashboard.svg` | `card_ids(H)` | **500** | ID card gains the activity record (commits per year), donut and 26-week chart grow |
+| `connect.svg` | `connect(H)` | **300** | contact tiles centre, footer pins to the bottom edge |
+
+Any value from ~420 to ~800 works for the hero; the others scale proportionally.
+Because the README sets `width="100%"` and the SVG carries no CSS height, the
+rendered height follows the intrinsic aspect ratio — so changing `H` is all it takes.
+
 * `gen_common.py` — design tokens (palette, fonts), SVG primitives, matrix-rain
   and odometer helpers.
 * `gen_anim.py` — the CSS/keyframes library. Pure CSS animation, no JavaScript,
