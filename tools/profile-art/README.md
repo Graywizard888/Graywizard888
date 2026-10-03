@@ -15,7 +15,7 @@ never means emptier. `build_final.py` shows the values currently in use:
 |:---|:---|---:|:---|
 | `hero.svg` | `hero(H)` | **640** | terminal earns extra `gh repo list` / `gist list` output, boot log appears, wordmark + equaliser scale |
 | `about-life.svg` | `about(H)` | **560** | capability bars and life rows spread, footer pins to the bottom edge |
-| `stack.svg` | `stack(H)` | **392** | the two marquees move to the top/bottom edges |
+| `stack.svg` | `stack(H)` | **540** | the four chip groups spread apart to fill the column (gap capped at 26px) and the orbit cluster re-centres |
 | `id-dashboard.svg` | `card_ids(H)` | **500** | *not currently linked* — ID card + dashboard, kept in reserve |
 | `connect.svg` | `connect(H)` | **300** | contact tiles centre, footer pins to the bottom edge |
 
@@ -31,6 +31,62 @@ rendered height follows the intrinsic aspect ratio — so changing `H` is all it
 * `gen_b.py` → `stack.svg`, `connect.svg`
 * `gen_c.py` → `id-dashboard.svg` (ID card + dashboard) — **currently not
   linked from README.md**, see the note below
+* `gen_stack.py` → the stack card's parts (chips, flow layout, orbit rings, core
+  emblem), shared by `gen_b.stack()` and `gen_m.stack_mobile()`
+* `gen_icons.py` → brand glyph table, generated; `make_icons.py` → its generator
+
+## The stack card
+
+One edit retunes the whole card: `GROUPS` in `gen_stack.py`.
+
+```python
+GROUPS = [(label, accent, [icon_key, ...]), ...]   # one row of the right column
+ORBIT_KEYS = [...]                                 # the medals that orbit
+```
+
+A key is a name in `gen_icons.ICONS`, which carries the chip's display label, its
+colour and its glyph — so `N_CHIPS` (the "21 tools" in the header) and the per-row
+chip count are derived and cannot drift out of date. A group whose chips do not
+fit `COL_W` wraps onto a second row; that is the whole layout rule, and the card's
+height is measured from the result.
+
+**Chip widths are computed, not measured.** `chip_w()` adds up
+`[pad | plate | gap | label | pad]` from the monospace advance (`MONO_ADV`,
+0.6 em for JetBrains Mono), so a chip is the right size before any browser has
+seen the text. The longest row is currently `ANDROID & DEVICE` at ~720 of the 752
+available; a group label never wraps, so the longest one ("ANDROID & DEVICE",
+~112px at 11px bold) only has to clear the divider.
+
+**Marks come from simple-icons (CC0-1.0), with two departures from "brand
+accurate":**
+
+* colour is a palette choice — the official fills for Gradle, CMake, mpv and
+  ffmpeg are unreadable on graphite, so `make_icons.py` lifts them to the nearest
+  legible tint (same reasoning as `language_color` in `builds.json`);
+* a brand whose mark dissolves at 17px is drawn as a mono tile instead (Termux has
+  no glyph upstream at all; Lua is a hairline crescent, NDK is a word). Tiles come
+  from the `tile` field and `glyph()` picks between the two.
+
+```bash
+# only when the icon set changes — needs network, and writes gen_icons.py
+mkdir -p /tmp/si && cd /tmp/si
+for n in python gnubash gradle; do
+  gh api "repos/simple-icons/simple-icons/contents/icons/$n.svg" --jq .content | base64 -d > "$n.svg"
+done
+python3 tools/profile-art/make_icons.py --src /tmp/si && python3 tools/profile-art/build.py
+```
+
+`make_icons.py` rounds every path coordinate to 2 decimals, which is what keeps 21
+glyphs at ~21 KB instead of 33 KB. Nothing in `build.py` fetches: the cards build
+offline from the committed module.
+
+**The orbit medals are revealed by CSS and moved by SMIL** (`<animateMotion>` +
+`<mpath>`), and each is drawn twice — a parked copy at its compass angle and a
+travelling copy that fades in at 0.55s. `prefers-reduced-motion` kills the fade, so
+a reduce-motion reader keeps the parked set and sees nothing orbiting; a renderer
+without SMIL never gets the moving copy and shows the same finished composition.
+The motion's `begin` is `-phi/turn`, so a medal takes off from where it was parked
+and the handover does not twitch.
 
 ## Refreshing the numbers
 
@@ -81,6 +137,11 @@ Why they exist:
   else finishes within ~2s.
 * **Whitespace.** Fewer rows per view, tighter leading, and stat tiles instead of
   a dense terminal.
+
+`stack-mobile.svg` is the one card that takes no height at all: chips are drawn at
+16.5px in 54px rows, a group's rows wrap freely, and the card measures its own
+layout before adding the footer band — so a longer stack cannot grow into the
+footer, because the footer is placed from the measured height.
 
 GitHub keeps the `media` attribute and rewrites the relative `srcset` to a raw
 URL on the rendered page, so this works on the profile without any hosting.

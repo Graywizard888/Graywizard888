@@ -27,7 +27,12 @@
 
 <br/><br/>
 
-<!-- 🧰 TECH STACK -->
+<!-- 🧰 TECH STACK — the shortlist (ORBIT_KEYS) circles the terminal core on the
+     left, every tool sits in one grouped row on the right (GROUPS), each chip
+     sized from the monospace advance so nothing waits on text measurement.
+     Retuning the stack is one edit: `GROUPS` in tools/profile-art/gen_stack.py,
+     then `python3 tools/profile-art/build.py`. Phones get the same chips stacked
+     one group per row, with the orbit reduced to the core emblem. -->
 <picture>
   <source media="(max-width: 820px)" srcset="./stack-mobile.svg?v=1">
   <img src="./stack.svg?v=1" alt="Tech stack" width="100%"/>

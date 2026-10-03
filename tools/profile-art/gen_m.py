@@ -6,10 +6,12 @@ Served to phones via <picture><source media="(max-width: 700px)">.
 """
 import math, random
 from gen_common import *
+from gen_stack import GROUPS, N_CHIPS, core, flow
 import gen_v
 from gen_anim import style_block
 
 W = 720
+GROUP_GAP = 24                # between groups on the stack card (gen_stack)
 
 
 def frame(H, accent=GREEN, rain_cols=9, seed=11):
@@ -155,30 +157,54 @@ def about_mobile():
 
 # ------------------------------------------------------------------ STACK
 def stack_mobile():
-    H = 620
+    """The stack card for phones: same chips, stacked one group per row of the
+    720px canvas, at sizes that survive being scaled to ~0.5x.
+
+    The orbit cluster is the one thing that does not come across: at this width
+    its medals would be ~10px, so it is reduced to the core emblem in the header
+    and every tool stays where it can be read — as a labelled chip. The row of a
+    group is a wrap-width away from a second line, which the flow layout handles;
+    the card's height is measured from the layout instead of fixed.
+    """
+    ms, mh = 16.5, 54              # chip font size and height
+    cgap, rgap = 10, 11            # chip gap, wrapped-row gap: a phone needs air
+    mx, mw = 28, W - 56            # the column the chips flow inside
+    head, foot = 152, 120
+
+    rows_h = []
+    for _, _, keys in GROUPS:
+        _, h, _ = flow(mx, 0, mw, keys, size=ms, h=mh, gap=cgap, row_gap=rgap,
+                       animate=False)
+        rows_h.append(30 + h)                       # label + chip rows
+    # the card is measured from its own layout — that is the only way a wrapped
+    # row can never land on top of the footer
+    body_h = sum(rows_h) + GROUP_GAP * (len(GROUPS) - 1)
+    H = head + body_h + foot
+
     defs, L_ = frame(H, GREEN, rain_cols=7, seed=13)
-    L_.append(R(28, 30, 5, 20, fill=GREEN, rx=2.5))
-    L_.append(T(46, 48, "// tech_stack", 22, SOFT, ls=1.4))
-    L_.append(T(W - 28, 48, "14 tools", 20, MUTED, anchor="end"))
-    ROW1 = [("Py", "Python", "#4B8BBE"), ("Jv", "Java", "#F89820"), ("Kt", "Kotlin", "#A97BFF"),
-            ("Cp", "Jetpack Compose", "#34A853"), ("As", "Android Studio", "#3DDC84"),
-            ("$", "Bash", "#89E051"), ("Lua", "Lua", "#7C8FFF")]
-    ROW2 = [("Gt", "Git", "#F05032"), ("GH", "GitHub", "#E6EDF3"), ("Lx", "Linux", "#FCC624"),
-            ("Tx", "Termux", "#4ADE80"), ("VS", "VS Code", "#3B9EFF"), ("Rs", "Rust", "#FF7043"),
-            ("AI", "AI CLIs", "#A78BFA")]
-    pw, ph = 320, 58
-    for col, items in enumerate((ROW1, ROW2)):
-        for i, (glyph, name, colr) in enumerate(items):
-            x = 28 + col * (pw + 16)
-            y = 84 + i * 72
-            L_.append(R(x, y, pw, ph, fill=PANEL, rx=14, stroke="#1a2836", sw=1.3))
-            L_.append(R(x + 12, y + 11, 36, 36, fill=colr, rx=10, opacity=.16))
-            L_.append(T(x + 30, y + 36, glyph, 20, colr, weight=700, anchor="middle",
-                        family=None, cls="fs"))
-            L_.append(T(x + 60, y + 37, name, 24, SOFT, weight=500, cls="fade-in",
-                        style=f"animation-delay:{.2 + i * .05:.2f}s"))
-    L_.append(L(28, H - 40, W - 28, H - 40, stroke=STROKE, sw=1))
-    L_.append(T(28, H - 16, "> built with · shipped in · release builds on request", 20, MUTED))
+    core_defs, core_body = core(W - 74, 64, 26, 17, pulse=False)
+    defs.append(core_defs)
+
+    L_.append(R(28, 30, 6, 22, fill=GREEN, rx=3))
+    L_.append(T(46, 50, "// tech_stack", 22, CYAN, weight=700, ls=2))
+    L_.append(T(46, 88, "Tools I build with", 34, TEXT, weight=700, family=SANS, ls=-.5))
+    L_.append(T(46, 116, f"{N_CHIPS} tools · {len(GROUPS)} groups · every one shipped in a public repo",
+                19, MUTED))
+    L_.append(core_body)
+
+    y = head + 8
+    for i, (label, accent, keys) in enumerate(GROUPS):
+        markup, _, _ = flow(mx, y + 38, mw, keys, size=ms, h=mh, gap=cgap, row_gap=rgap)
+        L_.append(G(R(mx, y + 8, 18, 4, fill=accent, rx=2, opacity=.9) +
+                    T(mx + 30, y + 18, label, 15.5, SOFT, weight=700, ls=2.4) +
+                    markup,
+                    cls="fade-in", style=f"animation-delay:{.1 + i * .1:.2f}s"))
+        y += rows_h[i] + GROUP_GAP
+
+    L_.append(T(mx, H - 76, "> 6 languages · android tooling · terminal automation",
+                20, MUTED))
+    L_.append(L(mx, H - 56, W - mx, H - 56, stroke=STROKE, sw=1.2))
+    L_.append(T(mx, H - 22, "agents on call · release builds on request", 20, DIM))
     return wrap(H, defs, L_, "Tech stack")
 
 

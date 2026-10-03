@@ -26,7 +26,7 @@ SIZES = {
     "hero": 640,
     "intro": 496,
     "about-life": 560,
-    "stack": 392,
+    "stack": 540,
     "connect": 300,
 }
 
