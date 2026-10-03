@@ -27,10 +27,17 @@
 
 <br/><br/>
 
-<!-- 🧰 TECH STACK -->
+<!-- 🧰 TECH STACK — the shortlist (ORBIT_KEYS) circles the terminal core on the
+     left, every tool sits in one grouped row on the right (GROUPS), each chip
+     sized from the monospace advance so nothing waits on text measurement.
+     A tinted hairline walks along each row, and the medals travel their rings.
+     Retuning the stack is one edit: `GROUPS` in tools/profile-art/gen_stack.py,
+     then `python3 tools/profile-art/build.py`. Phones get the same card turned
+     upright: the orbit takes a band across the top, the chips stack one group per
+     row at ~2x the rendered type size, and both animations come along. -->
 <picture>
-  <source media="(max-width: 820px)" srcset="./stack-mobile.svg?v=1">
-  <img src="./stack.svg?v=1" alt="Tech stack" width="100%"/>
+  <source media="(max-width: 820px)" srcset="./stack-mobile.svg?v=2">
+  <img src="./stack.svg?v=2" alt="Tech stack" width="100%"/>
 </picture>
 
 <br/><br/>
@@ -71,17 +78,23 @@
 
 <br/><br/>
 
-<!-- 💌 LET'S CONNECT -->
-<picture>
-  <source media="(max-width: 820px)" srcset="./connect-mobile.svg?v=1">
-  <img src="./connect.svg?v=1" alt="Let&#39;s connect" width="100%"/>
-</picture>
+<!-- 💌 LET'S CONNECT — one tappable ticket per channel: the whole card is the link,
+     so a tap lands on the target printed on its own face. The copy lives in
+     `CHANNELS` (tools/profile-art/gen_contact.py) and the stub serial follows the
+     length of that list, so a sixth channel is one tuple and one line here. The
+     shields.io badge row that used to sit under this said the same five things in
+     smaller type, so it is gone. -->
 
-<a href="https://github.com/Graywizard888"><img src="https://img.shields.io/badge/GitHub-22d3ee?style=for-the-badge&logo=github&logoColor=0d0e16" alt="GitHub"/></a>
-<a href="https://t.me/Graywizard_projects"><img src="https://img.shields.io/badge/Telegram-4ade80?style=for-the-badge&logo=telegram&logoColor=0d0e16" alt="Telegram"/></a>
-<a href="https://gist.github.com/Graywizard888"><img src="https://img.shields.io/badge/mpv%20scripts-a78bfa?style=for-the-badge&logo=lua&logoColor=0d0e16" alt="mpv scripts"/></a>
-<a href="https://website-src-seven.vercel.app/"><img src="https://img.shields.io/badge/Portfolio-fbbf24?style=for-the-badge&logo=vercel&logoColor=0d0e16" alt="Portfolio"/></a>
-<a href="https://github.com/sponsors/Graywizard888"><img src="https://img.shields.io/badge/Sponsor-f472b6?style=for-the-badge&logo=githubsponsors&logoColor=0d0e16" alt="Sponsor"/></a>
+## 💌 Let's connect
+
+*Telegram for speed, GitHub for issues, the site for the long version, gists for the
+scraps worth keeping. One tap per ticket, destination on the front.*
+
+<a href="https://t.me/Graywizard_projects"><picture><source media="(max-width: 820px)" srcset="./connect/telegram-mobile.svg?v=1"><img src="./connect/telegram.svg?v=1" alt="Telegram — @Graywizard_projects · t.me/Graywizard_projects" width="100%"></picture></a>
+<a href="https://github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./connect/github-mobile.svg?v=1"><img src="./connect/github.svg?v=1" alt="GitHub — @Graywizard888 · github.com/Graywizard888" width="100%"></picture></a>
+<a href="https://website-src-seven.vercel.app/"><picture><source media="(max-width: 820px)" srcset="./connect/portfolio-mobile.svg?v=1"><img src="./connect/portfolio.svg?v=1" alt="Portfolio — website-src-seven · website-src-seven.vercel.app" width="100%"></picture></a>
+<a href="https://gist.github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./connect/gists-mobile.svg?v=1"><img src="./connect/gists.svg?v=1" alt="Gists — mpv · lua scripts · gist.github.com/Graywizard888" width="100%"></picture></a>
+<a href="https://github.com/sponsors/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./connect/sponsors-mobile.svg?v=1"><img src="./connect/sponsors.svg?v=1" alt="GitHub Sponsors — Sponsor the work · github.com/sponsors/Graywizard888" width="100%"></picture></a>
 
 <br/><br/>
 

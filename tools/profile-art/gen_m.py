@@ -1,15 +1,22 @@
 """Mobile card variants: 720px wide so text lands at ~2x the rendered size of the
-1200px cards on a phone, with the heavy motion removed (frozen rain, no marquees,
-no continuous tweens beyond two tiny blinking dots).
+1200px cards on a phone, with the heavy motion removed (frozen rain, no marquees).
+
+What stays is the motion that carries meaning: the stack card keeps its orbiting
+medals and the pulse that walks along a row of chips, because on a phone those are
+the only things saying "this is a live card, rebuilt from a real repo". Everything
+animated here is revealed by CSS, so `prefers-reduced-motion` still turns the phone
+cards fully static.
 
 Served to phones via <picture><source media="(max-width: 700px)">.
 """
 import math, random
 from gen_common import *
+from gen_stack import (GROUPS, N_CHIPS, ORBIT_KEYS, STACK_CSS, core, flow, orbit)
 import gen_v
 from gen_anim import style_block
 
 W = 720
+GROUP_GAP = 24                # between groups on the stack card (gen_stack)
 
 
 def frame(H, accent=GREEN, rain_cols=9, seed=11):
@@ -32,7 +39,12 @@ def frame(H, accent=GREEN, rain_cols=9, seed=11):
 
 def wrap(H, defs, body, label, extra_css=""):
     D, B = "\n".join(defs), "\n".join(body)
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
+    # xmlns:xlink is declared even where nothing uses it: a stack card here puts
+    # xlink:href on an <mpath> for Firefox's benefit, and an undeclared prefix is
+    # a fatal XML error for an SVG loaded as an <img> — the card would not just
+    # lose its animation, it would not render at all.
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" '
+            f'xmlns:xlink="http://www.w3.org/1999/xlink" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
             f'role="img" aria-label="{label}">'
             f'<defs>{D}' + style_block(extra_css) + '</defs>' + G(B, clip="url(#mClip)") +
             R(1, 1, W - 2, H - 2, rx=20, stroke="#22303f", sw=2) + '</svg>')
@@ -155,78 +167,82 @@ def about_mobile():
 
 # ------------------------------------------------------------------ STACK
 def stack_mobile():
-    H = 620
+    """The stack card for phones: same chips, stacked one group per row of the
+    720px canvas, at sizes that survive being scaled to ~0.5x.
+
+    The orbit does come across here — it just cannot sit *beside* the chips, so it
+    takes a band of its own across the card: three flat rings (tilts of +-22
+    rather than the desktop's 0/60/120, because a 720px card has no vertical room
+    for a leaning ellipse) around the same core, medals travelling on them exactly
+    as they do on the desktop. No caption under it — the header already says what
+    the band is, and the lowest arc needs the room. Everything that made the phone card readable stays:
+    16.5px labels, 54px chips, and the rain frozen.
+
+    A group's rows wrap freely, and the card is measured from its own layout — the
+    only way a wrapped row can never land on top of the footer.
+    """
+    ms, mh = 16.5, 54              # chip font size and height
+    cgap, rgap = 10, 11            # chip gap, wrapped-row gap: a phone needs air
+    mx, mw = 28, W - 56            # the column the chips flow inside
+    head, foot = 152, 120
+    # The band is sized from the rings, not the other way round: the widest
+    # vertical reach of a tilted ellipse is sqrt((rx sin t)^2 + (ry cos t)^2),
+    # plus the medal's own radius — which for the geometry below is 107, so a
+    # 224px band leaves the groups 17px of clear air under the lowest arc.
+    orb_h, orb_r = 224, 107
+    ocx, ocy = W / 2, head + orb_h / 2 + 6
+    cx0 = head + orb_h + 12        # where the groups start
+
+    rows_h = []
+    for _, _, keys in GROUPS:
+        _, h, _ = flow(mx, 0, mw, keys, size=ms, h=mh, gap=cgap, row_gap=rgap,
+                       animate=False)
+        rows_h.append(30 + h)                       # label + chip rows
+    body_h = sum(rows_h) + GROUP_GAP * (len(GROUPS) - 1)
+    H = cx0 + body_h + foot
+
     defs, L_ = frame(H, GREEN, rain_cols=7, seed=13)
-    L_.append(R(28, 30, 5, 20, fill=GREEN, rx=2.5))
-    L_.append(T(46, 48, "// tech_stack", 22, SOFT, ls=1.4))
-    L_.append(T(W - 28, 48, "14 tools", 20, MUTED, anchor="end"))
-    ROW1 = [("Py", "Python", "#4B8BBE"), ("Jv", "Java", "#F89820"), ("Kt", "Kotlin", "#A97BFF"),
-            ("Cp", "Jetpack Compose", "#34A853"), ("As", "Android Studio", "#3DDC84"),
-            ("$", "Bash", "#89E051"), ("Lua", "Lua", "#7C8FFF")]
-    ROW2 = [("Gt", "Git", "#F05032"), ("GH", "GitHub", "#E6EDF3"), ("Lx", "Linux", "#FCC624"),
-            ("Tx", "Termux", "#4ADE80"), ("VS", "VS Code", "#3B9EFF"), ("Rs", "Rust", "#FF7043"),
-            ("AI", "AI CLIs", "#A78BFA")]
-    pw, ph = 320, 58
-    for col, items in enumerate((ROW1, ROW2)):
-        for i, (glyph, name, colr) in enumerate(items):
-            x = 28 + col * (pw + 16)
-            y = 84 + i * 72
-            L_.append(R(x, y, pw, ph, fill=PANEL, rx=14, stroke="#1a2836", sw=1.3))
-            L_.append(R(x + 12, y + 11, 36, 36, fill=colr, rx=10, opacity=.16))
-            L_.append(T(x + 30, y + 36, glyph, 20, colr, weight=700, anchor="middle",
-                        family=None, cls="fs"))
-            L_.append(T(x + 60, y + 37, name, 24, SOFT, weight=500, cls="fade-in",
-                        style=f"animation-delay:{.2 + i * .05:.2f}s"))
-    L_.append(L(28, H - 40, W - 28, H - 40, stroke=STROKE, sw=1))
-    L_.append(T(28, H - 16, "> built with · shipped in · release builds on request", 20, MUTED))
-    return wrap(H, defs, L_, "Tech stack")
+    core_defs, core_body = core(ocx, ocy, 32, 21)
+    defs.append(core_defs)
+
+    L_.append(R(28, 30, 6, 22, fill=GREEN, rx=3))
+    L_.append(T(46, 50, "// tech_stack", 22, CYAN, weight=700, ls=2))
+    L_.append(T(46, 88, "Tools I build with", 34, TEXT, weight=700, family=SANS, ls=-.5))
+    L_.append(T(46, 116, f"{N_CHIPS} tools · {len(GROUPS)} groups · every one shipped in a public repo",
+                19, MUTED))
+
+    # ---- the shortlist, in its own band across the card
+    ring_geom = [(200, 62, 0, CYAN, 34.0), (194, 58, 20, GREEN, 40.0),
+                 (198, 60, -20, VIOLET, 46.0)]
+    per = [[] for _ in ring_geom]
+    n = len(ORBIT_KEYS)
+    for i, key in enumerate(ORBIT_KEYS):
+        per[i % len(ring_geom)].append((key, -1.5708 + i * 6.2832 / n))
+    for i, (rx, ry, rot, col, dur) in enumerate(ring_geom):
+        L_.append(G(orbit(ocx, ocy, rx, ry, rot, per[i], col, dur, f"mOrb{i}"),
+                    cls="fade-in", style=f"animation-delay:{.1 + i * .18:.2f}s"))
+    L_.append(C(ocx, ocy, 50, fill="none", stroke=GREEN, sw=1, opacity=.24,
+                style="stroke-dasharray:3 6"))
+    L_.append(core_body)
+
+    y = cx0 + 8
+    for i, (label, accent, keys) in enumerate(GROUPS):
+        markup, _, _ = flow(mx, y + 38, mw, keys, size=ms, h=mh, gap=cgap, row_gap=rgap,
+                            delay0=.4 + i * .3)
+        L_.append(G(R(mx, y + 8, 18, 4, fill=accent, rx=2, opacity=.9) +
+                    T(mx + 30, y + 18, label, 15.5, SOFT, weight=700, ls=2.4) +
+                    markup,
+                    cls="fade-in", style=f"animation-delay:{.1 + i * .1:.2f}s"))
+        y += rows_h[i] + GROUP_GAP
+
+    L_.append(T(mx, H - 76, "> 6 languages · android tooling · terminal automation",
+                20, MUTED))
+    L_.append(L(mx, H - 56, W - mx, H - 56, stroke=STROKE, sw=1.2))
+    L_.append(T(mx, H - 22, "agents on call · release builds on request", 20, DIM))
+    return wrap(H, defs, L_, "Tech stack", extra_css=STACK_CSS)
 
 
 # ------------------------------------------------------------------ CONNECT
-def connect_mobile():
-    H = 700
-    defs, L_ = frame(H, CYAN, rain_cols=7, seed=17)
-    L_.append(R(28, 30, 5, 20, fill=CYAN, rx=2.5))
-    L_.append(T(46, 48, "// connect", 22, SOFT, ls=1.4))
-    L_.append(T(W - 28, 48, "open to collaboration", 20, MUTED, anchor="end"))
-    cards = [("TELEGRAM", "@Graywizard_projects", "t.me/Graywizard_projects", "#22A7E0"),
-             ("GITHUB", "@Graywizard888", "github.com/Graywizard888", "#E6EDF3"),
-             ("PORTFOLIO", "cyber portfolio", "website-src-seven.vercel.app", "#4ADE80"),
-             ("GISTS", "mpv · lua scripts", "gist.github.com/Graywizard888", "#FBBF24")]
-    cw, ch = 320, 216
-    for i, (label, handle, url, col) in enumerate(cards):
-        x = 28 + (i % 2) * (cw + 16)
-        y = 84 + (i // 2) * (ch + 18)
-        L_.append(R(x, y, cw, ch, fill=PANEL, rx=16, stroke="#1a2836", sw=1.3))
-        L_.append(R(x, y, cw, 4, fill=col, rx=2, opacity=.9))
-        if i == 1:      # GitHub mark, drawn
-            GH = ("M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49"
-                  "-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82"
-                  ".72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15"
-                  "-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82"
-                  ".44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2"
-                  "0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z")
-            L_.append(G(P(GH, fill=col), transform=f"translate({x+28},{y+26}) scale(2.1)"))
-        else:
-            L_.append(C(x + 45, y + 43, 17, fill="none", stroke=col, sw=2))
-            if i == 0:
-                L_.append(P(f"M{x+38} {y+43} L{x+58} {y+33} L{x+50} {y+57} L{x+44} {y+47} Z", fill=col, opacity=.95))
-            elif i == 2:
-                L_.append(T(x + 45, y + 50, "WWW", 15, col, anchor="middle", weight=700, family=None, cls="fs"))
-            else:
-                L_.append(C(x + 45, y + 43, 7, fill=col, opacity=.9))
-        L_.append(T(x + 26, y + 96, label, 21, MUTED, ls=1.6, weight=600))
-        hsize = 25 if len(handle) <= 17 else (22 if len(handle) <= 20 else 20)
-        L_.append(T(x + 26, y + 134, handle, hsize, col, weight=600))
-        L_.append(T(x + 26, y + 176, url, 17, DIM))
-        L_.append(P(f"M{x+cw-38} {y+ch-20} l14 -14 M{x+cw-38} {y+ch-34} h14 v14", stroke=col, sw=2, opacity=.85))
-    L_.append(L(28, 660, W - 28, 660, stroke=STROKE, sw=1))
-    L_.append(C(40, 684, 6, fill=GREEN, cls="pulse"))
-    L_.append(T(58, 691, "every repo MIT or GPL-3.0 · reply window: IST evenings", 20, MUTED))
-    return wrap(H, defs, L_, "Connect with Graywizard")
-
-
-# ------------------------------------------------------------------ ID + DASHBOARD
 def ids_mobile():
     """Phone variant of the developer-ID/dashboard card - not linked from
     README.md at present (see gen_c.py); kept so the card can be restored."""
