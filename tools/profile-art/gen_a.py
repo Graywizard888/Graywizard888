@@ -1,7 +1,6 @@
 """hero.svg  (video-intro style name card)  +  about-life.svg  (build | life)"""
 import random
 from gen_common import *
-import gen_v
 from gen_anim import style_block, typing_line
 
 # ---------------------------------------------------------------- icons (24x24, centred on 0,0)
@@ -30,14 +29,6 @@ def icon_moon(c):
 
 
 # ---------------------------------------------------------------- HERO
-# The intro-video band sits between the HUD strip and the rest of the hero. We
-# keep the existing layout maths in "content space" and push it down inside a
-# translate group, so nothing else about the card has to change.
-VIDEO_X = (1200 - gen_v.WINDOW_W) // 2          # centred
-VIDEO_Y = 96                                    # just under the HUD strip
-VIDEO_SHIFT = VIDEO_Y + gen_v.WINDOW_H + 28 - 88   # old content top was y=88
-
-
 def hero(H=470):
     """Animated hero banner.
 
@@ -47,26 +38,25 @@ def hero(H=470):
     """
     import math
     W = 1200
-    CH = H - VIDEO_SHIFT          # height of the layout below the video band
     rnd = random.Random(3)
 
     # ---------------------------------------------------------------- layout
-    NAME_SIZE = round(82 + (CH - 470) * 0.05, 1)
+    NAME_SIZE = round(82 + (H - 470) * 0.05, 1)
     y_whoami = 118
-    y_name = y_whoami + 110 + (CH - 470) * 0.28
+    y_name = y_whoami + 110 + (H - 470) * 0.28
     y_role = y_name + NAME_SIZE * 0.46
     y_chips = y_role + 26
     y_quote = y_chips + 70
-    y_eq = CH - 40                                    # equaliser baseline
-    y_eq_cap = CH - 58
-    y_seek = CH - 26                                  # seek-bar track
-    y_credit = CH - 47
-    t_y, t_h = 88, CH - 170                           # terminal panel
+    y_eq = H - 40                                    # equaliser baseline
+    y_eq_cap = H - 58
+    y_seek = H - 26                                  # seek-bar track
+    y_credit = H - 47
+    t_y, t_h = 88, H - 170                           # terminal panel
     t_sep = t_y + t_h - 22                           # rule above the status bar
     t_stat = t_y + t_h - 9                           # status-bar baseline
-    room = int((t_y + 58 + CH - t_y - 234) / 26.5)    # rows that still clear the rule
-    room = max(9, int((CH - 118) / 26.5) + 4)
-    eq_scale = 1 + (CH - 470) / 470 * 0.55
+    room = int((t_y + 58 + H - t_y - 234) / 26.5)    # rows that still clear the rule
+    room = max(9, int((H - 118) / 26.5) + 4)
+    eq_scale = 1 + (H - 470) / 470 * 0.55
 
     defs = [
         '<linearGradient id="hBg" x1="0" y1="0" x2=".7" y2="1">'
@@ -125,12 +115,6 @@ def hero(H=470):
                 11, MUTED, ls=.6, cls="fade-in", style="animation-delay:2.2s"))
     L_.append(C(1078, 67, 5, fill="#ff6b60"))
     L_.append(T(1093, 71.5, "REC", 11.5, "#ff8f88", weight=500, ls=2.4))
-
-    # ------------------------------------------------- intro video (one-shot)
-    v_body, v_css, v_defs, _ = gen_v.panel(VIDEO_X, VIDEO_Y, mode="play")
-    defs += v_defs
-    L_.append(v_body)
-    L_.append(f'<g transform="translate(0,{VIDEO_SHIFT})">')   # content moves down
 
     # ---------------------------------------------------------------- left column
     L_.append(T(62, y_whoami, "graywizard@cyber:~$ whoami", 13, GREEN, opacity=.9))
@@ -268,14 +252,13 @@ def hero(H=470):
     L_.append(T(1082, y_seek + 16.5, "∞", 13, GREEN))
     L_.append(T(1140, y_credit, "cyber-portfolio os v4.0.0 · profile reel", 11, DIM, anchor="end"))
 
-    L_.append("</g>")
     D = "\n".join(defs)
     B = "\n".join(L_)
-    extra_css = (v_css + f"@keyframes fall {{ from {{ transform: translateY(-{H}px); }} to {{ transform: translateY(0px); }} }}"
+    extra_css = (f"@keyframes fall {{ from {{ transform: translateY(-{H}px); }} to {{ transform: translateY(0px); }} }}"
                  f"@keyframes sweep {{ 0% {{ transform: translateY(-{H*0.36:.0f}px); }} "
                  f"100% {{ transform: translateY({H}px); }} }}")
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
-            f'viewBox="0 0 {W} {H}" role="img" aria-label="Graywizard — coder, gamer, system architect. A ten-second intro animation plays once at the top of this card, then shows a play button.">'
+            f'viewBox="0 0 {W} {H}" role="img" aria-label="Graywizard — coder, gamer, system architect">'
             f'<defs>{D}' + style_block(extra_css) + '</defs>' +
             G(B, clip="url(#hClip)") +
             R(0.5, 0.5, W - 1, H - 1, rx=16, stroke="#22303f", sw=1) + '</svg>')

@@ -57,27 +57,31 @@ def main():
                     help="libwebp quality (25-40 is the useful range here)")
     ap.add_argument("--poster", type=int, default=DEFAULTS["poster"],
                     help="frame index used as the still/poster (0 = the video's first frame)")
+    ap.add_argument("--out", default="assets/intro",
+                    help="output directory, relative to the repo root "
+                         "(the phones' lighter cut lives in assets/intro/mobile)")
     args = ap.parse_args()
 
     src = os.path.join(ROOT, args.source)
     if not os.path.exists(src):
         sys.exit(f"no such video: {src}")
 
-    shutil.rmtree(OUT, ignore_errors=True)
-    os.makedirs(OUT)
+    out = os.path.join(ROOT, args.out)
+    shutil.rmtree(out, ignore_errors=True)
+    os.makedirs(out)
     exe = ffmpeg()
     cmd = [exe, "-y", "-i", src,
            "-vf", f"fps={args.fps},scale={args.width}:{args.height}",
            "-c:v", "libwebp", "-quality", str(args.quality), "-compression_level", "6",
-           os.path.join(OUT, "f%03d.webp"), "-hide_banner", "-loglevel", "error"]
+           os.path.join(out, "f%03d.webp"), "-hide_banner", "-loglevel", "error"]
     subprocess.run(cmd, check=True)
 
-    frames = sorted(glob.glob(os.path.join(OUT, "*.webp")))
+    frames = sorted(glob.glob(os.path.join(out, "*.webp")))
     if not frames:
         sys.exit("no frames were written")
     duration = len(frames) / args.fps
     poster = frames[min(max(args.poster, 0), len(frames) - 1)]
-    shutil.copy(poster, os.path.join(OUT, "poster.webp"))
+    shutil.copy(poster, os.path.join(out, "poster.webp"))
 
     meta = {
         "frames": len(frames),
@@ -88,14 +92,14 @@ def main():
         "source": args.source,
         "poster": os.path.basename(poster),
     }
-    with open(os.path.join(OUT, "meta.json"), "w", encoding="utf-8") as fh:
+    with open(os.path.join(out, "meta.json"), "w", encoding="utf-8") as fh:
         json.dump(meta, fh, indent=2)
         fh.write("\n")
 
     total = sum(os.path.getsize(f) for f in frames)
     print(f"{len(frames)} frames @ {args.fps} fps = {duration:.1f}s, {args.width}x{args.height}, q{args.quality}")
     print(f"frames total {total/1024:.0f} KB, poster = {meta['poster']}")
-    print(f"written to {os.path.relpath(OUT, ROOT)}/")
+    print(f"written to {os.path.relpath(out, ROOT)}/")
 
 
 if __name__ == "__main__":

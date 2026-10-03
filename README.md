@@ -1,9 +1,20 @@
 <div align="center">
 
-<!-- 🎬 HERO — cyber intro + name.
-     Phones get the 720px-wide card: ~2x the rendered text size and almost no
-     animation; everything else gets the full 1200px animated reel. -->
-<a href="https://github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./hero-mobile.svg?v=1"><img src="./hero.svg?v=1" alt="Hi, I'm Aditya (Graywizard) — script &amp; automation developer. The ten-second intro animation plays once at the top of the card, then shows a play button — tap the card to play it again." width="100%"/></picture></a>
+<!-- 🎬 INTRO — the ten-second clip as its own card.
+     Plays once on load, holds on the last frame with a play button in the middle.
+     The card is the link: tapping it loads the page again, which replays the clip
+     (a plain image has no click handling, so this is the only way to "play again").
+     Both variants really play - phones used to be shown a still poster, which is
+     why the clip looked broken there. -->
+<a href="https://github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./intro-mobile.svg?v=1"><img src="./intro.svg?v=1" alt="Ten-second intro clip — plays once, then shows a play button in the middle; tap the card to replay it" width="100%"/></picture></a>
+
+<br/><br/>
+
+<!-- 🎬 HERO — whoami + name.
+     No longer a link: the intro card above owns the tap-to-replay, so the hero
+     stays a card you can select text from instead of hijacking the click.
+     Phones get the 720px-wide variant: ~2x the rendered text size, minimal motion. -->
+<picture><source media="(max-width: 820px)" srcset="./hero-mobile.svg?v=1"><img src="./hero.svg?v=1" alt="Hi, I'm Aditya (Graywizard) — script &amp; automation developer" width="100%"/></picture>
 
 <br/><br/>
 

@@ -193,35 +193,58 @@ by hand, let the refresher fill the rest), re-run `build.py`, then add/remove th
 matching single-line `<a href>` block in `README.md`. Delete any orphaned
 `builds/pNN*.svg` files.
 
-## The intro clip in the hero card
+## The intro clip: its own card
 
-The hero card opens with the portfolio's ten-second intro clip. GitHub strips
-every form of `<video>` and `<iframe>` from markdown, so the clip is rebuilt as
-an SVG one-shot: `gen_v.panel()` embeds the real frames as base64 `<image>`
-layers and stacks them with per-frame `opacity` keyframes
-(`steps(1, end)`, `iteration-count: 1`, `forwards`). The run ends on the last
-frame with a dimmed shade and a centred play button, and the whole hero card is
-wrapped in a link so tapping it reloads the README and replays the clip.
+`intro.svg` / `intro-mobile.svg` are the portfolio's ten-second intro clip as a
+standalone card, sitting directly above the hero. GitHub strips every form of
+`<video>` and `<iframe>` from markdown, so the clip is rebuilt as an SVG
+one-shot: `gen_v.panel()` embeds the real frames as base64 `<image>` layers and
+stacks them with per-frame `opacity` keyframes (`steps(1, end)`,
+`iteration-count: 1`, `forwards`). The run ends on the last frame with a dimmed
+shade and a centred play button, and the card is wrapped in a link so tapping it
+reloads the README and replays the clip.
 
-The frames live in `assets/intro/` (`f001..f080.webp` — 400x225, 8 fps, 10.0 s,
-webp q30, 619 KB — plus `poster.webp` and `meta.json`). `gen_v.load()` reads
-`meta.json` for the fps/frame count, so re-cutting the video needs no code
+**Both variants really play.** The card used to live inside the hero and phones
+were only ever given `mode="poster"` — a still with a play button on it — so on a
+phone the clip looked broken. The phone card now plays its own lighter cut
+(`variant="mobile"`, `assets/intro/mobile/`: 60 frames, 6 fps, q26, 424 KB)
+inside a panel scaled from 532 to 656 px, drawn at 720 wide, so a 360 px screen
+renders it at ~0.5x and the type still reads.
+
+**This is the one card that ignores `prefers-reduced-motion`.** Every other card
+carries `style_block()`'s global `animation: none !important` guard; the intro
+passes `reduced_motion=False`. Reason: a ten-second one-shot that settles on a
+still is not the kind of motion that switch exists to stop, it was explicitly
+asked to play, and with the guard on, a device that enables reduce-motion (quite
+common on phones) silently showed a frozen poster — which is exactly what "the
+video is not playing" looks like. Each SVG is its own document inside `<img>`, so
+the exception cannot leak to other cards.
+
+Frame sets:
+
+| Variant | Directory | Frames | Size |
+|:---|:---|:---|:---|
+| desktop | `assets/intro/` | 80 @ 8 fps, q30 | ~620 KB |
+| mobile | `assets/intro/mobile/` | 60 @ 6 fps, q26 | ~424 KB |
+
+`gen_v.load(variant)` reads each set's `meta.json` for fps/frame count and falls
+back to the desktop cut if a mobile one is missing, so re-cutting needs no code
 change:
 
 ```bash
 # only when the source clip changes; needs imageio-ffmpeg (system ffmpeg may be absent)
-python3 tools/profile-art/make_frames.py
+python3 tools/profile-art/make_frames.py                                        # desktop cut
+python3 tools/profile-art/make_frames.py --fps 6 --quality 26 --out assets/intro/mobile
 python3 tools/profile-art/build.py
 ```
 
-`make_frames.py` is a dev tool - `build.py` never touches the video, it only
-reads the already-cut frames. Renderers that ignore CSS animation (reduced
-motion, no-CSS hosts) show the poster frame with the play button: the phone
-card uses `mode="poster"` and costs ~43 KB, the desktop card ~900 KB.
+`make_frames.py` is a dev tool — `build.py` never touches the video, it only
+reads the already-cut frames. Any renderer that ignores CSS animation shows the
+poster frame with the play button, which is the state the sequence settles into.
 
-Weight is the known cost of this trick: the desktop hero was ~47 KB before the
-clip and ~900 KB after. Drop the frame count or resolution in `make_frames.py`
-if that becomes a problem.
+Weight is the cost of this trick: `intro.svg` is ~886 KB and `intro-mobile.svg`
+~610 KB, while the hero dropped back to ~48 KB. Cutting the frame count, fps or
+quality in `make_frames.py` is the lever if that becomes a problem.
 
 ## Cards that are kept but not linked
 

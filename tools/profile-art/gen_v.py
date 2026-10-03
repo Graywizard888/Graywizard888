@@ -28,6 +28,11 @@ from gen_common import CYAN, DIM, GREEN, GREEN_D, MUTED, STROKE
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FRAME_DIR = os.path.abspath(os.path.join(HERE, "..", "..", "assets", "intro"))
+# Phones get their own, lighter cut of the same clip: one bitmap per frame means
+# no temporal compression, so the frame count and quality are the whole payload.
+# The desktop set is 8 fps / q30 (~620 KB); the phone set is 6 fps / q26.
+MOBILE_DIR = os.path.join(FRAME_DIR, "mobile")
+FRAME_DIRS = {"desktop": FRAME_DIR, "mobile": MOBILE_DIR}
 
 VIDEO_W, VIDEO_H = 480, 270     # displayed size in the card
 PAD = 26                        # window padding either side of the video
@@ -39,23 +44,32 @@ WINDOW_H = TITLE_H + VIDEO_H + BELOW
 _cache = {}
 
 
-def load():
-    """(base64 frames, meta) - read once per process, empty on a missing asset."""
-    if "frames" in _cache:
-        return _cache["frames"], _cache["meta"]
+def load(variant="desktop"):
+    """(base64 frames, meta) - read once per process, empty on a missing asset.
+
+    `variant` picks the frame set: "desktop" (assets/intro) or "mobile"
+    (assets/intro/mobile). A missing mobile cut falls back to the desktop one,
+    so the card still plays if only one set has been generated.
+    """
+    key = f"frames:{variant}"
+    if key in _cache:
+        return _cache[key], _cache[f"meta:{variant}"]
+    frame_dir = FRAME_DIRS.get(variant, FRAME_DIR)
+    if not os.path.isdir(frame_dir):
+        frame_dir = FRAME_DIR
     frames, meta = [], {"frames": 0, "fps": 8, "duration": 0.0}
-    if os.path.isdir(FRAME_DIR):
-        with open(os.path.join(FRAME_DIR, "meta.json"), encoding="utf-8") as fh:
+    if os.path.isdir(frame_dir):
+        with open(os.path.join(frame_dir, "meta.json"), encoding="utf-8") as fh:
             meta = json.load(fh)
         for i in range(1, meta["frames"] + 1):
-            path = os.path.join(FRAME_DIR, f"f{i:03d}.webp")
+            path = os.path.join(frame_dir, f"f{i:03d}.webp")
             with open(path, "rb") as fh:
                 frames.append(base64.b64encode(fh.read()).decode())
-        poster_path = os.path.join(FRAME_DIR, meta.get("poster", "poster.webp"))
+        poster_path = os.path.join(frame_dir, meta.get("poster", "poster.webp"))
         if os.path.exists(poster_path):
             with open(poster_path, "rb") as fh:
                 meta["poster_b64"] = base64.b64encode(fh.read()).decode()
-    _cache["frames"], _cache["meta"] = frames, meta
+    _cache[key], _cache[f"meta:{variant}"] = frames, meta
     return frames, meta
 
 
@@ -138,14 +152,14 @@ def _frames_layer(x, y, frames, meta, animated):
     return out
 
 
-def panel(x, y, mode="play"):
+def panel(x, y, mode="play", variant="desktop"):
     """Draw the player window with its top-left corner at (x, y).
 
     Returns (body, css, defs, height). `body` slots into the card between the
     HUD strip and the rest of the layout; `css` goes into the card's <style>.
     """
     animated = mode == "play"
-    frames, meta = load()
+    frames, meta = load(variant)
     vx, vy = x + PAD, y + TITLE_H
     mid_x, mid_y = vx + VIDEO_W / 2, vy + VIDEO_H / 2
     bar_y = vy + VIDEO_H + 16

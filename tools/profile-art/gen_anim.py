@@ -93,8 +93,17 @@ CSS_VARS = f"""
 """
 
 
-def style_block(extra=""):
-    return "<style>" + CSS_VARS + reduced_motion_block() + extra + "</style>"
+def style_block(extra="", reduced_motion=True):
+    """`reduced_motion=False` omits the global kill switch for one card.
+
+    Each SVG is its own document inside <img>, so this affects only the card that
+    asks for it. The intro clip uses it: it is a single ten-second one-shot that
+    ends on a static play button, and it was explicitly asked to play, so having
+    the OS reduce-motion switch silently replace it with a still poster was not
+    what anyone wanted. Every other card keeps the guard.
+    """
+    return ("<style>" + CSS_VARS + (reduced_motion_block() if reduced_motion else "") +
+            extra + "</style>")
 
 
 def typing_line(cid, x, baseline, text, size, color, width, delay, dur=1.0,

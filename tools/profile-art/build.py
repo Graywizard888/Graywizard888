@@ -14,16 +14,17 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, HERE)
 
-from gen_a import hero, about, VIDEO_SHIFT   # noqa: E402
+from gen_a import hero, about          # noqa: E402
 from gen_b import stack, connect       # noqa: E402
+from gen_i import intro, intro_mobile  # noqa: E402
 from gen_m import (hero_mobile, about_mobile, stack_mobile,   # noqa: E402
                    connect_mobile)
 from gen_p import build_card, BUILDS                    # noqa: E402
 
 # 1200 x <height>. Hero is the headline; the supporting cards step up in proportion.
 SIZES = {
-    # hero = 640 of layout + the intro-video band above it
-    "hero": 640 + VIDEO_SHIFT,
+    "hero": 640,
+    "intro": 480,
     "about-life": 560,
     "stack": 392,
     "connect": 300,
@@ -35,6 +36,7 @@ if __name__ == "__main__":
         "about-life.svg":   about(SIZES["about-life"]),
         "stack.svg":        stack(SIZES["stack"]),
         "connect.svg":      connect(SIZES["connect"]),
+        "intro.svg":        intro(SIZES["intro"]),
     }
     # Phone variants: 720px wide (so text renders ~2x bigger on a 360px screen)
     # with the heavy motion removed. Served via <picture><source media="...">.
@@ -43,6 +45,7 @@ if __name__ == "__main__":
         "about-life-mobile.svg":   about_mobile(),
         "stack-mobile.svg":        stack_mobile(),
         "connect-mobile.svg":      connect_mobile(),
+        "intro-mobile.svg":        intro_mobile(),
     }
     # Personal-build cards: one tappable image per repo, desktop + phone variants
     for i, spec in enumerate(BUILDS):
