@@ -449,7 +449,7 @@
 </g>
 <line x1="360" y1="424" x2="840" y2="424" stroke="#16222e" stroke-width="6" stroke-linecap="round"/>
 <line class="vprog" x1="360" y1="424" x2="840" y2="424" stroke="url(#vBar)" stroke-width="6" stroke-linecap="round" stroke-dasharray="480" stroke-dashoffset="480"/>
-<text x="360" y="450" fill="#4d6070" font-size="12.5" class="fm" letter-spacing="1">▸ PLAYING · 8 fps · silent</text>
+<text x="360" y="450" fill="#4d6070" font-size="12.5" class="vplaying fm" letter-spacing="1">▸ PLAYING · 8 fps · silent</text>
 <text class="vended fm" x="360" y="450" fill="#4ade80" font-size="12.5" letter-spacing="1.2">▸ TAP THE CARD TO REPLAY THE INTRO</text>
 <text class="vended fm" x="840" y="450" fill="#718799" font-size="12.5" text-anchor="end" letter-spacing="1">00:10.0</text>
 <g transform="translate(0,402)">

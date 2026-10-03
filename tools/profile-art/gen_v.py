@@ -196,7 +196,11 @@ def panel(x, y, mode="play"):
         f'<line class="{"vprog" if animated else ""}" x1="{vx}" y1="{bar_y}" x2="{vx + VIDEO_W}" y2="{bar_y}"'
         f' stroke="url(#vBar)" stroke-width="6" stroke-linecap="round"'
         f' stroke-dasharray="{VIDEO_W}" stroke-dashoffset="{0 if not animated else VIDEO_W}"/>',
-        f'<text x="{vx}" y="{status_y}" fill="{DIM}" font-size="12.5" class="fm" letter-spacing="1">{label}</text>',
+        # `.vplaying` keeps this visible while the clip runs and fades it out at
+        # the end, when the replay hint below takes the same spot. Without it the
+        # two labels are drawn on top of each other and the text is unreadable.
+        f'<text x="{vx}" y="{status_y}" fill="{DIM}" font-size="12.5" '
+        f'class="{"vplaying " if animated else ""}fm" letter-spacing="1">{label}</text>',
     ]
     if animated:
         body.append(f'<text class="vended fm" x="{vx}" y="{status_y}" fill="{GREEN}" font-size="12.5"'
