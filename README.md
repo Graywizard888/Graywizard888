@@ -78,12 +78,17 @@
 
 <br/><br/>
 
+<!-- 💌 LET'S CONNECT — one tappable ticket per channel: the whole card is the link,
+     so a tap lands on the target printed on its own face. The copy lives in
+     `CHANNELS` (tools/profile-art/gen_contact.py) and the stub serial follows the
+     length of that list, so a sixth channel is one tuple and one line here. The
+     shields.io badge row that used to sit under this said the same five things in
+     smaller type, so it is gone. -->
+
 ## 💌 Let's connect
 
-*Five tickets, one tap each — a card opens the link it prints on itself, so the
-target is always readable before you commit to it. Built from `CHANNELS` in
-`tools/profile-art/gen_contact.py`; the shields.io badge row that used to sit
-under this said the same five things in smaller type, so it is gone.*
+*Telegram for speed, GitHub for issues, the site for the long version, gists for the
+scraps worth keeping. One tap per ticket, destination on the front.*
 
 <a href="https://t.me/Graywizard_projects"><picture><source media="(max-width: 820px)" srcset="./connect/telegram-mobile.svg?v=1"><img src="./connect/telegram.svg?v=1" alt="Telegram — @Graywizard_projects · t.me/Graywizard_projects" width="100%"></picture></a>
 <a href="https://github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./connect/github-mobile.svg?v=1"><img src="./connect/github.svg?v=1" alt="GitHub — @Graywizard888 · github.com/Graywizard888" width="100%"></picture></a>
