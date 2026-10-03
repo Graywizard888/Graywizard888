@@ -90,20 +90,28 @@ the full cards.
 ## Personal-build cards
 
 `gen_p.py` renders one tappable card per repository into `builds/`
-(`p01.svg` … `p08.svg`, plus `-mobile` variants). Each card shows the repo mark,
-name, language chip, and the **real star / fork / pull-request counts** on rolling
-odometers, plus a code-weight bar scaled from the repository's actual size.
+(`p01.svg` … `p08.svg`, plus `-mobile` variants). The information layout follows
+the github-readme-stats pin card — repo name, description, language, stars,
+forks — restyled in the profile's terminal/cyber look and extended with the
+**pull-request count, licence and last-push age**.
 
-GitHub strips `<map>`/`usemap` image maps, so per-region taps *inside* one banner
-are not possible — the cards are linked individually instead, two per row:
+* Canvas is **480 x 236**, close to the pin-card proportions, so a 360px phone
+  renders the card at ~0.75x instead of shrinking a 1200px banner to 0.3x.
+* Desktop cards add a slow shimmer sweep and a pulsing index chip.
+* Phone cards are byte-for-byte the same artwork with the shimmer removed —
+  **zero perpetual animation**; only the load-time counter roll plays.
+
+GitHub strips `<map>`/`usemap` image maps, so per-region taps inside one banner
+are impossible. Each card is linked individually instead, one per row at its
+natural 480px width:
 
 ```html
 <a href="https://github.com/Graywizard888/Enhancify"><picture>
   <source media="(max-width: 820px)" srcset="./builds/p01-mobile.svg?v=1">
-  <img src="./builds/p01.svg?v=1" alt="Enhancify — 201 stars, 11 forks, 30 pull requests" width="49%">
+  <img src="./builds/p01.svg?v=1" alt="Enhancify — 201 stars, 11 forks, 30 PRs, Shell, unlicensed">
 </picture></a>
 ```
 
-To refresh the counts after a repo gains stars, edit `BUILDS` in `gen_p.py`
-(`(repo, name, short, language, accent, description, stars, forks, pulls, size_kb)`)
-and re-run `build.py`; then update the matching row in the README section.
+To refresh after a repo gains stars, edit `BUILDS` in `gen_p.py`
+`(repo, name, language, language_colour, licence, description, stars, forks, pulls, size_kb, last_push)`,
+re-run `build.py`, and update the `alt` text in the README.
