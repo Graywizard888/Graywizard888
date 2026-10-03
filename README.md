@@ -78,17 +78,18 @@
 
 <br/><br/>
 
-<!-- 💌 LET'S CONNECT -->
-<picture>
-  <source media="(max-width: 820px)" srcset="./connect-mobile.svg?v=1">
-  <img src="./connect.svg?v=1" alt="Let&#39;s connect" width="100%"/>
-</picture>
+## 💌 Let's connect
 
-<a href="https://github.com/Graywizard888"><img src="https://img.shields.io/badge/GitHub-22d3ee?style=for-the-badge&logo=github&logoColor=0d0e16" alt="GitHub"/></a>
-<a href="https://t.me/Graywizard_projects"><img src="https://img.shields.io/badge/Telegram-4ade80?style=for-the-badge&logo=telegram&logoColor=0d0e16" alt="Telegram"/></a>
-<a href="https://gist.github.com/Graywizard888"><img src="https://img.shields.io/badge/mpv%20scripts-a78bfa?style=for-the-badge&logo=lua&logoColor=0d0e16" alt="mpv scripts"/></a>
-<a href="https://website-src-seven.vercel.app/"><img src="https://img.shields.io/badge/Portfolio-fbbf24?style=for-the-badge&logo=vercel&logoColor=0d0e16" alt="Portfolio"/></a>
-<a href="https://github.com/sponsors/Graywizard888"><img src="https://img.shields.io/badge/Sponsor-f472b6?style=for-the-badge&logo=githubsponsors&logoColor=0d0e16" alt="Sponsor"/></a>
+*Five tickets, one tap each — a card opens the link it prints on itself, so the
+target is always readable before you commit to it. Built from `CHANNELS` in
+`tools/profile-art/gen_contact.py`; the shields.io badge row that used to sit
+under this said the same five things in smaller type, so it is gone.*
+
+<a href="https://t.me/Graywizard_projects"><picture><source media="(max-width: 820px)" srcset="./connect/telegram-mobile.svg?v=1"><img src="./connect/telegram.svg?v=1" alt="Telegram — @Graywizard_projects · t.me/Graywizard_projects" width="100%"></picture></a>
+<a href="https://github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./connect/github-mobile.svg?v=1"><img src="./connect/github.svg?v=1" alt="GitHub — @Graywizard888 · github.com/Graywizard888" width="100%"></picture></a>
+<a href="https://website-src-seven.vercel.app/"><picture><source media="(max-width: 820px)" srcset="./connect/portfolio-mobile.svg?v=1"><img src="./connect/portfolio.svg?v=1" alt="Portfolio — website-src-seven · website-src-seven.vercel.app" width="100%"></picture></a>
+<a href="https://gist.github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./connect/gists-mobile.svg?v=1"><img src="./connect/gists.svg?v=1" alt="Gists — mpv · lua scripts · gist.github.com/Graywizard888" width="100%"></picture></a>
+<a href="https://github.com/sponsors/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./connect/sponsors-mobile.svg?v=1"><img src="./connect/sponsors.svg?v=1" alt="GitHub Sponsors — Sponsor the work · github.com/sponsors/Graywizard888" width="100%"></picture></a>
 
 <br/><br/>
 

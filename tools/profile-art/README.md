@@ -17,7 +17,7 @@ never means emptier. `build_final.py` shows the values currently in use:
 | `about-life.svg` | `about(H)` | **560** | capability bars and life rows spread, footer pins to the bottom edge |
 | `stack.svg` | `stack(H)` | **540** | the four chip groups spread apart to fill the column (gap capped at 26px) and the orbit cluster re-centres |
 | `id-dashboard.svg` | `card_ids(H)` | **500** | *not currently linked* — ID card + dashboard, kept in reserve |
-| `connect.svg` | `connect(H)` | **300** | contact tiles centre, footer pins to the bottom edge |
+| `connect/<channel>.svg` | `contact_card(i, ch)` | **1012 x 176** | *not height-driven* — one ticket per channel, see “Contact tickets” below |
 
 Any value from ~420 to ~800 works for the hero; the others scale proportionally.
 Because the README sets `width="100%"` and the SVG carries no CSS height, the
@@ -28,7 +28,9 @@ rendered height follows the intrinsic aspect ratio — so changing `H` is all it
 * `gen_anim.py` — the CSS/keyframes library. Pure CSS animation, no JavaScript,
   which is what lets GitHub render these inside an `<img>`.
 * `gen_a.py` → `hero.svg`, `about-life.svg`
-* `gen_b.py` → `stack.svg`, `connect.svg`
+* `gen_b.py` → `stack.svg`
+* `gen_contact.py` → `connect/telegram.svg`, `connect/github.svg`, `connect/portfolio.svg`,
+  `connect/gists.svg`, `connect/sponsors.svg` (+ `-mobile` for each)
 * `gen_c.py` → `id-dashboard.svg` (ID card + dashboard) — **currently not
   linked from README.md**, see the note below
 * `gen_stack.py` → the stack card's parts (chips, flow layout, orbit rings, core
@@ -129,8 +131,10 @@ animate from a *translated* group, so their static state is the finished card.
 ## Mobile variants
 
 `gen_m.py` builds a second set of cards at **720px wide** (`hero-mobile.svg`,
-`about-life-mobile.svg`, `stack-mobile.svg`,
-`connect-mobile.svg`). The README serves them through `<picture>`:
+`about-life-mobile.svg`, `stack-mobile.svg`). The contact tickets get their own
+narrow shape from `gen_contact.py` (480 x 214) rather than a 720px one, because
+they are laid out like the build cards they sit beside. The README serves them
+through `<picture>`:
 
 ```html
 <picture>
@@ -167,6 +171,42 @@ URL on the rendered page, so this works on the profile without any hosting.
 `media="(max-width: 820px)"` targets phones in portrait; tablets and desktop get
 the full cards.
 
+
+## Contact tickets
+
+`gen_contact.py` replaces the old single `connect.svg` banner — one card with four
+tiles inside it, plus a shields.io badge row underneath repeating the same five
+links. Now each channel is its own tappable card and the badge row is gone: the
+target URL is printed on the ticket, so there was nothing left for chips to say.
+
+```html
+<a href="https://t.me/Graywizard_projects"><picture><source media="(max-width: 820px)" srcset="./connect/telegram-mobile.svg?v=1"><img src="./connect/telegram.svg?v=1" alt="Telegram — @Graywizard_projects · t.me/Graywizard_projects" width="100%"></picture></a>
+```
+
+Same one-line-per-card rule as the build cards, and the same reason (GitHub splits a
+multi-line `<a><picture>` and then auto-links the orphaned image to the `.svg`).
+`CHANNELS` holds the copy — `(file stem, channel, handle, target, accent, icon key,
+one-line why, what a tap does)` — so adding a sixth channel is one tuple, and the
+serial (`no. 01/05`) follows the list length by itself. Nothing in `builds.json` is
+involved: a handle does not change on a schedule, so these cards have no numbers to
+refresh and `refresh_stats.py` has no alt text to rewrite here (it keys off
+`github.com/OWNER/REPO`, which none of these hrefs match).
+
+**A ticket, not a terminal window.** The information layout is the build cards'
+(name, one line about it, what to do next), so the surface is deliberately the
+opposite: dotted field instead of a grid, a solid stub carrying the brand mark, a
+dashed perforation with a notch punched top and bottom, a serial turned on its
+side, and a pill whose arrow nudges out of the card on a loop — the only
+perpetual motion these five have, and the one thing that says "tap". The repo
+cards' tricks stay away: no HUD corners, no top accent bar, no holographic
+shimmer, no odometers.
+
+```bash
+python3 tools/profile-art/build.py     # writes connect/*.svg and connect/*-mobile.svg
+```
+
+`build.py` creates `connect/` if it is missing, so a fresh clone does not need the
+directory committed.
 
 ## Personal-build cards
 

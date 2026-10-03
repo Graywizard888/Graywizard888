@@ -243,50 +243,6 @@ def stack_mobile():
 
 
 # ------------------------------------------------------------------ CONNECT
-def connect_mobile():
-    H = 700
-    defs, L_ = frame(H, CYAN, rain_cols=7, seed=17)
-    L_.append(R(28, 30, 5, 20, fill=CYAN, rx=2.5))
-    L_.append(T(46, 48, "// connect", 22, SOFT, ls=1.4))
-    L_.append(T(W - 28, 48, "open to collaboration", 20, MUTED, anchor="end"))
-    cards = [("TELEGRAM", "@Graywizard_projects", "t.me/Graywizard_projects", "#22A7E0"),
-             ("GITHUB", "@Graywizard888", "github.com/Graywizard888", "#E6EDF3"),
-             ("PORTFOLIO", "cyber portfolio", "website-src-seven.vercel.app", "#4ADE80"),
-             ("GISTS", "mpv · lua scripts", "gist.github.com/Graywizard888", "#FBBF24")]
-    cw, ch = 320, 216
-    for i, (label, handle, url, col) in enumerate(cards):
-        x = 28 + (i % 2) * (cw + 16)
-        y = 84 + (i // 2) * (ch + 18)
-        L_.append(R(x, y, cw, ch, fill=PANEL, rx=16, stroke="#1a2836", sw=1.3))
-        L_.append(R(x, y, cw, 4, fill=col, rx=2, opacity=.9))
-        if i == 1:      # GitHub mark, drawn
-            GH = ("M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49"
-                  "-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82"
-                  ".72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15"
-                  "-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82"
-                  ".44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2"
-                  "0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z")
-            L_.append(G(P(GH, fill=col), transform=f"translate({x+28},{y+26}) scale(2.1)"))
-        else:
-            L_.append(C(x + 45, y + 43, 17, fill="none", stroke=col, sw=2))
-            if i == 0:
-                L_.append(P(f"M{x+38} {y+43} L{x+58} {y+33} L{x+50} {y+57} L{x+44} {y+47} Z", fill=col, opacity=.95))
-            elif i == 2:
-                L_.append(T(x + 45, y + 50, "WWW", 15, col, anchor="middle", weight=700, family=None, cls="fs"))
-            else:
-                L_.append(C(x + 45, y + 43, 7, fill=col, opacity=.9))
-        L_.append(T(x + 26, y + 96, label, 21, MUTED, ls=1.6, weight=600))
-        hsize = 25 if len(handle) <= 17 else (22 if len(handle) <= 20 else 20)
-        L_.append(T(x + 26, y + 134, handle, hsize, col, weight=600))
-        L_.append(T(x + 26, y + 176, url, 17, DIM))
-        L_.append(P(f"M{x+cw-38} {y+ch-20} l14 -14 M{x+cw-38} {y+ch-34} h14 v14", stroke=col, sw=2, opacity=.85))
-    L_.append(L(28, 660, W - 28, 660, stroke=STROKE, sw=1))
-    L_.append(C(40, 684, 6, fill=GREEN, cls="pulse"))
-    L_.append(T(58, 691, "every repo MIT or GPL-3.0 · reply window: IST evenings", 20, MUTED))
-    return wrap(H, defs, L_, "Connect with Graywizard")
-
-
-# ------------------------------------------------------------------ ID + DASHBOARD
 def ids_mobile():
     """Phone variant of the developer-ID/dashboard card - not linked from
     README.md at present (see gen_c.py); kept so the card can be restored."""

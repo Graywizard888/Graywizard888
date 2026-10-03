@@ -43,6 +43,9 @@ WANTED = {
     "githubactions":       ("GitHub Actions",  "#2088FF", "Ac"),
     "claude":              ("Claude Code",     "#D97757", "Cl"),
     "googlegemini":        ("Gemini CLI",      "#4285F4", "Gm"),
+    "telegram":            ("Telegram",        "#22A7E0", "Tg"),
+    "vercel":              ("Vercel",          "#FFFFFF", "Vc"),
+    "githubsponsors":      ("GitHub Sponsors", "#F472B6", "$"),
 }
 # brands with no glyph upstream any more (simple-icons dropped Termux): drawn as
 # a mono tile instead, which is what the card did before brand icons existed.
@@ -52,7 +55,10 @@ WANTED = {
 FALLBACK = {"termux": ("Termux", "#4ADE80", "Tx"),
             "ndk":    ("NDK", "#3DDC84", "Nd"),
             "lua":    ("Lua", "#7C8FFF", "Lu"),
-            "rust":   ("Rust", "#FF7043", "Rs")}
+            "rust":   ("Rust", "#FF7043", "Rs"),
+            # a gist is not a brand, so it gets the braces: the shortest honest
+            # drawing of "a file of code" that survives at 24px
+            "gists":  ("Gists", "#FBBF24", "{}")}
 
 
 def num(m):
