@@ -6,6 +6,7 @@ Served to phones via <picture><source media="(max-width: 700px)">.
 """
 import math, random
 from gen_common import *
+import gen_v
 from gen_anim import style_block
 
 W = 720
@@ -38,9 +39,17 @@ def wrap(H, defs, body, label, extra_css=""):
 
 
 # ------------------------------------------------------------------ HERO
+# Poster band: phones get the still + play button, never the frame sequence (it
+# would be ~700 KB on a phone connection for something they can't replay).
+MOB_VIDEO_X = (720 - gen_v.WINDOW_W) // 2
+MOB_VIDEO_Y = 96
+MOB_SHIFT = 356
+
+
 def hero_mobile():
     H = 820
-    defs, L_ = frame(H, GREEN, rain_cols=9, seed=5)
+    HT = H + MOB_SHIFT
+    defs, L_ = frame(HT, GREEN, rain_cols=9, seed=5)
     defs += [
         '<linearGradient id="mName" x1="0" y1="0" x2="1" y2=".2">'
         f'<stop offset="0" stop-color="#8bf5b4"/><stop offset=".45" stop-color="{GREEN}"/>'
@@ -60,6 +69,12 @@ def hero_mobile():
     L_.append(T(84, 64, "SYSTEM.ONLINE", 21, GREEN, weight=600, ls=1.4))
     L_.append(C(628, 57, 7, fill="#ff6b60"))
     L_.append(T(648, 64, "REC", 21, "#ff8f88", weight=600, ls=2))
+
+    # ------------------------------------------------- intro poster (no frames)
+    v_body, _, v_defs, _ = gen_v.panel(MOB_VIDEO_X, MOB_VIDEO_Y, mode="poster")
+    defs += v_defs
+    L_.append(v_body)
+    L_.append(f'<g transform="translate(0,{MOB_SHIFT})">')
 
     L_.append(T(32, 132, "graywizard@cyber:~$ whoami", 23, GREEN, opacity=.92))
     L_.append(f'<ellipse cx="300" cy="250" rx="330" ry="180" fill="url(#mGlow)"/>')
@@ -104,7 +119,9 @@ def hero_mobile():
 
     L_.append(L(32, 788, W - 32, 788, stroke=STROKE, sw=1))
     L_.append(T(32, 806, f"since {PROFILE['created']} · 4 mpv + lua scripts · MIT / GPL-3.0", 19, DIM))
-    return wrap(H, defs, L_, "Graywizard — coder, gamer, system architect", )
+    L_.append("</g>")
+    return wrap(HT, defs, L_, "Graywizard — coder, gamer, system architect, "
+                "with a still from the ten-second intro animation")
 
 
 # ------------------------------------------------------------------ ABOUT / LIFE

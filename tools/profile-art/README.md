@@ -188,6 +188,36 @@ by hand, let the refresher fill the rest), re-run `build.py`, then add/remove th
 matching single-line `<a href>` block in `README.md`. Delete any orphaned
 `builds/pNN*.svg` files.
 
+## The intro clip in the hero card
+
+The hero card opens with the portfolio's ten-second intro clip. GitHub strips
+every form of `<video>` and `<iframe>` from markdown, so the clip is rebuilt as
+an SVG one-shot: `gen_v.panel()` embeds the real frames as base64 `<image>`
+layers and stacks them with per-frame `opacity` keyframes
+(`steps(1, end)`, `iteration-count: 1`, `forwards`). The run ends on the last
+frame with a dimmed shade and a centred play button, and the whole hero card is
+wrapped in a link so tapping it reloads the README and replays the clip.
+
+The frames live in `assets/intro/` (`f001..f080.webp` — 400x225, 8 fps, 10.0 s,
+webp q30, 619 KB — plus `poster.webp` and `meta.json`). `gen_v.load()` reads
+`meta.json` for the fps/frame count, so re-cutting the video needs no code
+change:
+
+```bash
+# only when the source clip changes; needs imageio-ffmpeg (system ffmpeg may be absent)
+python3 tools/profile-art/make_frames.py
+python3 tools/profile-art/build.py
+```
+
+`make_frames.py` is a dev tool - `build.py` never touches the video, it only
+reads the already-cut frames. Renderers that ignore CSS animation (reduced
+motion, no-CSS hosts) show the poster frame with the play button: the phone
+card uses `mode="poster"` and costs ~43 KB, the desktop card ~900 KB.
+
+Weight is the known cost of this trick: the desktop hero was ~47 KB before the
+clip and ~900 KB after. Drop the frame count or resolution in `make_frames.py`
+if that becomes a problem.
+
 ## Cards that are kept but not linked
 
 `id-dashboard.svg` / `id-dashboard-mobile.svg` — the developer-ID + dashboard

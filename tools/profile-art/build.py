@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 sys.path.insert(0, HERE)
 
-from gen_a import hero, about          # noqa: E402
+from gen_a import hero, about, VIDEO_SHIFT   # noqa: E402
 from gen_b import stack, connect       # noqa: E402
 from gen_m import (hero_mobile, about_mobile, stack_mobile,   # noqa: E402
                    connect_mobile)
@@ -22,7 +22,8 @@ from gen_p import build_card, BUILDS                    # noqa: E402
 
 # 1200 x <height>. Hero is the headline; the supporting cards step up in proportion.
 SIZES = {
-    "hero": 640,
+    # hero = 640 of layout + the intro-video band above it
+    "hero": 640 + VIDEO_SHIFT,
     "about-life": 560,
     "stack": 392,
     "connect": 300,

@@ -3,10 +3,7 @@
 <!-- 🎬 HERO — cyber intro + name.
      Phones get the 720px-wide card: ~2x the rendered text size and almost no
      animation; everything else gets the full 1200px animated reel. -->
-<picture>
-  <source media="(max-width: 820px)" srcset="./hero-mobile.svg?v=1">
-  <img src="./hero.svg?v=1" alt="Hi, I'm Aditya (Graywizard) — script &amp; automation developer" width="100%"/>
-</picture>
+<a href="https://github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./hero-mobile.svg?v=1"><img src="./hero.svg?v=1" alt="Hi, I'm Aditya (Graywizard) — script &amp; automation developer. The ten-second intro animation plays once at the top of the card, then shows a play button — tap the card to play it again." width="100%"/></picture></a>
 
 <br/><br/>
 
