@@ -200,7 +200,7 @@ def panel(x, y, mode="play"):
     ]
     if animated:
         body.append(f'<text class="vended fm" x="{vx}" y="{status_y}" fill="{GREEN}" font-size="12.5"'
-                    f' letter-spacing="1.2">▸ ENDED — TAP THE CARD TO PLAY IT AGAIN</text>')
+                    f' letter-spacing="1.2">▸ TAP THE CARD TO REPLAY THE INTRO</text>')
         body.append(f'<text class="vended fm" x="{vx + VIDEO_W}" y="{status_y}" fill="{MUTED}" font-size="12.5"'
                     f' text-anchor="end" letter-spacing="1">00:{meta["duration"]:04.1f}</text>')
     else:
