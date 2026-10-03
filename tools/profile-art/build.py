@@ -16,9 +16,8 @@ sys.path.insert(0, HERE)
 
 from gen_a import hero, about          # noqa: E402
 from gen_b import stack, connect       # noqa: E402
-from gen_c import card_ids             # noqa: E402
 from gen_m import (hero_mobile, about_mobile, stack_mobile,   # noqa: E402
-                   connect_mobile, ids_mobile)
+                   connect_mobile)
 from gen_p import build_card, BUILDS                    # noqa: E402
 
 # 1200 x <height>. Hero is the headline; the supporting cards step up in proportion.
@@ -26,7 +25,6 @@ SIZES = {
     "hero": 640,
     "about-life": 560,
     "stack": 392,
-    "id-dashboard": 500,
     "connect": 300,
 }
 
@@ -35,7 +33,6 @@ if __name__ == "__main__":
         "hero.svg":         hero(SIZES["hero"]),
         "about-life.svg":   about(SIZES["about-life"]),
         "stack.svg":        stack(SIZES["stack"]),
-        "id-dashboard.svg": card_ids(SIZES["id-dashboard"]),
         "connect.svg":      connect(SIZES["connect"]),
     }
     # Phone variants: 720px wide (so text renders ~2x bigger on a 360px screen)
@@ -44,7 +41,6 @@ if __name__ == "__main__":
         "hero-mobile.svg":         hero_mobile(),
         "about-life-mobile.svg":   about_mobile(),
         "stack-mobile.svg":        stack_mobile(),
-        "id-dashboard-mobile.svg": ids_mobile(),
         "connect-mobile.svg":      connect_mobile(),
     }
     # Personal-build cards: one tappable image per repo, desktop + phone variants

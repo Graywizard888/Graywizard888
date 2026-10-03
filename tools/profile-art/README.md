@@ -16,7 +16,7 @@ never means emptier. `build_final.py` shows the values currently in use:
 | `hero.svg` | `hero(H)` | **640** | terminal earns extra `gh repo list` / `gist list` output, boot log appears, wordmark + equaliser scale |
 | `about-life.svg` | `about(H)` | **560** | capability bars and life rows spread, footer pins to the bottom edge |
 | `stack.svg` | `stack(H)` | **392** | the two marquees move to the top/bottom edges |
-| `id-dashboard.svg` | `card_ids(H)` | **500** | ID card gains the activity record (commits per year), donut and 26-week chart grow |
+| `id-dashboard.svg` | `card_ids(H)` | **500** | *not currently linked* — ID card + dashboard, kept in reserve |
 | `connect.svg` | `connect(H)` | **300** | contact tiles centre, footer pins to the bottom edge |
 
 Any value from ~420 to ~800 works for the hero; the others scale proportionally.
@@ -29,7 +29,8 @@ rendered height follows the intrinsic aspect ratio — so changing `H` is all it
   which is what lets GitHub render these inside an `<img>`.
 * `gen_a.py` → `hero.svg`, `about-life.svg`
 * `gen_b.py` → `stack.svg`, `connect.svg`
-* `gen_c.py` → `id-dashboard.svg` (ID card + dashboard)
+* `gen_c.py` → `id-dashboard.svg` (ID card + dashboard) — **currently not
+  linked from README.md**, see the note below
 
 ## Refreshing the numbers
 
@@ -60,7 +61,7 @@ animate from a *translated* group, so their static state is the finished card.
 ## Mobile variants
 
 `gen_m.py` builds a second set of cards at **720px wide** (`hero-mobile.svg`,
-`about-life-mobile.svg`, `stack-mobile.svg`, `id-dashboard-mobile.svg`,
+`about-life-mobile.svg`, `stack-mobile.svg`,
 `connect-mobile.svg`). The README serves them through `<picture>`:
 
 ```html
@@ -159,7 +160,7 @@ refresh commit only contains the cards that actually moved.
 # refresh the counts, then redraw (a token avoids API rate limits; the
 # contributions total needs it - GraphQL cannot be called anonymously)
 GITHUB_TOKEN=$(gh auth token) python3 tools/profile-art/refresh_stats.py
-python3 tools/profile-art/build.py           # writes all 24 SVGs
+python3 tools/profile-art/build.py           # writes all 22 SVGs
 python3 tools/profile-art/refresh_stats.py --dry-run    # preview the diff only
 ```
 
@@ -186,3 +187,14 @@ To add or remove a repo: edit `repos` in `builds.json` (add the editorial fields
 by hand, let the refresher fill the rest), re-run `build.py`, then add/remove the
 matching single-line `<a href>` block in `README.md`. Delete any orphaned
 `builds/pNN*.svg` files.
+
+## Cards that are kept but not linked
+
+`id-dashboard.svg` / `id-dashboard-mobile.svg` — the developer-ID + dashboard
+card, drawn by `gen_c.py` and `gen_m.ids_mobile()` — were removed from
+`README.md` because the card sat directly under the tech-stack banner. `build.py`
+no longer writes them, so nothing regenerates or re-commits them.
+
+To bring the card back: re-add its two entries in `build.py`, run it, and paste
+the matching `<picture>` block back into the README. Delete `gen_c.py` and
+`ids_mobile()` instead if it is gone for good.

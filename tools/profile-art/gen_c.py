@@ -1,4 +1,11 @@
-"""id-dashboard.svg — developer ID card + live system dashboard (real numbers)."""
+"""id-dashboard.svg — developer ID card + live system dashboard (real numbers).
+
+NOT CURRENTLY LINKED from README.md: the card was removed on request (it sat
+directly under the tech-stack banner) and build.py no longer emits it. The
+generator is kept in reserve so the card can be brought back with one entry in
+build.py plus the matching <picture> block - delete this file instead if it is
+gone for good.
+"""
 import math, random
 from gen_common import *
 from gen_anim import style_block

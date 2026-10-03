@@ -26,14 +26,6 @@
 
 <br/><br/>
 
-<!-- 🪪 DEVELOPER ID + DASHBOARD -->
-<picture>
-  <source media="(max-width: 820px)" srcset="./id-dashboard-mobile.svg?v=1">
-  <img src="./id-dashboard.svg?v=1" alt="Developer ID and dashboard" width="100%"/>
-</picture>
-
-<br/><br/>
-
 </div>
 
 ## 🧪 Personal builds

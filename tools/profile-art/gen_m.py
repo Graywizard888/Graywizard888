@@ -227,6 +227,8 @@ def connect_mobile():
 
 # ------------------------------------------------------------------ ID + DASHBOARD
 def ids_mobile():
+    """Phone variant of the developer-ID/dashboard card - not linked from
+    README.md at present (see gen_c.py); kept so the card can be restored."""
     H = 1080
     defs, L_ = frame(H, GREEN, rain_cols=8, seed=23)
     defs += ['<linearGradient id="mHead" x1="0" y1="0" x2="1" y2="1">'
