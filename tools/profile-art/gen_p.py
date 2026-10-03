@@ -13,31 +13,26 @@ The mobile card also drops the shimmer, so phones get zero perpetual animation.
 from gen_common import *
 from gen_anim import style_block
 
-# repo, display name, language, language colour, licence, description,
-# stars, forks, pulls, size_kb, last push
-BUILDS = [
-    ("Enhancify", "Enhancify", "Shell", "#89E051", None,
-     "The only custom Revancify with extra features and more customizations",
-     201, 11, 30, 20450, "16d ago"),
-    ("Terminal_EX", "Terminal_EX", "Java", "#F89820", "GPL-3.0",
-     "Termux Monet fork — terminal for Android 8+, extendible by packages",
-     87, 0, 0, 15560, "5mo ago"),
-    ("GPlayDL-TUI", "GPlayDL-TUI", "Python", "#4B8BBE", "MIT",
-     "Feature-rich Terminal UI for downloading Android APKs from Google Play",
-     8, 2, 1, 1098, "2mo ago"),
-    ("Gists_Collection", "Gists_Collection", "Lua", "#7C8FFF", "MIT",
-     "The collection of Gists — mpv scripting and day-to-day hacks",
-     5, 0, 0, 36, "5mo ago"),
-    ("Gemini-Setup", "Gemini-Setup", "Shell", "#89E051", "MIT",
-     "Installs and configures Gemini CLI while keeping privacy in mind",
-     3, 0, 0, 19, "6mo ago"),
-    ("Extension_Fetcher", "Extension_Fetcher", "Python", "#4B8BBE", "Apache-2.0",
-     "Tries to download an extension by user specified extension id",
-     3, 0, 0, 41, "1y ago"),
-    ("Claude_code_setup", "Claude_code_setup", "Python", "#4B8BBE", "MIT",
-     "Self-contained, one-command setup for Claude Code on Android Termux",
-     1, 1, 0, 815, "1mo ago"),
-]
+# Repo data lives in builds.json so it can be refreshed by machine:
+# tools/profile-art/refresh_stats.py rewrites the counts from the GitHub API and
+# build.py redraws every card from it. Field order per repo is
+# (repo, display name, language, language colour, licence, description,
+#  stars, forks, pulls, size_kb, last push).
+import json as _json
+import os as _os
+
+BUILDS_JSON = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "builds.json")
+
+
+def _load_builds():
+    with open(BUILDS_JSON, encoding="utf-8") as fh:
+        data = _json.load(fh)
+    return [(r["repo"], r["name"], r["language"], r["language_color"], r.get("license"),
+             r["description"], r["stars"], r["forks"], r["pulls"], r["size_kb"], r["pushed"])
+            for r in data["repos"]]
+
+
+BUILDS = _load_builds()
 
 ACCENTS = [GREEN, CYAN, VIOLET, AMBER, PINK, "#60a5fa", GREEN_D, CYAN]
 

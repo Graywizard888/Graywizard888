@@ -106,13 +106,54 @@ own `<a href>` so tapping anywhere on it opens the repository (GitHub strips
 `<map>`/`usemap`, so per-region taps inside a single image are not possible).
 
 ```html
-<a href="https://github.com/Graywizard888/Enhancify"><picture>
-  <source media="(max-width: 820px)" srcset="./builds/p01-mobile.svg?v=1">
-  <img src="./builds/p01.svg?v=1" alt="Enhancify — 201 stars, 11 forks, 30 PRs, Shell, unlicensed" width="100%"/>
-</picture></a>
+<a href="https://github.com/Graywizard888/Enhancify"><picture><source media="(max-width: 820px)" srcset="./builds/p01-mobile.svg?v=1"><img src="./builds/p01.svg?v=1" alt="Enhancify — 201 stars, 11 forks, 30 PRs, Shell, unlicensed" width="100%"></picture></a>
 ```
 
-To add or remove a repo, edit `BUILDS` in `gen_p.py`
-`(repo, name, language, language_colour, licence, description, stars, forks, pulls, size_kb, last_push)`,
-re-run `build.py`, then add/remove the matching `<a href>` block in the README.
-Delete any orphaned `builds/pNN*.svg` files.
+> **Keep each card on a single line.** GitHub's markdown HTML-block handling
+> breaks a multi-line `<a><picture>` apart: the `<picture>` inside the anchor
+> comes out empty, the `<img>` lands outside the link, and GitHub then
+> auto-links the orphaned image to the `.svg` file itself — so tapping a card
+> opens the artwork instead of the repository. One line, no newlines inside the
+> block, and the anchor wraps everything as intended.
+
+## Card data: `builds.json`
+
+`builds.json` is the single source of truth for the cards — `gen_p.py` loads it
+into `BUILDS` at import time.
+
+| Field | Owner |
+|:---|:---|
+| `stars`, `forks`, `pulls`, `language`, `license`, `size_kb`, `pushed` | **machine** — rewritten by `refresh_stats.py` from the GitHub API |
+| `repo`, `name`, `description`, `language_color` | **you** — editorial, hand-tuned for the canvas and the neon palette |
+
+`refresh_stats.py` never touches the editorial fields, and `build.py` is
+deterministic: cards whose facts did not change come out byte-identical, so a
+refresh commit only contains the cards that actually moved.
+
+```bash
+# refresh the counts, then redraw (a token avoids API rate limits)
+GITHUB_TOKEN=$(gh auth token) python3 tools/profile-art/refresh_stats.py
+python3 tools/profile-art/build.py           # writes all 26 SVGs
+python3 tools/profile-art/refresh_stats.py --dry-run    # preview the diff only
+```
+
+It also rewrites the `alt="…"` text of every card in `README.md`, which carries
+the same counts for screen readers, so the artwork and the alt text cannot drift
+apart. Two details it handles on purpose:
+
+* **`Gists_Collection` reports `language: null`** on the API. A null language
+  means "undetected", not "no language", so the refresher keeps whatever the
+  card already says (Lua) rather than blanking it.
+* **`language_color`** is a palette choice, not data: GitHub's own colours are
+  unreadable on graphite (Lua is `#000080`). The colour is only re-picked from
+  `LANG_COLORS` when the detected language itself changes.
+
+`.github/workflows/refresh-cards.yml` runs the two commands daily at 04:20 UTC
+and commits the result — that is what makes the counts live. Scheduled
+workflows run on the default branch only, so it starts working once this branch
+is merged; `workflow_dispatch` runs it by hand from the Actions tab.
+
+To add or remove a repo: edit `repos` in `builds.json` (add the editorial fields
+by hand, let the refresher fill the rest), re-run `build.py`, then add/remove the
+matching single-line `<a href>` block in `README.md`. Delete any orphaned
+`builds/pNN*.svg` files.
