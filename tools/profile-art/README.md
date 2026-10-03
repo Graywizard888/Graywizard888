@@ -85,3 +85,25 @@ GitHub keeps the `media` attribute and rewrites the relative `srcset` to a raw
 URL on the rendered page, so this works on the profile without any hosting.
 `media="(max-width: 820px)"` targets phones in portrait; tablets and desktop get
 the full cards.
+
+
+## Personal-build cards
+
+`gen_p.py` renders one tappable card per repository into `builds/`
+(`p01.svg` … `p08.svg`, plus `-mobile` variants). Each card shows the repo mark,
+name, language chip, and the **real star / fork / pull-request counts** on rolling
+odometers, plus a code-weight bar scaled from the repository's actual size.
+
+GitHub strips `<map>`/`usemap` image maps, so per-region taps *inside* one banner
+are not possible — the cards are linked individually instead, two per row:
+
+```html
+<a href="https://github.com/Graywizard888/Enhancify"><picture>
+  <source media="(max-width: 820px)" srcset="./builds/p01-mobile.svg?v=1">
+  <img src="./builds/p01.svg?v=1" alt="Enhancify — 201 stars, 11 forks, 30 pull requests" width="49%">
+</picture></a>
+```
+
+To refresh the counts after a repo gains stars, edit `BUILDS` in `gen_p.py`
+(`(repo, name, short, language, accent, description, stars, forks, pulls, size_kb)`)
+and re-run `build.py`; then update the matching row in the README section.
