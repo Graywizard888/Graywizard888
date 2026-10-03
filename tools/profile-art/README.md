@@ -200,9 +200,18 @@ standalone card, sitting directly above the hero. GitHub strips every form of
 `<video>` and `<iframe>` from markdown, so the clip is rebuilt as an SVG
 one-shot: `gen_v.panel()` embeds the real frames as base64 `<image>` layers and
 stacks them with per-frame `opacity` keyframes (`steps(1, end)`,
-`iteration-count: 1`, `forwards`). The run ends on the last frame with a dimmed
-shade and a centred play button, and the card is wrapped in a link so tapping it
-reloads the README and replays the clip.
+`iteration-count: 1`, `forwards`). The run ends on the last frame and stays
+there — no play button, no replay affordance. An SVG image cannot handle its own
+clicks, so a button drawn into the picture only ever looked interactive; the clip
+is meant to play once and settle.
+
+**Nothing overlays the frames any more.** The panel used to paint a 4px-pitch
+black bar pattern over the video (`#000` at `.6` inside `#vScan`, then that layer
+again at `.3` on top of the frames), on top of the card backdrop's own `.28` pass
+— that is what showed up as black lines running across the clip. It reads as
+texture on a choppy image and as hard black bars on a clean one. Both passes are
+gone, along with the dimming shade and the play button that covered the last
+frame. The progress bar and the timecode still sit below the picture.
 
 **Both cards play the file's own cut.** The clip is 1280x720 at 24 fps. It is cut
 once, at that frame rate and at the panel's exact pixel size (480x270, so nothing
@@ -214,9 +223,9 @@ phone card was once `mode="poster"` — a single still with a play button painte
 it and no frames at all. Both were dropped: with the frames in place, the phone
 card plays the real thing.
 
-The play button is drawn *inside* the card image, and a plain image cannot carry
-its own link, so the card itself is the link. **It points at the real file**:
-`graywizard.mp4`, which plays in full 1280x720 with sound. A relative href
+There is no button to click, so the card is the link, and **it points at the real
+file**: `graywizard.mp4`, which plays in full 1280x720 with sound — the inline
+reproduction is silent, since a README cannot host a `<video>`. A relative href
 (`href="graywizard.mp4"`) so it always resolves to whichever branch is being read.
 
 Frame set:

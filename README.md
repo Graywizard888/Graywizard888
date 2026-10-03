@@ -1,13 +1,13 @@
 <div align="center">
 
 <!-- 🎬 INTRO — the ten-second clip as its own card.
-     Plays once on load at the file's own 24 fps, then holds on the last frame with
-     a play button in the middle. The play button is part of the image and a plain
-     image cannot carry its own link, so the card is the link - and it points at the
-     real file: graywizard.mp4, which plays in full quality WITH SOUND (this SVG
+     Plays once per page load at the file's own 24 fps and holds on its last frame.
+     No play button and no replay: an SVG image cannot handle its own clicks, and a
+     button drawn into the picture only ever looked interactive. The card links to
+     the real file instead - graywizard.mp4, full quality WITH SOUND (this SVG
      reproduction is silent, since a README cannot host a <video> element).
      A relative href, so it keeps resolving to the current branch. -->
-<a href="graywizard.mp4"><picture><source media="(max-width: 820px)" srcset="./intro-mobile.svg?v=1"><img src="./intro.svg?v=1" alt="Ten-second intro clip — plays here once at the file's own 24 fps, then shows a play button in the middle; tapping the card plays the original video, with sound" width="100%"/></picture></a>
+<a href="graywizard.mp4"><picture><source media="(max-width: 820px)" srcset="./intro-mobile.svg?v=1"><img src="./intro.svg?v=1" alt="Ten-second intro clip — plays here once at the file's own 24 fps and holds on its last frame; the card links to the original video, which has sound" width="100%"/></picture></a>
 
 <br/><br/>
 

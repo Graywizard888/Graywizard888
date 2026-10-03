@@ -90,14 +90,14 @@ def intro(H=496):
     # footer hint
     y_foot = panel_y + PANEL_H + 30
     L_.append(L(46, y_foot - 20, W - 46, y_foot - 20, stroke=STROKE, sw=1, opacity=.8))
-    L_.append(T(46, y_foot, "▸ plays once on load · the play button plays the real "
-                            "clip — full quality, with sound", 12, DIM, ls=.4))
+    L_.append(T(46, y_foot, "▸ plays once on load · the card links to the real clip "
+                            "— full quality, with sound", 12, DIM, ls=.4))
     L_.append(T(W - 46, y_foot, "tap = full clip", 12, GREEN_D, anchor="end", ls=.8))
 
     return _wrap(W, H, defs, L_,
                  "Graywizard intro - the ten-second clip plays here once at the "
-                 "file's own 24 fps, then shows a play button in the middle; the "
-                 "button plays the original video with sound", v_css)
+                 "file's own 24 fps and holds on its last frame; the card links to "
+                 "the original video, which has sound", v_css)
 
 
 # ------------------------------------------------------------------ phone
@@ -131,13 +131,12 @@ def intro_mobile():
     y_foot = panel_top + PANEL_H * scale + 46
     L_.append(L(32, y_foot - 30, MOB_W - 32, y_foot - 30, stroke=STROKE, sw=1, opacity=.8))
     meta = gen_v.load()[1]
-    L_.append(T(32, y_foot, "▸ plays once · tap the play button for the real clip",
-                21, DIM))
+    L_.append(T(32, y_foot, "▸ plays once · tap the card for the real clip", 21, DIM))
     L_.append(T(MOB_W - 32, y_foot + 30,
                 f"graywizard.mp4 · {meta.get('duration', 10):.0f}s · "
                 f"{meta.get('frames', 0)} frames", 18, MUTED, anchor="end", ls=.6))
 
     return _wrap(MOB_W, H, defs, L_,
-                 "Graywizard intro - the ten-second clip plays here once, then "
-                 "shows a play button in the middle; the button plays the original "
-                 "video with sound", v_css, rx=20)
+                 "Graywizard intro - the ten-second clip plays here once and holds "
+                 "on its last frame; the card links to the original video, which "
+                 "has sound", v_css, rx=20)

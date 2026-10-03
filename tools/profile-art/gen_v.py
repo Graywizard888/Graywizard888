@@ -4,8 +4,8 @@ GitHub strips <video>, <iframe> and every other real player out of a README, so
 the hero fakes one: `make_frames.py` cuts the source clip into stills, this
 module embeds them as data URIs and a CSS animation with
 `animation-iteration-count: 1` + `fill-mode: forwards` shows them in order and
-then HOLDS on the last frame. After the sequence ends the play button fades back
-in over the centre.
+then HOLDS on the last frame. Nothing is drawn over the picture - the sequence
+ends and stays there.
 
 Two modes, one drawing:
 
@@ -92,16 +92,11 @@ def video_css(meta):
                        f" {end:.4f}% {{ opacity: 0 }} 100% {{ opacity: 0 }} }}")
     end = meta["duration"]
     out.append(
-        # the shade + play button belong to the paused state: they fade out when
-        # playback starts and come back when it ends (fill `both` hides them
-        # during the delay, which plain `forwards` would not)
-        "\n  /* paused state: dimmed poster before and after, clear while playing */\n"
-        f"  .vshade {{ opacity: .42; animation: vshade {end + 0.6:.2f}s linear 1 forwards; }}\n"
-        f"  .vplay {{ opacity: 1; animation: vplayin .55s ease-out {end + 0.05:.2f}s 1 both; }}\n"
-        f"  @keyframes vshade {{ 0% {{ opacity: .42 }} {0.4 / (end + 0.6) * 100:.2f}% {{ opacity: 0 }}"
-        f" {end / (end + 0.6) * 100:.2f}% {{ opacity: 0 }} 100% {{ opacity: .42 }} }}\n"
-        "  @keyframes vplayin { 0% { opacity: 0 } 100% { opacity: 1 } }\n"
-        # labels: the ended one shows only after, the playing one only during
+        # The clip plays exactly once per load and settles on its last frame.
+        # There is deliberately no play button and no replay affordance: an SVG
+        # image cannot handle its own clicks, and the first version faked a
+        # "finished" state with a button that only ever looked interactive.
+        # labels: the status line shows while playing, the closing one after
         f"  .vended {{ opacity: 1; animation: vended .3s linear {end + 0.05:.2f}s 1 both; }}\n"
         f"  .vplaying {{ opacity: 0; animation: vplaying {end + 0.15:.2f}s linear 1 forwards; }}\n"
         "  @keyframes vended { 0% { opacity: 0 } 100% { opacity: 1 } }\n"
@@ -152,7 +147,6 @@ def panel(x, y, mode="play"):
     animated = mode == "play"
     frames, meta = load()
     vx, vy = x + PAD, y + TITLE_H
-    mid_x, mid_y = vx + VIDEO_W / 2, vy + VIDEO_H / 2
     bar_y = vy + VIDEO_H + 16
     status_y = bar_y + 26
     label = (f"▸ PLAYING · {meta['fps']} fps · silent" if animated
@@ -180,20 +174,10 @@ def panel(x, y, mode="play"):
         body.append(f'<text class="vplaying fm" x="{x + WINDOW_W - 82}" y="{y + 21}" fill="{GREEN}"'
                     f' font-size="11.5" letter-spacing="1.4">LIVE</text>')
     body += _frames_layer(vx, vy, frames, meta, animated)
-    # scanlines + a light vignette keep the video inside the console's look
-    body.append(f'<rect x="{vx}" y="{vy}" width="{VIDEO_W}" height="{VIDEO_H}" rx="8" fill="url(#vScan)" opacity=".3"/>')
-    # paused shade
-    body.append(f'<rect class="{"vshade" if animated else ""}" x="{vx}" y="{vy}" width="{VIDEO_W}"'
-                f' height="{VIDEO_H}" rx="8" fill="#03060a" opacity=".42"/>')
-    # the play button: visible in the poster state, and again once the video ends
-    body += [
-        f'<g class="{"vplay" if animated else ""}" transform="translate({mid_x},{mid_y})">',
-        f'<circle r="40" fill="#050a10" opacity=".72"/>',
-        f'<circle r="40" fill="none" stroke="{GREEN}" stroke-width="2" opacity=".85"/>',
-        f'<circle r="31" fill="none" stroke="{GREEN_D}" stroke-width="1" opacity=".3"/>',
-        f'<path d="M -11 -17 L 22 0 L -11 17 Z" fill="{GREEN}"/>',
-        "</g>",
-    ]
+    # No scanline overlay here on purpose. A 4px-pitch black bar pattern was drawn
+    # over the picture (.3 here, on top of the card's own .28 backdrop pass) and it
+    # read as black lines across the video, especially once playback stopped being
+    # choppy. Kept: the frame itself, the progress bar, the timecode.
     # progress bar + labels
     body += [
         f'<line x1="{vx}" y1="{bar_y}" x2="{vx + VIDEO_W}" y2="{bar_y}" stroke="#16222e"'
@@ -209,7 +193,7 @@ def panel(x, y, mode="play"):
     ]
     if animated:
         body.append(f'<text class="vended fm" x="{vx}" y="{status_y}" fill="{GREEN}" font-size="12.5"'
-                    f' letter-spacing="1.2">▸ TAP THE PLAY BUTTON — WATCH THE CLIP</text>')
+                    f' letter-spacing="1.2">▸ END OF CLIP</text>')
         body.append(f'<text class="vended fm" x="{vx + VIDEO_W}" y="{status_y}" fill="{MUTED}" font-size="12.5"'
                     f' text-anchor="end" letter-spacing="1">00:{meta["duration"]:04.1f}</text>')
     else:
@@ -224,8 +208,6 @@ def panel(x, y, mode="play"):
         '<radialGradient id="vGlow" cx=".5" cy=".5" r=".5">'
         f'<stop offset="0" stop-color="{CYAN}" stop-opacity=".13"/>'
         f'<stop offset="1" stop-color="{CYAN}" stop-opacity="0"/></radialGradient>',
-        '<pattern id="vScan" width="4" height="4" patternUnits="userSpaceOnUse">'
-        '<rect width="4" height="1" fill="#000" opacity=".6"/></pattern>',
     ]
     css = video_css(meta) if animated else ""
     return "\n".join(body), css, defs, WINDOW_H
