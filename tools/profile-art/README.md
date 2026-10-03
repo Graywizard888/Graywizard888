@@ -65,7 +65,7 @@ animate from a *translated* group, so their static state is the finished card.
 
 ```html
 <picture>
-  <source media="(max-width: 700px)" srcset="./hero-mobile.svg?v=1">
+  <source media="(max-width: 820px)" srcset="./hero-mobile.svg?v=1">
   <img src="./hero.svg?v=1" alt="..." width="100%"/>
 </picture>
 ```
@@ -83,5 +83,5 @@ Why they exist:
 
 GitHub keeps the `media` attribute and rewrites the relative `srcset` to a raw
 URL on the rendered page, so this works on the profile without any hosting.
-`media="(max-width: 700px)"` targets phones in portrait; tablets and desktop get
+`media="(max-width: 820px)"` targets phones in portrait; tablets and desktop get
 the full cards.

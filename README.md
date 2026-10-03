@@ -4,7 +4,7 @@
      Phones get the 720px-wide card: ~2x the rendered text size and almost no
      animation; everything else gets the full 1200px animated reel. -->
 <picture>
-  <source media="(max-width: 700px)" srcset="./hero-mobile.svg?v=1">
+  <source media="(max-width: 820px)" srcset="./hero-mobile.svg?v=1">
   <img src="./hero.svg?v=1" alt="Hi, I'm Aditya (Graywizard) — script &amp; automation developer" width="100%"/>
 </picture>
 
@@ -12,7 +12,7 @@
 
 <!-- 👨‍💻 LEFT: what I build   •   🎮 RIGHT: life outside code -->
 <picture>
-  <source media="(max-width: 700px)" srcset="./about-life-mobile.svg?v=1">
+  <source media="(max-width: 820px)" srcset="./about-life-mobile.svg?v=1">
   <img src="./about-life.svg?v=1" alt="What I build, and life beyond the code" width="100%"/>
 </picture>
 
@@ -20,7 +20,7 @@
 
 <!-- 🧰 TECH STACK -->
 <picture>
-  <source media="(max-width: 700px)" srcset="./stack-mobile.svg?v=1">
+  <source media="(max-width: 820px)" srcset="./stack-mobile.svg?v=1">
   <img src="./stack.svg?v=1" alt="Tech stack" width="100%"/>
 </picture>
 
@@ -28,7 +28,7 @@
 
 <!-- 🪪 DEVELOPER ID + DASHBOARD -->
 <picture>
-  <source media="(max-width: 700px)" srcset="./id-dashboard-mobile.svg?v=1">
+  <source media="(max-width: 820px)" srcset="./id-dashboard-mobile.svg?v=1">
   <img src="./id-dashboard.svg?v=1" alt="Developer ID and dashboard" width="100%"/>
 </picture>
 
@@ -78,7 +78,7 @@
 
 <!-- 💌 LET'S CONNECT -->
 <picture>
-  <source media="(max-width: 700px)" srcset="./connect-mobile.svg?v=1">
+  <source media="(max-width: 820px)" srcset="./connect-mobile.svg?v=1">
   <img src="./connect.svg?v=1" alt="Let&#39;s connect" width="100%"/>
 </picture>
 
