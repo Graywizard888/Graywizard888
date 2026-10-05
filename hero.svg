@@ -169,7 +169,7 @@
 <text x="62" y="413.23" font-size="15" fill="#95f2b8" font-weight="500" class="None fm">&gt; "Build. Break. Rebuild. Optimize."</text>
 <line x1="62" y1="427.23" x2="640" y2="427.23" stroke="#1d2b3a" stroke-width="1" stroke-linecap="butt" opacity="0.8"/>
 <text x="62" y="447.23" font-size="13" fill="#22c55e" opacity="0.8" class="fade-up fm" style="animation-delay:1.20s">›</text>
-<text x="80" y="447.23" font-size="12" fill="#718799" class="fade-up fm" style="animation-delay:1.26s">// 841 days on GitHub — first commit Jun 2024</text>
+<text x="80" y="447.23" font-size="12" fill="#718799" class="fade-up fm" style="animation-delay:1.26s">// 842 days on GitHub — first commit Jun 2024</text>
 <text x="62" y="474.23" font-size="13" fill="#22c55e" opacity="0.8" class="fade-up fm" style="animation-delay:1.34s">›</text>
 <text x="80" y="474.23" font-size="12" fill="#718799" class="fade-up fm" style="animation-delay:1.40s">// 4 mpv + lua scripts running in daily use</text>
 <text x="62" y="501.23" font-size="13" fill="#22c55e" opacity="0.8" class="fade-up fm" style="animation-delay:1.48s">›</text>
@@ -205,7 +205,7 @@
 <text x="712" y="193.0" font-size="12.5" fill="#c3d3e2" class="fade-up fm" style="animation-delay:0.95s">shell     bash · lua · python</text>
 <text x="712" y="219.5" font-size="12.5" fill="#c3d3e2" class="fade-up fm" style="animation-delay:1.05s">toolkit   Android Studio · Kotlin · Java</text>
 <text x="712" y="246.0" font-size="12.5" fill="#c3d3e2" class="fade-up fm" style="animation-delay:1.15s">delivers  scripts, TUIs, extensions, forks</text>
-<text x="712" y="272.5" font-size="12.5" fill="#c3d3e2" class="fade-up fm" style="animation-delay:1.25s">uptime    841 days (since Jun 2024)</text>
+<text x="712" y="272.5" font-size="12.5" fill="#c3d3e2" class="fade-up fm" style="animation-delay:1.25s">uptime    842 days (since Jun 2024)</text>
 <g clip-path="url(#hT6)"><text x="712" y="299.0" font-size="12.5" fill="#4ade80" class="None fm">$ gh repo list Graywizard888 --sort stars</text></g>
 <text x="712" y="325.5" font-size="12.5" fill="#c3d3e2" class="fade-up fm" style="animation-delay:1.85s">Enhancify                ★ 201   shell</text>
 <text x="712" y="352.0" font-size="12.5" fill="#c3d3e2" class="fade-up fm" style="animation-delay:1.95s">Terminal_EX              ★  87   java</text>
