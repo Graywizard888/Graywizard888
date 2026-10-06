@@ -52,7 +52,7 @@ def wrap(H, defs, body, label, extra_css=""):
 
 # ------------------------------------------------------------------ HERO
 def hero_mobile():
-    H = 820
+    H = 870
     defs, L_ = frame(H, GREEN, rain_cols=9, seed=5)
     defs += [
         '<linearGradient id="mName" x1="0" y1="0" x2="1" y2=".2">'
@@ -80,8 +80,10 @@ def hero_mobile():
                 cls="fade-in", style="animation-duration:1.2s"))
     L_.append(T(32, 288, "Coder · Gamer · System Architect", 30, "#d3e6f5",
                 cls="fade-up", style="animation-delay:.3s"))
-    L_.append(T(32, 332, "India (IST) · terminal-first", 26, MUTED,
-                cls="fade-up", style="animation-delay:.45s"))
+    L_.append(T(32, 326, "// Professional Accountant", 24, CYAN, weight=600,
+                cls="fade-up", style="animation-delay:.42s"))
+    L_.append(T(32, 366, "India (IST) · terminal-first", 24, MUTED,
+                cls="fade-up", style="animation-delay:.55s"))
 
     # three stat tiles with the real numbers
     stats = [(fmt(PROFILE["public_repos"]), "public repos", GREEN),
@@ -90,23 +92,23 @@ def hero_mobile():
     tw, gap = 208, 16
     for i, (val, label, col) in enumerate(stats):
         x = 32 + i * (tw + gap)
-        L_.append(R(x, 380, tw, 104, fill=PANEL, rx=16, stroke=STROKE, sw=1.4))
-        L_.append(R(x + 1, 380, tw - 2, 4, fill=col, rx=2, opacity=.85))
-        L_.append(T(x + 20, 434, val, 40, TEXT, weight=700))
-        L_.append(T(x + 20, 464, label, 19, MUTED))
+        L_.append(R(x, 414, tw, 104, fill=PANEL, rx=16, stroke=STROKE, sw=1.4))
+        L_.append(R(x + 1, 414, tw - 2, 4, fill=col, rx=2, opacity=.85))
+        L_.append(T(x + 20, 468, val, 40, TEXT, weight=700))
+        L_.append(T(x + 20, 498, label, 19, MUTED))
 
-    L_.append(T(32, 540, '> "Build. Break. Rebuild. Optimize."', 28, "#95f2b8", weight=500,
-                cls="fade-up", style="animation-delay:.6s"))
+    L_.append(T(32, 554, '> "Build. Break. Rebuild. Optimize."', 26, "#95f2b8", weight=500,
+                cls="fade-up", style="animation-delay:.7s"))
 
     # compact terminal
-    ty, th = 576, 186
+    ty, th = 588, 186
     L_.append(R(32, ty, W - 64, th, fill="url(#mTerm)", rx=16, stroke=STROKE2, sw=1.4))
     L_.append(L(32, ty + 42, W - 32, ty + 42, stroke=STROKE, sw=1.2))
     for dx, col in ((54, RED), (76, AMBER), (98, "#28c840")):
         L_.append(C(dx, ty + 21, 7, fill=col))
     L_.append(T(W - 48, ty + 28, "zsh", 20, MUTED, anchor="end"))
     lines = [("$ neofetch --short", GREEN),
-             ("os       Termux · Android 8+", "#c3d3e2"),
+             ("os       Termux · Android 16", "#c3d3e2"),
              ("shell    bash · lua · python", "#c3d3e2"),
              ("builds   scripts · TUIs · forks", "#c3d3e2")]
     for i, (txt, col) in enumerate(lines):
@@ -115,9 +117,9 @@ def hero_mobile():
     L_.append(T(54, ty + 176, "$", 22, GREEN))
     L_.append(R(72, ty + 160, 12, 20, fill=GREEN, cls="blink"))
 
-    L_.append(L(32, 788, W - 32, 788, stroke=STROKE, sw=1))
-    L_.append(T(32, 806, f"since {PROFILE['created']} · 4 mpv + lua scripts · MIT / GPL-3.0", 19, DIM))
-    return wrap(H, defs, L_, "Graywizard — coder, gamer, system architect")
+    L_.append(L(32, 838, W - 32, 838, stroke=STROKE, sw=1))
+    L_.append(T(32, 856, f"since {PROFILE['created']} · 4 mpv + lua scripts · MIT / GPL-3.0", 19, DIM))
+    return wrap(H, defs, L_, "Graywizard — coder, gamer, system architect, professional accountant")
 
 
 # ------------------------------------------------------------------ ABOUT / LIFE
@@ -129,8 +131,8 @@ def about_mobile():
     L_ += [panel(28, 28, W - 56, 446, title="// system.capabilities", tag="live", accent=GREEN)]
     L_.append(T(52, 122, "WHAT I BUILD", 38, TEXT, weight=700, family=None, cls="fs", ls=.3))
     L_.append(T(52, 156, "scripts · TUIs · extensions · forks", 21, MUTED))
-    skills = [("Gaming", 95), ("Scripting / Automation", 88), ("Open Source", 82),
-              ("Problem Solving", 90), ("Optimization", 85)]
+    skills = [("Gaming", 95), ("Scripting / Automation", 88), ("Open Source", 50),
+              ("Problem Solving", 90), ("Optimization", 95)]
     y = 190
     for i, (label, pct) in enumerate(skills):
         L_.append(T(52, y, label, 25, "#cfdcea", weight=500))
@@ -145,10 +147,10 @@ def about_mobile():
     L_ += [panel(28, 504, W - 56, 470, title="// life.outside.code", tag="24 cycles", accent=CYAN)]
     L_.append(T(52, 598, "LIFE OUTSIDE CODE", 38, TEXT, weight=700, family=None, cls="fs", ls=.3))
     L_.append(T(52, 632, "when the terminal closes", 21, MUTED))
-    life = [("Gaming", "co-op nights & open worlds", GREEN),
-            ("Audio pipeline tuning", "mpv equalizer: 5.1 / 7.1", CYAN),
-            ("Relentless tinkering", "annoyance → script → repo", VIOLET),
-            ("Coding when required", "free-time dev — usually required", AMBER)]
+    life = [("Gaming", "solo player · story-driven open worlds", GREEN),
+            ("Movies & Anime", "late-night binges · dubs over subs", CYAN),
+            ("Accounting", "ledger discipline · every rupee traced", VIOLET),
+            ("Freelancing", "paid builds · real deadlines, real clients", AMBER)]
     ry = 686
     for i, (title, desc, col) in enumerate(life):
         L_.append(R(52, ry - 26, 56, 56, fill=col, rx=16, opacity=.14))
