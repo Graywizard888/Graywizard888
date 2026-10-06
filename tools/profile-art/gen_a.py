@@ -28,6 +28,33 @@ def icon_moon(c):
     return P("M3 -8.6 A8.6 8.6 0 1 0 3 8.6 A6.7 6.7 0 1 1 3 -8.6 Z", stroke=c, sw=1.6)
 
 
+def icon_film(c):
+    # clapperboard + film strip: top slate angled, sprocket holes down both sides
+    return (R(-11, -9, 22, 18, fill="none", rx=2, stroke=c, sw=1.6) +
+            L(-11, -3, 11, -3, stroke=c, sw=1.4) +
+            L(-7, -9, -4, -3, stroke=c, sw=1.4, cap="round") +
+            L(-1, -9, 2, -3, stroke=c, sw=1.4, cap="round") +
+            L(5, -9, 8, -3, stroke=c, sw=1.4, cap="round") +
+            C(-8, -6, 1.3, fill=c) + C(-8, 0, 1.3, fill=c) + C(-8, 6, 1.3, fill=c) +
+            C(8, -6, 1.3, fill=c) + C(8, 0, 1.3, fill=c) + C(8, 6, 1.3, fill=c))
+
+
+def icon_calc(c):
+    # calculator: rounded body, a display strip, and a 3x2 grid of buttons
+    return (R(-9, -11, 18, 22, fill="none", rx=3, stroke=c, sw=1.6) +
+            R(-6.5, -8, 13, 4.5, fill="none", rx=1, stroke=c, sw=1.3) +
+            C(-4, 0.5, 1.3, fill=c) + C(0, 0.5, 1.3, fill=c) + C(4, 0.5, 1.3, fill=c) +
+            C(-4, 5, 1.3, fill=c) + C(0, 5, 1.3, fill=c) + C(4, 5, 1.3, fill=c))
+
+
+def icon_briefcase(c):
+    # briefcase: body + top handle + a centre latch line
+    return (R(-11, -6, 22, 15, fill="none", rx=2, stroke=c, sw=1.6) +
+            P("M-6 -6 v-3 a2 2 0 0 1 2 -2 h8 a2 2 0 0 1 2 2 v3", stroke=c, sw=1.6, cap="round") +
+            L(-11, 0, 11, 0, stroke=c, sw=1.3) +
+            R(-2, -3.2, 4, 2.4, fill="none", rx=1, stroke=c, sw=1.3))
+
+
 # ---------------------------------------------------------------- HERO
 def hero(H=470):
     """Animated hero banner.
@@ -45,7 +72,8 @@ def hero(H=470):
     y_whoami = 118
     y_name = y_whoami + 110 + (H - 470) * 0.28
     y_role = y_name + NAME_SIZE * 0.46
-    y_chips = y_role + 26
+    y_subrole = y_role + 28
+    y_chips = y_subrole + 26
     y_quote = y_chips + 70
     y_eq = H - 40                                    # equaliser baseline
     y_eq_cap = H - 58
@@ -129,6 +157,12 @@ def hero(H=470):
     defs.append(role_clip)
     L_.append(role_body)
 
+    # second role line — Professional Accountant. Same soft off-white as the
+    # main role line so it reads as a subtitle/continuation, not a code comment.
+    # Fades in after the typing finishes.
+    L_.append(T(62, y_subrole, "Professional Accountant", 16, "#d3e6f5", weight=500,
+                cls="fade-up", style="animation-delay:2.7s"))
+
     chips = [("Aditya", 76, GREEN, .45), ("he/him", 76, CYAN, .45),
              ("India • IST", 110, VIOLET, .45), ("terminal-first", 133, AMBER, .35)]
     cx = 62
@@ -186,7 +220,7 @@ def hero(H=470):
                  in sorted(BUILDS, key=lambda b: -b[6])[:5]]
 
     rows = [("$ neofetch --short", GREEN, "type"),
-            ("os        Termux · Android 8+ · Linux", "#c3d3e2", ""),
+            ("os        Termux · Android 16 · Linux", "#c3d3e2", ""),
             ("shell     bash · lua · python", "#c3d3e2", ""),
             ("toolkit   Android Studio · Kotlin · Java", "#c3d3e2", ""),
             ("delivers  scripts, TUIs, extensions, forks", "#c3d3e2", ""),
@@ -258,7 +292,7 @@ def hero(H=470):
                  f"@keyframes sweep {{ 0% {{ transform: translateY(-{H*0.36:.0f}px); }} "
                  f"100% {{ transform: translateY({H}px); }} }}")
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
-            f'viewBox="0 0 {W} {H}" role="img" aria-label="Graywizard — coder, gamer, system architect">'
+            f'viewBox="0 0 {W} {H}" role="img" aria-label="Graywizard — coder, gamer, system architect, digital phantom, professional accountant">'
             f'<defs>{D}' + style_block(extra_css) + '</defs>' +
             G(B, clip="url(#hClip)") +
             R(0.5, 0.5, W - 1, H - 1, rx=16, stroke="#22303f", sw=1) + '</svg>')
@@ -293,8 +327,8 @@ def about(H=468):
     L_.append(T(64, 108, "WHAT I BUILD", 23, TEXT, weight=700, family=SANS, ls=.4))
     L_.append(T(64, 130, "scripts · TUIs · extensions · forks", 11.5, MUTED))
 
-    skills = [("Gaming", 95), ("Scripting / Automation", 88), ("Open Source", 82),
-              ("Problem Solving", 90), ("Optimization", 85)]
+    skills = [("Gaming", 95), ("Scripting / Automation", 88), ("Open Source", 50),
+              ("Problem Solving", 90), ("Optimization", 95)]
     s_top, s_bot = 156, panel_b - 58                 # bars fill the panel
     s_pitch = (s_bot - s_top) / (len(skills) - 1)
     for i, (label, pct) in enumerate(skills):
@@ -314,10 +348,10 @@ def about(H=468):
     L_.append(T(648, 130, "what happens when the terminal closes", 11.5, MUTED))
 
     life = [
-        ("Gaming", "primary hobby — co-op nights & open worlds", GREEN, icon_gamepad),
-        ("Audio pipeline tuning", "shipped an mpv equalizer: stereo / mono / 5.1 / 7.1", CYAN, icon_headphones),
-        ("Relentless tinkering", "every annoyance becomes a script, then a repo", VIOLET, icon_flask),
-        ("Coding when required", "free-time developer · usually required", AMBER, icon_moon),
+        ("Gaming", "primary hobby — solo player, story-driven open worlds", GREEN, icon_gamepad),
+        ("Movies & Anime", "seasonal lineups · late-night binges, dubs over subs", CYAN, icon_film),
+        ("Accounting", "ledger discipline · every rupee traced to its source", VIOLET, icon_calc),
+        ("Freelancing", "paid builds · real deadlines, real clients, real invoices", AMBER, icon_briefcase),
     ]
     l_top, l_bot = 176, panel_b - 47                 # 26px margin + desc offset
     l_pitch = (l_bot - l_top) / (len(life) - 1)

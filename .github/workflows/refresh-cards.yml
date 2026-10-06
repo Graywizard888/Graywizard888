@@ -40,9 +40,12 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # the root SVGs (hero, dashboard, phone variants) carry the account
-          # numbers too, so stage every SVG at any depth
-          git add '*.svg' tools/profile-art/builds.json README.md
+          # stage every SVG the build step writes: root (hero/about/stack/intro),
+          # per-repo build cards under builds/, and contact tickets under connect/.
+          # A bare '*.svg' glob only matches the root, so add the subfolders
+          # explicitly — otherwise the repo stars/PRs on the build cards never
+          # make it into the commit even though the files were redrawn.
+          git add -- '*.svg' 'builds/*.svg' 'connect/*.svg' tools/profile-art/builds.json README.md
           if git diff --cached --quiet; then
             echo "counts unchanged - nothing to commit"
             exit 0

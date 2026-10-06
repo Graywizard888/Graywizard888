@@ -124,17 +124,17 @@
 <rect x="52" y="260" width="616" height="12" rx="6" fill="#16222e"/>
 <g transform="translate(52,260)"><rect x="0" y="0" width="542.08" height="12" rx="6" fill="url(#mBarA)" class="grow-x" style="animation-duration:1.4s;animation-delay:0.32s"/></g>
 <text x="52" y="298" font-size="25" fill="#cfdcea" font-weight="500" class="None fm">Open Source</text>
-<text x="668" y="298" font-size="25" fill="#22d3ee" font-weight="600" text-anchor="end" class="None fm">82%</text>
+<text x="668" y="298" font-size="25" fill="#22d3ee" font-weight="600" text-anchor="end" class="None fm">50%</text>
 <rect x="52" y="314" width="616" height="12" rx="6" fill="#16222e"/>
-<g transform="translate(52,314)"><rect x="0" y="0" width="505.12" height="12" rx="6" fill="url(#mBarA)" class="grow-x" style="animation-duration:1.4s;animation-delay:0.44s"/></g>
+<g transform="translate(52,314)"><rect x="0" y="0" width="308.0" height="12" rx="6" fill="url(#mBarA)" class="grow-x" style="animation-duration:1.4s;animation-delay:0.44s"/></g>
 <text x="52" y="352" font-size="25" fill="#cfdcea" font-weight="500" class="None fm">Problem Solving</text>
 <text x="668" y="352" font-size="25" fill="#22d3ee" font-weight="600" text-anchor="end" class="None fm">90%</text>
 <rect x="52" y="368" width="616" height="12" rx="6" fill="#16222e"/>
 <g transform="translate(52,368)"><rect x="0" y="0" width="554.4" height="12" rx="6" fill="url(#mBarA)" class="grow-x" style="animation-duration:1.4s;animation-delay:0.56s"/></g>
 <text x="52" y="406" font-size="25" fill="#cfdcea" font-weight="500" class="None fm">Optimization</text>
-<text x="668" y="406" font-size="25" fill="#22d3ee" font-weight="600" text-anchor="end" class="None fm">85%</text>
+<text x="668" y="406" font-size="25" fill="#22d3ee" font-weight="600" text-anchor="end" class="None fm">95%</text>
 <rect x="52" y="422" width="616" height="12" rx="6" fill="#16222e"/>
-<g transform="translate(52,422)"><rect x="0" y="0" width="523.6" height="12" rx="6" fill="url(#mBarA)" class="grow-x" style="animation-duration:1.4s;animation-delay:0.68s"/></g>
+<g transform="translate(52,422)"><rect x="0" y="0" width="585.2" height="12" rx="6" fill="url(#mBarA)" class="grow-x" style="animation-duration:1.4s;animation-delay:0.68s"/></g>
 <text x="52" y="460" font-size="21" fill="#718799" class="None fm">&gt; every one started as a personal annoyance.</text>
 <rect x="28" y="504" width="664" height="470" rx="14" fill="#0d141d" stroke="#1d2b3a" stroke-width="1.2"/><rect x="48" y="524.5" width="4" height="12" rx="2" fill="#22d3ee"/><text x="60" y="534" font-size="12.5" fill="#a8bccd" letter-spacing="1.6" class="mono-label fm">// life.outside.code</text><text x="672" y="534" font-size="11" fill="#718799" text-anchor="end" letter-spacing="1" class="None fm">24 cycles</text>
 <text x="52" y="598" font-size="38" fill="#dbe7f3" font-weight="700" letter-spacing="0.3" class="fs">LIFE OUTSIDE CODE</text>
@@ -143,21 +143,21 @@
 <rect x="52" y="660" width="56" height="56" rx="16" fill="none" stroke="#4ade80" stroke-width="1.6" opacity="0.6"/>
 <circle cx="80" cy="688" r="9" fill="#4ade80" opacity="0.9"/>
 <text x="128" y="686" font-size="27" fill="#dbe7f3" font-weight="600" class="fade-up fm" style="animation-delay:0.10s">Gaming</text>
-<text x="128" y="716" font-size="21" fill="#718799" class="fade-up fm" style="animation-delay:0.16s">co-op nights &amp; open worlds</text>
+<text x="128" y="716" font-size="21" fill="#718799" class="fade-up fm" style="animation-delay:0.16s">solo player · story-driven open worlds</text>
 <rect x="52" y="736" width="56" height="56" rx="16" fill="#22d3ee" opacity="0.14"/>
 <rect x="52" y="736" width="56" height="56" rx="16" fill="none" stroke="#22d3ee" stroke-width="1.6" opacity="0.6"/>
 <circle cx="80" cy="764" r="9" fill="#22d3ee" opacity="0.9"/>
-<text x="128" y="762" font-size="27" fill="#dbe7f3" font-weight="600" class="fade-up fm" style="animation-delay:0.18s">Audio pipeline tuning</text>
-<text x="128" y="792" font-size="21" fill="#718799" class="fade-up fm" style="animation-delay:0.24s">mpv equalizer: 5.1 / 7.1</text>
+<text x="128" y="762" font-size="27" fill="#dbe7f3" font-weight="600" class="fade-up fm" style="animation-delay:0.18s">Movies &amp; Anime</text>
+<text x="128" y="792" font-size="21" fill="#718799" class="fade-up fm" style="animation-delay:0.24s">late-night binges · dubs over subs</text>
 <rect x="52" y="812" width="56" height="56" rx="16" fill="#a78bfa" opacity="0.14"/>
 <rect x="52" y="812" width="56" height="56" rx="16" fill="none" stroke="#a78bfa" stroke-width="1.6" opacity="0.6"/>
 <circle cx="80" cy="840" r="9" fill="#a78bfa" opacity="0.9"/>
-<text x="128" y="838" font-size="27" fill="#dbe7f3" font-weight="600" class="fade-up fm" style="animation-delay:0.26s">Relentless tinkering</text>
-<text x="128" y="868" font-size="21" fill="#718799" class="fade-up fm" style="animation-delay:0.32s">annoyance → script → repo</text>
+<text x="128" y="838" font-size="27" fill="#dbe7f3" font-weight="600" class="fade-up fm" style="animation-delay:0.26s">Accounting</text>
+<text x="128" y="868" font-size="21" fill="#718799" class="fade-up fm" style="animation-delay:0.32s">ledger discipline · every rupee traced</text>
 <rect x="52" y="888" width="56" height="56" rx="16" fill="#fbbf24" opacity="0.14"/>
 <rect x="52" y="888" width="56" height="56" rx="16" fill="none" stroke="#fbbf24" stroke-width="1.6" opacity="0.6"/>
 <circle cx="80" cy="916" r="9" fill="#fbbf24" opacity="0.9"/>
-<text x="128" y="914" font-size="27" fill="#dbe7f3" font-weight="600" class="fade-up fm" style="animation-delay:0.34s">Coding when required</text>
-<text x="128" y="944" font-size="21" fill="#718799" class="fade-up fm" style="animation-delay:0.40s">free-time dev — usually required</text>
+<text x="128" y="914" font-size="27" fill="#dbe7f3" font-weight="600" class="fade-up fm" style="animation-delay:0.34s">Freelancing</text>
+<text x="128" y="944" font-size="21" fill="#718799" class="fade-up fm" style="animation-delay:0.40s">paid builds · real deadlines, real clients</text>
 <line x1="28" y1="990" x2="692" y2="990" stroke="#1d2b3a" stroke-width="1" stroke-linecap="butt"/>
 <text x="28" y="1012" font-size="21" fill="#4ade80" font-weight="600" class="None fm">&gt; Build. Break. Rebuild. Optimize.</text></g><rect x="1" y="1" width="718" height="1018" rx="20" fill="none" stroke="#22303f" stroke-width="2"/></svg>

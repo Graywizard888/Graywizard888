@@ -289,10 +289,33 @@ def main():
         if n == 0:
             print(f'  ! README.md: no card line found for {row["repo"]}')
         touched += n
+
+    # Bump the ?v= cache-buster on every local <img>/<source> srcset that points
+    # at a generated SVG. GitHub's camo image proxy and the browser both cache
+    # aggressively against the URL; without a version bump the freshly-committed
+    # SVGs keep showing stale stars/PRs until the URL changes. Only bump when a
+    # stat actually moved, so quiet days do not churn README.md for no reason.
+    # The 3D contrib city (./profile-3d-contrib/profile-night-green.svg) is
+    # produced by a separate workflow and has no ?v= — leave it untouched.
+    bumped = 0
+    if changed:
+        def _bump(m):
+            nonlocal bumped
+            bumped += 1
+            path, v = m.group(1), m.group(2)
+            return f'{path}?v={int(v) + 1}'
+        readme = re.sub(
+            r'(\.(?:/[^"\s]+\.svg))\?v=(\d+)',
+            _bump,
+            readme,
+        )
+
     with open(README, "w", encoding="utf-8") as fh:
         fh.write(readme)
     print("builds.json updated" if changed else "builds.json untouched (counts unchanged)")
     print(f"README alt text: {touched} card(s) refreshed")
+    if changed:
+        print(f"README cache busters: {bumped} SVG ?v= bumped so camo/browser reload new artwork")
 
     return 0
 
