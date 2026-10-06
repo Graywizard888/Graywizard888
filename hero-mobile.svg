@@ -125,7 +125,7 @@
 <ellipse cx="300" cy="250" rx="330" ry="180" fill="url(#mGlow)"/>
 <text x="30" y="226" font-size="76" fill="url(#mName)" font-weight="800" letter-spacing="1" class="fade-in fm" style="animation-duration:1.2s">GRAYWIZARD</text>
 <text x="32" y="288" font-size="30" fill="#d3e6f5" class="fade-up fm" style="animation-delay:.3s">Coder · Gamer · System Architect</text>
-<text x="32" y="326" font-size="24" fill="#22d3ee" font-weight="600" class="fade-up fm" style="animation-delay:.42s">// Professional Accountant</text>
+<text x="32" y="326" font-size="27" fill="#d3e6f5" font-weight="500" class="fade-up fm" style="animation-delay:.42s">Professional Accountant</text>
 <text x="32" y="366" font-size="24" fill="#718799" class="fade-up fm" style="animation-delay:.55s">India (IST) · terminal-first</text>
 <rect x="32" y="414" width="208" height="104" rx="16" fill="#0d141d" stroke="#1d2b3a" stroke-width="1.4"/>
 <rect x="33" y="414" width="206" height="4" rx="2" fill="#4ade80" opacity="0.85"/>

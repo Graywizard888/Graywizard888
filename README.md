@@ -15,7 +15,7 @@
      No longer a link: the intro card above owns the tap-to-replay, so the hero
      stays a card you can select text from instead of hijacking the click.
      Phones get the 720px-wide variant: ~2x the rendered text size, minimal motion. -->
-<picture><source media="(max-width: 820px)" srcset="./hero-mobile.svg?v=4"><img src="./hero.svg?v=4" alt="Hi, I'm Aditya (Graywizard) — script &amp; automation developer" width="100%"/></picture>
+<picture><source media="(max-width: 820px)" srcset="./hero-mobile.svg?v=5"><img src="./hero.svg?v=5" alt="Hi, I'm Aditya (Graywizard) — script &amp; automation developer" width="100%"/></picture>
 
 <br/><br/>
 

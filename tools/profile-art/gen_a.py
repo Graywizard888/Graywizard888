@@ -157,11 +157,11 @@ def hero(H=470):
     defs.append(role_clip)
     L_.append(role_body)
 
-    # second role line — Professional Accountant, rendered just below the typing
-    # line in a softer colour/smaller size so it reads as a subtitle, not a
-    # competing title. Fades in after the typing finishes.
-    L_.append(T(62, y_subrole, "// Professional Accountant", 14, CYAN, weight=500,
-                cls="fade-up", style="animation-delay:2.8s"))
+    # second role line — Professional Accountant. Same soft off-white as the
+    # main role line so it reads as a subtitle/continuation, not a code comment.
+    # Fades in after the typing finishes.
+    L_.append(T(62, y_subrole, "Professional Accountant", 16, "#d3e6f5", weight=500,
+                cls="fade-up", style="animation-delay:2.7s"))
 
     chips = [("Aditya", 76, GREEN, .45), ("he/him", 76, CYAN, .45),
              ("India • IST", 110, VIOLET, .45), ("terminal-first", 133, AMBER, .35)]

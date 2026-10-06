@@ -80,7 +80,7 @@ def hero_mobile():
                 cls="fade-in", style="animation-duration:1.2s"))
     L_.append(T(32, 288, "Coder · Gamer · System Architect", 30, "#d3e6f5",
                 cls="fade-up", style="animation-delay:.3s"))
-    L_.append(T(32, 326, "// Professional Accountant", 24, CYAN, weight=600,
+    L_.append(T(32, 326, "Professional Accountant", 27, "#d3e6f5", weight=500,
                 cls="fade-up", style="animation-delay:.42s"))
     L_.append(T(32, 366, "India (IST) · terminal-first", 24, MUTED,
                 cls="fade-up", style="animation-delay:.55s"))
