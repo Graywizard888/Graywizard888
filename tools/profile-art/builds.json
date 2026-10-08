@@ -101,6 +101,19 @@
       "pulls": 0,
       "size_kb": 815,
       "pushed": "1mo ago"
+    },
+    {
+      "repo": "MovieBox-Tui-Mastered",
+      "name": "MovieBox-Tui-Mastered",
+      "description": "Terminal interface to find, download, and stream movies, TV shows and live TV",
+      "language": "Rust",
+      "language_color": "#DEA584",
+      "license": "Apache-2.0",
+      "stars": 3,
+      "forks": 0,
+      "pulls": 4,
+      "size_kb": 33417,
+      "pushed": "today"
     }
   ]
 }

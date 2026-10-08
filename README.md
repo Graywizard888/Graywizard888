@@ -64,6 +64,8 @@
 
 <a href="https://github.com/Graywizard888/Claude_code_setup"><picture><source media="(max-width: 820px)" srcset="./builds/p07-mobile.svg?v=4"><img src="./builds/p07.svg?v=4" alt="Claude_code_setup — 1 stars, 1 forks, 0 PRs, Python, MIT" width="100%"></picture></a>
 
+<a href="https://github.com/Graywizard888/MovieBox-Tui-Mastered"><picture><source media="(max-width: 820px)" srcset="./builds/p08-mobile.svg?v=4"><img src="./builds/p08.svg?v=4" alt="MovieBox-Tui-Mastered — 3 stars, 0 forks, 4 PRs, Rust, Apache-2.0" width="100%"></picture></a>
+
 </div>
 
 <div align="center">
