@@ -113,7 +113,7 @@
 <rect x="0" y="0" width="480" height="4.5" rx="2" fill="url(#cAcc)"/>
 <path d="M8 32 L8 8 L32 8 M448 8 L472 8 L472 32 M472 204 L472 228 L448 228 M32 228 L8 228 L8 204" fill="none" stroke="#4ade80" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.38"/>
 <text x="22" y="36" font-size="13.5" fill="#4d6070" class="None fm">~/repos/enhancify$</text>
-<text x="458" y="36" font-size="13.5" fill="#4d6070" text-anchor="end" class="None fm">pushed 20d ago</text>
+<text x="458" y="36" font-size="13.5" fill="#4d6070" text-anchor="end" class="None fm">pushed 21d ago</text>
 <ellipse cx="120" cy="76" rx="190" ry="42" fill="url(#cGlow)"/>
 <text x="22" y="86" font-size="32" fill="#dbe7f3" font-weight="700" class="None fm">Enhancify</text>
 <rect x="406" y="58" width="52" height="32" rx="9" fill="#4ade80" opacity="0.13"/>
