@@ -133,7 +133,7 @@
 <text x="52" y="498" font-size="19" fill="#718799" class="None fm">public repos</text>
 <rect x="256" y="414" width="208" height="104" rx="16" fill="#0d141d" stroke="#1d2b3a" stroke-width="1.4"/>
 <rect x="257" y="414" width="206" height="4" rx="2" fill="#22d3ee" opacity="0.85"/>
-<text x="276" y="468" font-size="40" fill="#dbe7f3" font-weight="700" class="None fm">318</text>
+<text x="276" y="468" font-size="40" fill="#dbe7f3" font-weight="700" class="None fm">317</text>
 <text x="276" y="498" font-size="19" fill="#718799" class="None fm">stars earned</text>
 <rect x="480" y="414" width="208" height="104" rx="16" fill="#0d141d" stroke="#1d2b3a" stroke-width="1.4"/>
 <rect x="481" y="414" width="206" height="4" rx="2" fill="#a78bfa" opacity="0.85"/>
