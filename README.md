@@ -7,7 +7,7 @@
      the real file instead - graywizard.mp4, full quality WITH SOUND (this SVG
      reproduction is silent, since a README cannot host a <video> element).
      A relative href, so it keeps resolving to the current branch. -->
-<a href="graywizard.mp4"><picture><source media="(max-width: 820px)" srcset="./intro-mobile.svg?v=20"><img src="./intro.svg?v=20" alt="Ten-second intro clip — plays here once at the file's own 24 fps and holds on its last frame; the card links to the original video, which has sound" width="100%"/></picture></a>
+<a href="graywizard.mp4"><picture><source media="(max-width: 820px)" srcset="./intro-mobile.svg?v=21"><img src="./intro.svg?v=21" alt="Ten-second intro clip — plays here once at the file's own 24 fps and holds on its last frame; the card links to the original video, which has sound" width="100%"/></picture></a>
 
 <br/><br/>
 
@@ -15,14 +15,14 @@
      No longer a link: the intro card above owns the tap-to-replay, so the hero
      stays a card you can select text from instead of hijacking the click.
      Phones get the 720px-wide variant: ~2x the rendered text size, minimal motion. -->
-<picture><source media="(max-width: 820px)" srcset="./hero-mobile.svg?v=23"><img src="./hero.svg?v=23" alt="Hi, I'm Aditya (Graywizard) — script &amp; automation developer" width="100%"/></picture>
+<picture><source media="(max-width: 820px)" srcset="./hero-mobile.svg?v=24"><img src="./hero.svg?v=24" alt="Hi, I'm Aditya (Graywizard) — script &amp; automation developer" width="100%"/></picture>
 
 <br/><br/>
 
 <!-- 👨‍💻 LEFT: what I build   •   🎮 RIGHT: life outside code -->
 <picture>
-  <source media="(max-width: 820px)" srcset="./about-life-mobile.svg?v=22">
-  <img src="./about-life.svg?v=22" alt="What I build, and life beyond the code" width="100%"/>
+  <source media="(max-width: 820px)" srcset="./about-life-mobile.svg?v=23">
+  <img src="./about-life.svg?v=23" alt="What I build, and life beyond the code" width="100%"/>
 </picture>
 
 <br/><br/>
@@ -36,8 +36,8 @@
      upright: the orbit takes a band across the top, the chips stack one group per
      row at ~2x the rendered type size, and both animations come along. -->
 <picture>
-  <source media="(max-width: 820px)" srcset="./stack-mobile.svg?v=21">
-  <img src="./stack.svg?v=21" alt="Tech stack" width="100%"/>
+  <source media="(max-width: 820px)" srcset="./stack-mobile.svg?v=22">
+  <img src="./stack.svg?v=22" alt="Tech stack" width="100%"/>
 </picture>
 
 <br/><br/>
@@ -50,21 +50,21 @@
 
 <div align="center">
 
-<a href="https://github.com/Graywizard888/Enhancify"><picture><source media="(max-width: 820px)" srcset="./builds/p01-mobile.svg?v=20"><img src="./builds/p01.svg?v=20" alt="Enhancify — 204 stars, 11 forks, 30 PRs, Shell, unlicensed" width="100%"></picture></a>
+<a href="https://github.com/Graywizard888/Enhancify"><picture><source media="(max-width: 820px)" srcset="./builds/p01-mobile.svg?v=21"><img src="./builds/p01.svg?v=21" alt="Enhancify — 204 stars, 11 forks, 30 PRs, Shell, unlicensed" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/Terminal_EX"><picture><source media="(max-width: 820px)" srcset="./builds/p02-mobile.svg?v=20"><img src="./builds/p02.svg?v=20" alt="Terminal_EX — 90 stars, 0 forks, 0 PRs, Java, GPL-3.0" width="100%"></picture></a>
+<a href="https://github.com/Graywizard888/Terminal_EX"><picture><source media="(max-width: 820px)" srcset="./builds/p02-mobile.svg?v=21"><img src="./builds/p02.svg?v=21" alt="Terminal_EX — 90 stars, 0 forks, 0 PRs, Java, GPL-3.0" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/GPlayDL-TUI"><picture><source media="(max-width: 820px)" srcset="./builds/p03-mobile.svg?v=20"><img src="./builds/p03.svg?v=20" alt="GPlayDL-TUI — 9 stars, 2 forks, 1 PRs, Python, MIT" width="100%"></picture></a>
+<a href="https://github.com/Graywizard888/GPlayDL-TUI"><picture><source media="(max-width: 820px)" srcset="./builds/p03-mobile.svg?v=21"><img src="./builds/p03.svg?v=21" alt="GPlayDL-TUI — 9 stars, 2 forks, 1 PRs, Python, MIT" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/Gists_Collection"><picture><source media="(max-width: 820px)" srcset="./builds/p04-mobile.svg?v=20"><img src="./builds/p04.svg?v=20" alt="Gists_Collection — 5 stars, 0 forks, 0 PRs, Lua, MIT" width="100%"></picture></a>
+<a href="https://github.com/Graywizard888/Gists_Collection"><picture><source media="(max-width: 820px)" srcset="./builds/p04-mobile.svg?v=21"><img src="./builds/p04.svg?v=21" alt="Gists_Collection — 5 stars, 0 forks, 0 PRs, Lua, MIT" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/Gemini-Setup"><picture><source media="(max-width: 820px)" srcset="./builds/p05-mobile.svg?v=20"><img src="./builds/p05.svg?v=20" alt="Gemini-Setup — 3 stars, 0 forks, 0 PRs, Shell, MIT" width="100%"></picture></a>
+<a href="https://github.com/Graywizard888/Gemini-Setup"><picture><source media="(max-width: 820px)" srcset="./builds/p05-mobile.svg?v=21"><img src="./builds/p05.svg?v=21" alt="Gemini-Setup — 3 stars, 0 forks, 0 PRs, Shell, MIT" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/Extension_Fetcher"><picture><source media="(max-width: 820px)" srcset="./builds/p06-mobile.svg?v=20"><img src="./builds/p06.svg?v=20" alt="Extension_Fetcher — 3 stars, 0 forks, 0 PRs, Python, Apache-2.0" width="100%"></picture></a>
+<a href="https://github.com/Graywizard888/Extension_Fetcher"><picture><source media="(max-width: 820px)" srcset="./builds/p06-mobile.svg?v=21"><img src="./builds/p06.svg?v=21" alt="Extension_Fetcher — 3 stars, 0 forks, 0 PRs, Python, Apache-2.0" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/Claude_code_setup"><picture><source media="(max-width: 820px)" srcset="./builds/p07-mobile.svg?v=20"><img src="./builds/p07.svg?v=20" alt="Claude_code_setup — 1 stars, 1 forks, 0 PRs, Python, MIT" width="100%"></picture></a>
+<a href="https://github.com/Graywizard888/Claude_code_setup"><picture><source media="(max-width: 820px)" srcset="./builds/p07-mobile.svg?v=21"><img src="./builds/p07.svg?v=21" alt="Claude_code_setup — 1 stars, 1 forks, 0 PRs, Python, MIT" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/MovieBox-Tui-Mastered"><picture><source media="(max-width: 820px)" srcset="./builds/p08-mobile.svg?v=20"><img src="./builds/p08.svg?v=20" alt="MovieBox-Tui-Mastered — 3 stars, 0 forks, 11 PRs, Rust, Apache-2.0" width="100%"></picture></a>
+<a href="https://github.com/Graywizard888/MovieBox-Tui-Mastered"><picture><source media="(max-width: 820px)" srcset="./builds/p08-mobile.svg?v=21"><img src="./builds/p08.svg?v=21" alt="MovieBox-Tui-Mastered — 3 stars, 0 forks, 11 PRs, Rust, Apache-2.0" width="100%"></picture></a>
 
 </div>
 
@@ -92,11 +92,11 @@
 *Telegram for speed, GitHub for issues, the site for the long version, gists for the
 scraps worth keeping. One tap per ticket, destination on the front.*
 
-<a href="https://t.me/Graywizard_projects"><picture><source media="(max-width: 820px)" srcset="./connect/telegram-mobile.svg?v=20"><img src="./connect/telegram.svg?v=20" alt="Telegram — @Graywizard_projects · t.me/Graywizard_projects" width="100%"></picture></a>
-<a href="https://github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./connect/github-mobile.svg?v=20"><img src="./connect/github.svg?v=20" alt="GitHub — @Graywizard888 · github.com/Graywizard888" width="100%"></picture></a>
-<a href="https://website-src-seven.vercel.app/"><picture><source media="(max-width: 820px)" srcset="./connect/portfolio-mobile.svg?v=20"><img src="./connect/portfolio.svg?v=20" alt="Portfolio — website-src-seven · website-src-seven.vercel.app" width="100%"></picture></a>
-<a href="https://gist.github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./connect/gists-mobile.svg?v=20"><img src="./connect/gists.svg?v=20" alt="Gists — mpv · lua scripts · gist.github.com/Graywizard888" width="100%"></picture></a>
-<a href="https://github.com/sponsors/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./connect/sponsors-mobile.svg?v=20"><img src="./connect/sponsors.svg?v=20" alt="GitHub Sponsors — Sponsor the work · github.com/sponsors/Graywizard888" width="100%"></picture></a>
+<a href="https://t.me/Graywizard_projects"><picture><source media="(max-width: 820px)" srcset="./connect/telegram-mobile.svg?v=21"><img src="./connect/telegram.svg?v=21" alt="Telegram — @Graywizard_projects · t.me/Graywizard_projects" width="100%"></picture></a>
+<a href="https://github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./connect/github-mobile.svg?v=21"><img src="./connect/github.svg?v=21" alt="GitHub — @Graywizard888 · github.com/Graywizard888" width="100%"></picture></a>
+<a href="https://website-src-seven.vercel.app/"><picture><source media="(max-width: 820px)" srcset="./connect/portfolio-mobile.svg?v=21"><img src="./connect/portfolio.svg?v=21" alt="Portfolio — website-src-seven · website-src-seven.vercel.app" width="100%"></picture></a>
+<a href="https://gist.github.com/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./connect/gists-mobile.svg?v=21"><img src="./connect/gists.svg?v=21" alt="Gists — mpv · lua scripts · gist.github.com/Graywizard888" width="100%"></picture></a>
+<a href="https://github.com/sponsors/Graywizard888"><picture><source media="(max-width: 820px)" srcset="./connect/sponsors-mobile.svg?v=21"><img src="./connect/sponsors.svg?v=21" alt="GitHub Sponsors — Sponsor the work · github.com/sponsors/Graywizard888" width="100%"></picture></a>
 
 <br/><br/>
 
