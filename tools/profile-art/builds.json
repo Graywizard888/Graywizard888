@@ -1,10 +1,10 @@
 {
   "_comment": "Source of truth for everything on the cards that a machine can know: the account-level `profile` numbers and the per-repo `repos` list. `refresh_stats.py` rewrites the machine fields from the GitHub API, then `build.py` redraws the SVGs. Editorial fields - per-repo `name`/`description`/`language_color` and `profile.login` - are hand-tuned for the canvas and the neon palette, so the refresher never touches them.",
-  "generated": "2026-10-29T10:56:20Z",
+  "generated": "2026-10-30T10:54:40Z",
   "profile": {
     "login": "Graywizard888",
     "public_repos": 13,
-    "stars": 318,
+    "stars": 319,
     "contributions": 1095,
     "gists": 4,
     "created": "Jun 2024",
@@ -22,7 +22,7 @@
       "forks": 11,
       "pulls": 30,
       "size_kb": 20459,
-      "pushed": "1d ago"
+      "pushed": "2d ago"
     },
     {
       "repo": "Terminal_EX",
@@ -109,11 +109,11 @@
       "language": "Rust",
       "language_color": "#DEA584",
       "license": "Apache-2.0",
-      "stars": 3,
+      "stars": 4,
       "forks": 0,
       "pulls": 11,
       "size_kb": 33953,
-      "pushed": "19d ago"
+      "pushed": "20d ago"
     }
   ]
 }
