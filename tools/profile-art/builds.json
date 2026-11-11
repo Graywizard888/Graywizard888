@@ -1,6 +1,6 @@
 {
   "_comment": "Source of truth for everything on the cards that a machine can know: the account-level `profile` numbers and the per-repo `repos` list. `refresh_stats.py` rewrites the machine fields from the GitHub API, then `build.py` redraws the SVGs. Editorial fields - per-repo `name`/`description`/`language_color` and `profile.login` - are hand-tuned for the canvas and the neon palette, so the refresher never touches them.",
-  "generated": "2026-11-10T12:44:06Z",
+  "generated": "2026-11-11T11:56:28Z",
   "profile": {
     "login": "Graywizard888",
     "public_repos": 14,
@@ -22,7 +22,7 @@
       "forks": 11,
       "pulls": 30,
       "size_kb": 20459,
-      "pushed": "13d ago"
+      "pushed": "14d ago"
     },
     {
       "repo": "Terminal_EX",
@@ -100,7 +100,7 @@
       "forks": 1,
       "pulls": 0,
       "size_kb": 815,
-      "pushed": "2mo ago"
+      "pushed": "3mo ago"
     },
     {
       "repo": "MovieBox-Tui-Mastered",
