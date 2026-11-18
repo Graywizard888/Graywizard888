@@ -12,15 +12,16 @@ What it updates in builds.json (the numbers a machine can know):
 Two definitions worth knowing:
 
   * `profile.stars` counts every public repository the account owns, **forks
-    included** - Terminal_EX is a fork with 87 stars on it and is presented as
-    one of the build cards, so its stars belong in the headline. Non-forks only
-    would read 221 instead of 309.
+    included** - Terminal_EX is a fork with ~90 stars on it; it no longer has a
+    build card, but it is still the account's own work, so the headline keeps
+    counting it.
   * `profile.contributions` is the **all-time** total since the account was
     created (the card has always meant that, not the rolling 365-day figure).
 
 What it deliberately leaves alone (editorial, hand-tuned for the canvas):
 
-    profile.login, and per repo: repo, name, description, language_color
+    profile.login, and per repo: repo, name, description, language_color,
+    language_pinned
 
   * `description` stays yours - the API blurbs are longer than the card can
     hold, and build_card draws the first two wrapped lines only.
@@ -29,6 +30,9 @@ What it deliberately leaves alone (editorial, hand-tuned for the canvas):
     detected language does change, the colour is re-picked from LANG_COLORS.
   * a repo whose language GitHub cannot detect (Gists_Collection reports null)
     keeps the language that is already on the card.
+  * a repo with `"language_pinned": true` keeps its hand-written `language`
+    (and colour) whatever GitHub detects. Several languages are written as
+    "Rust · C++ · Kotlin" and the card draws one dot per language.
 
 It also rewrites the `alt="..."` text of each card in README.md, which carries
 the same counts for screen readers, so the two can never drift apart.
@@ -133,8 +137,10 @@ def fetch(row, token):
         "pushed": push_label(data.get("pushed_at")) or row["pushed"],
     }
     # keep the card's language when GitHub reports null (mixed/unrecognised repo)
+    # or when the row pins it (`language_pinned`: GitHub's guess is wrong, e.g.
+    # the native sources live on another branch), so the card stays as written
     lang = data.get("language")
-    if lang:
+    if lang and not row.get("language_pinned"):
         fresh["language"] = lang
         if lang != row["language"]:
             fresh["language_color"] = LANG_COLORS.get(lang, LANG_DEFAULT)

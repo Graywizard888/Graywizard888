@@ -12,6 +12,7 @@ The mobile card also drops the shimmer, so phones get zero perpetual animation.
 """
 from gen_common import *
 from gen_anim import style_block
+from refresh_stats import LANG_COLORS, LANG_DEFAULT
 
 # BUILDS / PROFILE / fmt come from card_data via the gen_common star
 # import: builds.json holds every value a machine can refresh.
@@ -35,10 +36,10 @@ def _wrap(text, width):
     return lines
 
 
-def _metrics(x, y, size, accent, stars, forks, prs, uid):
+def _metrics(x, y, size, accent, stars, forks, prs, uid, spread=3.4):
     """★ stars · ⑂ forks · ⇄ pull requests — rolling counters."""
     out, defs = [], []
-    gap = size * 3.4
+    gap = size * spread
     for i, (glyph, val, col) in enumerate(((None, stars, accent),
                                            ("⑂", forks, SOFT),
                                            ("⇄", prs, CYAN))):
@@ -49,6 +50,20 @@ def _metrics(x, y, size, accent, stars, forks, prs, uid):
         out.append(num)
         defs.append(odef)
     return "".join(out), "".join(defs)
+
+
+def _languages(x, y, lang, lang_col, size, r, gap):
+    """Dot + name per language. A single language keeps its hand-picked colour;
+    "Rust · C++ · Kotlin" draws three, coloured from LANG_COLORS. Returns the
+    SVG and the x where the label ends (from the monospace advance, 0.6 em)."""
+    parts = [p.strip() for p in lang.split("·") if p.strip()] or [lang]
+    out, pad = [], r + (8 if len(parts) == 1 else 4)
+    for k, name in enumerate(parts):
+        col = lang_col if len(parts) == 1 else LANG_COLORS.get(name, LANG_DEFAULT)
+        out.append(C(x + r, y - 5, r, fill=col))
+        out.append(T(x + r + pad, y, name, size, SOFT, weight=500))
+        x += r + pad + len(name) * size * 0.6 + gap
+    return out, x - gap, len(parts) > 1
 
 
 def build_card(i, d, wide=True):
@@ -100,9 +115,9 @@ def build_card(i, d, wide=True):
             L_.append(T(380, 82 + k * 23, ln, 18, SOFT))
         # rule + footer
         L_.append(L(26, 140, W - 26, 140, stroke=STROKE, sw=1))
-        L_.append(C(32, 178, 6, fill=lang_col))
-        L_.append(T(46, 183, lang, 17, SOFT, weight=500))
-        mb, md = _metrics(220, 183, 25, accent, stars, forks, prs, uid)
+        lsvg, lend, _multi = _languages(26, 183, lang, lang_col, 17, 6, 16)
+        L_.extend(lsvg)
+        mb, md = _metrics(max(220, lend + 34), 183, 25, accent, stars, forks, prs, uid)
         defs.append(md)
         L_.append(mb)
         lcw = 30 + len(label_lic) * 9
@@ -126,9 +141,13 @@ def build_card(i, d, wide=True):
         for k, ln in enumerate(_wrap(desc, 46)):
             L_.append(T(22, 120 + k * 22, ln, 16.5, SOFT))
         L_.append(L(22, 166, W - 22, 166, stroke=STROKE, sw=1))
-        L_.append(C(28, 200, 6, fill=lang_col))
-        L_.append(T(42, 205, lang, 16, SOFT, weight=500))
-        mb, md = _metrics(120, 205, 22, accent, stars, forks, prs, uid)
+        multi = "·" in lang
+        lsvg, lend, _ = _languages(22, 205, lang, lang_col, 13 if multi else 16,
+                                   4 if multi else 6, 8)
+        L_.extend(lsvg)
+        # several languages: smaller, closer counters so the licence pill keeps its room
+        mb, md = _metrics(max(120, lend + 12), 205, 19 if multi else 22, accent,
+                          stars, forks, prs, uid, spread=2.8 if multi else 3.4)
         defs.append(md)
         L_.append(mb)
         cw = 28 + len(label_lic) * 8.6

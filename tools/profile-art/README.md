@@ -249,15 +249,16 @@ gets `PROFILE`, `BUILDS` and `fmt()` from its usual `from gen_common import *`.
 | `repos`: `stars`, `forks`, `pulls`, `language`, `license`, `size_kb`, `pushed` | **machine** — rewritten by `refresh_stats.py` |
 | `profile.login` | derived from the repository owner |
 | `repos`: `repo`, `name`, `description`, `language_color` | **you** — editorial, hand-tuned for the canvas and the neon palette |
+| `repos`: `language_pinned` (optional) | **you** — `true` keeps your `language` whatever GitHub detects; write several as `"Rust · C++ · Kotlin"` and the card draws one dot each |
 
 ### The account numbers
 
 `PROFILE` feeds the whoami banner (`hero.svg`, `hero-mobile.svg`). Three things
 about it are deliberate:
 
-* **`stars` includes forks.** Terminal_EX is a fork with 87 stars on it and is
-  presented as one of the build cards, so its stars belong in the headline.
-  Counting non-forks only would read 221 instead of 309.
+* **`stars` includes forks.** Terminal_EX is a fork with ~90 stars on it. It no
+  longer has a build card (Shellterm-app took its slot), but it is still the
+  account's own work, so the headline keeps counting it.
 * **`contributions` is all-time**, not the rolling 365-day figure — that is what
   the card has always shown. It is summed year by year with GraphQL, and
   `contributionsCollection` is capped at a one-year span whose **both endpoints
