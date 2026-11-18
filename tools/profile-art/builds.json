@@ -28,14 +28,15 @@
       "repo": "Shellterm-app",
       "name": "Shellterm-app",
       "description": "Hybrid Jetpack Compose MVI terminal for Android, native Rust and C++ core",
-      "language": "Python",
-      "language_color": "#4B8BBE",
+      "language": "Rust · C++ · Kotlin",
+      "language_color": "#DEA584",
       "license": null,
       "stars": 2,
       "forks": 0,
       "pulls": 6,
       "size_kb": 46697,
-      "pushed": "today"
+      "pushed": "today",
+      "language_pinned": true
     },
     {
       "repo": "GPlayDL-TUI",

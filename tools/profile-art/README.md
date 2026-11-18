@@ -249,6 +249,7 @@ gets `PROFILE`, `BUILDS` and `fmt()` from its usual `from gen_common import *`.
 | `repos`: `stars`, `forks`, `pulls`, `language`, `license`, `size_kb`, `pushed` | **machine** — rewritten by `refresh_stats.py` |
 | `profile.login` | derived from the repository owner |
 | `repos`: `repo`, `name`, `description`, `language_color` | **you** — editorial, hand-tuned for the canvas and the neon palette |
+| `repos`: `language_pinned` (optional) | **you** — `true` keeps your `language` whatever GitHub detects; write several as `"Rust · C++ · Kotlin"` and the card draws one dot each |
 
 ### The account numbers
 

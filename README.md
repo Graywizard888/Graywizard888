@@ -52,7 +52,7 @@
 
 <a href="https://github.com/Graywizard888/Enhancify"><picture><source media="(max-width: 820px)" srcset="./builds/p01-mobile.svg?v=45"><img src="./builds/p01.svg?v=45" alt="Enhancify — 204 stars, 11 forks, 30 PRs, Shell, unlicensed" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/Shellterm-app"><picture><source media="(max-width: 820px)" srcset="./builds/p02-mobile.svg?v=46"><img src="./builds/p02.svg?v=46" alt="Shellterm-app — 2 stars, 0 forks, 6 PRs, Python, unlicensed" width="100%"></picture></a>
+<a href="https://github.com/Graywizard888/Shellterm-app"><picture><source media="(max-width: 820px)" srcset="./builds/p02-mobile.svg?v=47"><img src="./builds/p02.svg?v=47" alt="Shellterm-app — 2 stars, 0 forks, 6 PRs, Rust · C++ · Kotlin, unlicensed" width="100%"></picture></a>
 
 <a href="https://github.com/Graywizard888/GPlayDL-TUI"><picture><source media="(max-width: 820px)" srcset="./builds/p03-mobile.svg?v=45"><img src="./builds/p03.svg?v=45" alt="GPlayDL-TUI — 11 stars, 2 forks, 1 PRs, Python, MIT" width="100%"></picture></a>
 

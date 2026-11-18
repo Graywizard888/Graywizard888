@@ -215,7 +215,7 @@ def hero(H=470):
 
     # Top repos by stars, drawn from the same live data as the build cards so
     # the two can never disagree. Sorted descending; ties keep BUILDS order.
-    repo_rows = [(f"{name:<25}★ {stars:>3}   {lang.lower()}", "#c3d3e2", "")
+    repo_rows = [(f"{name:<25}★ {stars:>3}   {lang.split(" · ")[0].lower()}", "#c3d3e2", "")
                  for _repo, name, lang, _col, _lic, _desc, stars, _f, _p, _kb, _push
                  in sorted(BUILDS, key=lambda b: -b[6])[:5]]
 
