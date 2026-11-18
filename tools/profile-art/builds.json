@@ -25,17 +25,17 @@
       "pushed": "20d ago"
     },
     {
-      "repo": "Terminal_EX",
-      "name": "Terminal_EX",
-      "description": "Termux Monet fork — terminal for Android 8+, extendible by packages",
-      "language": "Java",
-      "language_color": "#F89820",
-      "license": "GPL-3.0",
-      "stars": 92,
+      "repo": "Shellterm-app",
+      "name": "Shellterm-app",
+      "description": "Hybrid Jetpack Compose MVI terminal for Android, native Rust and C++ core",
+      "language": "Python",
+      "language_color": "#4B8BBE",
+      "license": null,
+      "stars": 2,
       "forks": 0,
-      "pulls": 0,
-      "size_kb": 15560,
-      "pushed": "6mo ago"
+      "pulls": 6,
+      "size_kb": 46697,
+      "pushed": "today"
     },
     {
       "repo": "GPlayDL-TUI",

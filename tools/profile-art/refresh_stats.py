@@ -12,9 +12,9 @@ What it updates in builds.json (the numbers a machine can know):
 Two definitions worth knowing:
 
   * `profile.stars` counts every public repository the account owns, **forks
-    included** - Terminal_EX is a fork with 87 stars on it and is presented as
-    one of the build cards, so its stars belong in the headline. Non-forks only
-    would read 221 instead of 309.
+    included** - Terminal_EX is a fork with ~90 stars on it; it no longer has a
+    build card, but it is still the account's own work, so the headline keeps
+    counting it.
   * `profile.contributions` is the **all-time** total since the account was
     created (the card has always meant that, not the rolling 365-day figure).
 

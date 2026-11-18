@@ -15,7 +15,7 @@
      No longer a link: the intro card above owns the tap-to-replay, so the hero
      stays a card you can select text from instead of hijacking the click.
      Phones get the 720px-wide variant: ~2x the rendered text size, minimal motion. -->
-<picture><source media="(max-width: 820px)" srcset="./hero-mobile.svg?v=48"><img src="./hero.svg?v=48" alt="Hi, I'm Aditya (Graywizard) — script &amp; automation developer" width="100%"/></picture>
+<picture><source media="(max-width: 820px)" srcset="./hero-mobile.svg?v=48"><img src="./hero.svg?v=49" alt="Hi, I'm Aditya (Graywizard) — script &amp; automation developer" width="100%"/></picture>
 
 <br/><br/>
 
@@ -52,7 +52,7 @@
 
 <a href="https://github.com/Graywizard888/Enhancify"><picture><source media="(max-width: 820px)" srcset="./builds/p01-mobile.svg?v=45"><img src="./builds/p01.svg?v=45" alt="Enhancify — 204 stars, 11 forks, 30 PRs, Shell, unlicensed" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/Terminal_EX"><picture><source media="(max-width: 820px)" srcset="./builds/p02-mobile.svg?v=45"><img src="./builds/p02.svg?v=45" alt="Terminal_EX — 92 stars, 0 forks, 0 PRs, Java, GPL-3.0" width="100%"></picture></a>
+<a href="https://github.com/Graywizard888/Shellterm-app"><picture><source media="(max-width: 820px)" srcset="./builds/p02-mobile.svg?v=46"><img src="./builds/p02.svg?v=46" alt="Shellterm-app — 2 stars, 0 forks, 6 PRs, Python, unlicensed" width="100%"></picture></a>
 
 <a href="https://github.com/Graywizard888/GPlayDL-TUI"><picture><source media="(max-width: 820px)" srcset="./builds/p03-mobile.svg?v=45"><img src="./builds/p03.svg?v=45" alt="GPlayDL-TUI — 11 stars, 2 forks, 1 PRs, Python, MIT" width="100%"></picture></a>
 
