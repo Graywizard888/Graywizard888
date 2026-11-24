@@ -1,10 +1,10 @@
 {
   "_comment": "Source of truth for everything on the cards that a machine can know: the account-level `profile` numbers and the per-repo `repos` list. `refresh_stats.py` rewrites the machine fields from the GitHub API, then `build.py` redraws the SVGs. Editorial fields - per-repo `name`/`description`/`language_color` and `profile.login` - are hand-tuned for the canvas and the neon palette, so the refresher never touches them.",
-  "generated": "2026-11-23T14:49:44Z",
+  "generated": "2026-11-24T14:57:20Z",
   "profile": {
     "login": "Graywizard888",
     "public_repos": 15,
-    "stars": 330,
+    "stars": 328,
     "contributions": 1154,
     "gists": 4,
     "created": "Jun 2024",
@@ -18,11 +18,11 @@
       "language": "Shell",
       "language_color": "#89E051",
       "license": null,
-      "stars": 205,
+      "stars": 204,
       "forks": 11,
       "pulls": 37,
       "size_kb": 20505,
-      "pushed": "today"
+      "pushed": "1d ago"
     },
     {
       "repo": "Shellterm-app",
@@ -31,11 +31,11 @@
       "language": "Rust · C++ · Kotlin",
       "language_color": "#DEA584",
       "license": null,
-      "stars": 5,
+      "stars": 4,
       "forks": 0,
       "pulls": 18,
       "size_kb": 46822,
-      "pushed": "today",
+      "pushed": "1d ago",
       "language_pinned": true
     },
     {
