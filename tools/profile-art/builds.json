@@ -106,7 +106,7 @@
     {
       "repo": "Geckowizard-app",
       "name": "Geckowizard-app",
-      "description": "Privacy-first Android browser on GeckoView, built with Jetpack Compose",
+      "description": "Privacy-first GeckoView browser for Android, built with Jetpack Compose MVI",
       "language": "Kotlin",
       "language_color": "#A97BFF",
       "license": null,
