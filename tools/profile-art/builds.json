@@ -104,17 +104,18 @@
       "pushed": "3mo ago"
     },
     {
-      "repo": "MovieBox-Tui-Mastered",
-      "name": "MovieBox-Tui-Mastered",
-      "description": "Terminal interface to find, download, and stream movies, TV shows and live TV",
-      "language": "Rust",
-      "language_color": "#DEA584",
-      "license": "Apache-2.0",
-      "stars": 4,
+      "repo": "Geckowizard-app",
+      "name": "Geckowizard-app",
+      "description": "Privacy-first GeckoView browser for Android, built with Jetpack Compose MVI",
+      "language": "Kotlin",
+      "language_color": "#A97BFF",
+      "license": null,
+      "stars": 2,
       "forks": 0,
-      "pulls": 11,
-      "size_kb": 33953,
-      "pushed": "2mo ago"
+      "pulls": 0,
+      "size_kb": 0,
+      "pushed": "today",
+      "language_pinned": true
     }
   ]
 }

@@ -210,7 +210,7 @@
 <text x="712" y="352.0" font-size="12.5" fill="#c3d3e2" class="fade-up fm" style="animation-delay:1.95s">GPlayDL-TUI              ★  11   python</text>
 <text x="712" y="378.5" font-size="12.5" fill="#c3d3e2" class="fade-up fm" style="animation-delay:2.05s">Gists_Collection         ★   5   lua</text>
 <text x="712" y="405.0" font-size="12.5" fill="#c3d3e2" class="fade-up fm" style="animation-delay:2.15s">Shellterm-app            ★   4   rust</text>
-<text x="712" y="431.5" font-size="12.5" fill="#c3d3e2" class="fade-up fm" style="animation-delay:2.25s">MovieBox-Tui-Mastered    ★   4   rust</text>
+<text x="712" y="431.5" font-size="12.5" fill="#c3d3e2" class="fade-up fm" style="animation-delay:2.25s">Gemini-Setup             ★   3   shell</text>
 <g clip-path="url(#hT12)"><text x="712" y="458.0" font-size="12.5" fill="#4ade80" class="None fm">$ git log -1 --pretty=%s</text></g>
 <text x="712" y="484.5" font-size="12.5" fill="#4d6070" class="None fm">f3a91c7</text>
 <text x="778" y="484.5" font-size="12.5" fill="#fbbf24" font-weight="500" class="fade-up fm" style="animation-delay:2.85s">Build. Break. Rebuild. Optimize.</text>
