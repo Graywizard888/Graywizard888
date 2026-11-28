@@ -15,7 +15,7 @@
      No longer a link: the intro card above owns the tap-to-replay, so the hero
      stays a card you can select text from instead of hijacking the click.
      Phones get the 720px-wide variant: ~2x the rendered text size, minimal motion. -->
-<picture><source media="(max-width: 820px)" srcset="./hero-mobile.svg?v=60"><img src="./hero.svg?v=61" alt="Hi, I'm Aditya (Graywizard) — script &amp; automation developer" width="100%"/></picture>
+<picture><source media="(max-width: 820px)" srcset="./hero-mobile.svg?v=60"><img src="./hero.svg?v=62" alt="Hi, I'm Aditya (Graywizard) — script &amp; automation developer" width="100%"/></picture>
 
 <br/><br/>
 
@@ -64,7 +64,7 @@
 
 <a href="https://github.com/Graywizard888/Claude_code_setup"><picture><source media="(max-width: 820px)" srcset="./builds/p07-mobile.svg?v=57"><img src="./builds/p07.svg?v=57" alt="Claude_code_setup — 1 stars, 1 forks, 0 PRs, Python, MIT" width="100%"></picture></a>
 
-<a href="https://github.com/Graywizard888/MovieBox-Tui-Mastered"><picture><source media="(max-width: 820px)" srcset="./builds/p08-mobile.svg?v=57"><img src="./builds/p08.svg?v=57" alt="MovieBox-Tui-Mastered — 4 stars, 0 forks, 11 PRs, Rust, Apache-2.0" width="100%"></picture></a>
+<a href="https://github.com/Graywizard888/Geckowizard-app"><picture><source media="(max-width: 820px)" srcset="./builds/p08-mobile.svg?v=58"><img src="./builds/p08.svg?v=58" alt="Geckowizard-app — 2 stars, 0 forks, 0 PRs, Kotlin, unlicensed" width="100%"></picture></a>
 
 </div>
 
